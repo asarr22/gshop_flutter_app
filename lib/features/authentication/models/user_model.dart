@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gshopp_flutter/common/models/address/address_model.dart';
 
 class UserModel {
   final String id;
@@ -8,6 +9,9 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  String birthday;
+  String gender;
+  List<UserAddress> address;
 
   /// Constructor for UserModel.
   UserModel({
@@ -18,6 +22,9 @@ class UserModel {
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
+    required this.address,
+    required this.birthday,
+    required this.gender,
   });
 
   /// Helper function to get the full name.
@@ -32,14 +39,28 @@ class UserModel {
     String firstName = nameParts[0].toLowerCase();
     String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
 
-    String camelCaseUsername = "$firstName$lastName"; // Combine first and last name
+    String camelCaseUsername =
+        "$firstName$lastName"; // Combine first and last name
     String usernameWithPrefix = "cwt_$camelCaseUsername"; // Add "cwt_" prefix
     return usernameWithPrefix;
   }
 
-  static UserModel empty() => UserModel(id: '', firstName: '', lastName: '', username: '', email: '', phoneNumber: '', profilePicture: '');
+  static UserModel empty() => UserModel(
+      id: '',
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      phoneNumber: '',
+      profilePicture: '',
+      address: [],
+      birthday: '',
+      gender: '');
 
   Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> nonEmptyAddresses =
+        address.where((a) => a.id.isNotEmpty).map((a) => a.toJson()).toList();
+
     return {
       'FirstName': firstName,
       'LastName': lastName,
@@ -47,13 +68,23 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'Gender': gender,
+      'Address': nonEmptyAddresses,
+      'Birthday': birthday
     };
   }
 
   /// Factory method to create a UserModel from a Firebase document snapshot.
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
+      List<UserAddress> addresses = [];
+      if (data['Address'] != null) {
+        addresses = List.from(data['Address'])
+            .map((addressMap) => UserAddress.fromJson(addressMap))
+            .toList();
+      }
       return UserModel(
         id: document.id,
         firstName: data['FirstName'] ?? '',
@@ -62,6 +93,9 @@ class UserModel {
         email: data['Email'] ?? '',
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
+        address: addresses,
+        birthday: data['Birthday'] ?? '',
+        gender: data['Gender'] ?? '',
       );
     }
     return empty();

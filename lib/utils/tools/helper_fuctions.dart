@@ -17,5 +17,5 @@ class HelperFunctions {
   static BuildContext? loadingContext;
 
   static Variant pdVariantHandler =
-      Variant(size: "", color: "", stock: 0, price: 0);
+      Variant(size: [Size(size: 'size', stock: 0, price: 0)], color: "", );
 }

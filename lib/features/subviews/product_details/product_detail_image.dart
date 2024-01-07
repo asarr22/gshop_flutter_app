@@ -27,11 +27,10 @@ class ProductDetailImage extends StatelessWidget {
             SizedBox(
               height: 400,
               child: Padding(
-                padding:
-                    const EdgeInsets.all(SizesValue.productImageRadius * 2),
+                padding: const EdgeInsets.all(SizesValue.productImageRadius * 2),
                 child: Center(
                   child: Image(
-                    image: AssetImage(product.imageUrl),
+                    image: AssetImage(product.imageUrl[0]),
                   ),
                 ),
               ),
@@ -53,11 +52,9 @@ class ProductDetailImage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 5),
                         child: RoundedImage(
                           width: 60,
-                          backgroundColor: isDarkMode
-                              ? ColorPalette.black
-                              : ColorPalette.white,
+                          backgroundColor: isDarkMode ? ColorPalette.black : ColorPalette.white,
                           border: Border.all(color: ColorPalette.primary),
-                          imgUrl: product.imageUrl,
+                          imgUrl: product.imageUrl[0],
                         ),
                       );
                     },

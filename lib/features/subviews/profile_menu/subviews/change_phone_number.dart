@@ -3,25 +3,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/widgets/texts/text_field_borderless.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
-import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/update_name_controller.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_phone_number_controller.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 
-final nameFieldControllerProvider =
-    StateNotifierProvider.autoDispose<NameFieldController, Map<String, TextEditingController>>((ref) => NameFieldController());
+final phoneNumberFieldProvider =
+    StateNotifierProvider.autoDispose<ChangePhoneNumberController, TextEditingController>((ref) => ChangePhoneNumberController());
 
-class EditNameScreen extends ConsumerWidget {
-  const EditNameScreen({super.key});
+class ChangePhoneNumberScreen extends ConsumerWidget {
+  const ChangePhoneNumberScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(userControllerProvider);
-    final controller = ref.watch(nameFieldControllerProvider);
+    final controller = ref.watch(phoneNumberFieldProvider);
     GlobalKey<FormState> nameKey = GlobalKey<FormState>();
 
-    ref.read(nameFieldControllerProvider.notifier).setName(user.firstName, user.lastName);
+    ref.read(phoneNumberFieldProvider.notifier).setValue(user.phoneNumber);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -31,7 +31,7 @@ class EditNameScreen extends ConsumerWidget {
             onPressed: () => Get.back(),
           ),
           title: Text(
-            TextValue.editName,
+            TextValue.editPhoneNumber,
             style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
@@ -43,14 +43,8 @@ class EditNameScreen extends ConsumerWidget {
               children: [
                 PTextField(
                   title: TextValue.firstName,
-                  textEditingController: controller['firstName'],
-                  validator: (value) => PValidator.validateEmptyText('First name', value),
-                ),
-                const SizedBox(height: 10),
-                PTextField(
-                  title: TextValue.lastName,
-                  textEditingController: controller['lastName'],
-                  validator: (value) => PValidator.validateEmptyText('Last name', value),
+                  textEditingController: controller,
+                  validator: (value) => PValidator.validatePhoneNumber(value),
                 ),
                 const SizedBox(height: 40),
                 SizedBox(
@@ -58,7 +52,7 @@ class EditNameScreen extends ConsumerWidget {
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () {
-                      ref.read(nameFieldControllerProvider.notifier).updateUserFullName(nameKey, ref);
+                      ref.read(phoneNumberFieldProvider.notifier).updatePhoneNumber(nameKey, ref);
                     },
                     child: const Text(TextValue.submit),
                   ),

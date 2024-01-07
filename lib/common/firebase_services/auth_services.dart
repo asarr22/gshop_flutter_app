@@ -13,6 +13,7 @@ import 'package:gshopp_flutter/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
+import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class FirebaseAuthService extends GetxController {
   static FirebaseAuthService get instance => Get.find();
@@ -132,6 +133,34 @@ class FirebaseAuthService extends GetxController {
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginPage());
     } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw TextValue.somethingWentWrongMessage;
+    }
+  }
+
+  /// [EmailVerification] - PASSWORD CHANGES
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: _auth.currentUser!.email ?? "",
+        password: oldPassword,
+      );
+
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+      await _auth.currentUser!.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        SnackBarPop.showErrorPopup('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        SnackBarPop.showErrorPopup(TextValue.oldPassMismatch);
+      }
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;

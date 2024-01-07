@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
-import 'package:gshopp_flutter/features/authentication/models/user_Model.dart';
+import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -27,7 +31,10 @@ class UserRepository {
 
   Future<UserModel> fetchUserDetails() async {
     try {
-      final documentSnapshot = await _db.collection('Users').doc(FirebaseAuthService.instance.authUser?.uid).get();
+      final documentSnapshot = await _db
+          .collection('Users')
+          .doc(FirebaseAuthService.instance.authUser?.uid)
+          .get();
       bool flag = documentSnapshot.exists;
       if (flag) {
         return UserModel.fromSnapshot(documentSnapshot);
@@ -47,7 +54,10 @@ class UserRepository {
 
   Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
-      await _db.collection("Users").doc(updatedUser.id).update(updatedUser.toJson());
+      await _db
+          .collection("Users")
+          .doc(updatedUser.id)
+          .update(updatedUser.toJson());
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -61,7 +71,27 @@ class UserRepository {
 
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
-      await _db.collection("Users").doc(FirebaseAuthService.instance.authUser?.uid).update(json);
+      await _db
+          .collection("Users")
+          .doc(FirebaseAuthService.instance.authUser?.uid)
+          .update(json);
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<void> addSingleField(Map<String, dynamic> json) async {
+    try {
+      await _db
+          .collection("Users")
+          .doc(FirebaseAuthService.instance.authUser?.uid)
+          .set(json);
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -88,6 +118,16 @@ class UserRepository {
   }
 
   // Upload Image
+
+  Future<String> uploadImage(String path, XFile image) async {
+    final reference =
+        FirebaseStorage.instanceFor(bucket: "gs://g-tech-app-466c4.appspot.com")
+            .ref(path)
+            .child(image.name);
+    await reference.putFile(File(image.path));
+    final url = await reference.getDownloadURL();
+    return url;
+  }
 }
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {

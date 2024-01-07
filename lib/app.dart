@@ -35,8 +35,11 @@ class App extends StatelessWidget {
         GetPage(name: '/appshell', page: () => const AppShell()),
         GetPage(name: '/verifyemail', page: () => const VerifyEmailPage()),
         GetPage(name: '/emailsuccess', page: () => const EmailSuccessScreen()),
-        GetPage(name: '/forgotpasswordscreen', page: () => const ForgotPasswordScreen()),
-        GetPage(name: '/resetpassword', page: () => const ResetPasswordScreen()),
+        GetPage(
+            name: '/forgotpasswordscreen',
+            page: () => const ForgotPasswordScreen()),
+        GetPage(
+            name: '/resetpassword', page: () => const ResetPasswordScreen()),
       ],
     );
   }

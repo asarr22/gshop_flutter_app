@@ -6,11 +6,9 @@ class SignUpInfo {
   final String email;
   final String password;
   final String phoneNumber;
-  final String userName;
   final GlobalKey<FormState> signupKey;
 
   SignUpInfo({
-    required this.userName,
     required this.firstName,
     required this.lastName,
     required this.email,

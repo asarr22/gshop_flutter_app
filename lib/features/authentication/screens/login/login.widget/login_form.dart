@@ -12,15 +12,12 @@ import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 
-final loginFormControllerProvider = StateNotifierProvider<LoginFormControllers,
-    Map<String, TextEditingController>>((ref) => LoginFormControllers());
+final loginFormControllerProvider =
+    StateNotifierProvider.autoDispose<LoginFormControllers, Map<String, TextEditingController>>((ref) => LoginFormControllers());
 
-final signInProvider = StateNotifierProvider<LoginController, LoginInfo>(
-    (ref) => LoginController());
+final signInProvider = StateNotifierProvider.autoDispose<LoginController, LoginInfo>((ref) => LoginController());
 
-final passwordVisibilityProvider =
-    StateNotifierProvider<LoginPasswordVisibility, bool>(
-        (ref) => LoginPasswordVisibility());
+final passwordVisibilityProvider = StateNotifierProvider.autoDispose<LoginPasswordVisibility, bool>((ref) => LoginPasswordVisibility());
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -64,11 +61,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               prefixIcon: const Icon(Icons.password_outlined),
               labelText: TextValue.password,
               suffixIcon: IconButton(
-                icon: Icon(isPasswordVisible
-                    ? Icons.visibility_off
-                    : Icons.visibility),
-                onPressed: () =>
-                    ref.read(passwordVisibilityProvider.notifier).toggle(),
+                icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
               ),
             ),
           ),
@@ -101,13 +95,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: () {
-                  final info = LoginInfo(
-                      email: controller[emailKey]!.text,
-                      password: controller[passwordKey]!.text,
-                      signinKey: signinKey);
-                  ref
-                      .read(signInProvider.notifier)
-                      .signWithEmailAndPassword(info, context, controller);
+                  final info = LoginInfo(email: controller[emailKey]!.text, password: controller[passwordKey]!.text, signinKey: signinKey);
+                  ref.read(signInProvider.notifier).signWithEmailAndPassword(info, context, controller);
                 }),
           ),
           const SizedBox(

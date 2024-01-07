@@ -3,12 +3,25 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
 class PTextField extends StatelessWidget {
-  const PTextField({super.key, this.title, this.textEditingController, this.isForm = false, this.validator});
+  const PTextField(
+      {super.key,
+      this.title,
+      this.textEditingController,
+      this.isForm = false,
+      this.validator,
+      this.isPassword = false,
+      this.obscureText = false,
+      this.suffixicon,
+      this.onShowPassword});
 
   final String? title;
   final TextEditingController? textEditingController;
   final bool isForm;
   final String? Function(String?)? validator;
+  final bool isPassword;
+  final bool obscureText;
+  final Widget? suffixicon;
+  final VoidCallback? onShowPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,9 @@ class PTextField extends StatelessWidget {
                   validator: validator,
                   controller: textEditingController,
                   cursorColor: ColorPalette.primary,
+                  obscureText: obscureText,
                   decoration: InputDecoration(
+                    suffixIcon: suffixicon,
                     fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
                     filled: true,
                     contentPadding: const EdgeInsets.all(15.0),

@@ -41,16 +41,12 @@ class ProductCardVertical extends StatelessWidget {
         child: RoundedContainer(
           height: 200,
           padding: const EdgeInsets.all(10),
-          backgroundColor: isDarkMode
-              ? ColorPalette.backgroundDark
-              : ColorPalette.backgroundLight,
+          backgroundColor: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
           child: Stack(
             children: [
               RoundedImage(
-                backgroundColor: isDarkMode
-                    ? ColorPalette.backgroundDark
-                    : ColorPalette.backgroundLight,
-                imgUrl: product.imageUrl,
+                backgroundColor: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
+                imgUrl: product.imageUrl[0],
                 applyImageRadius: true,
                 height: 110,
                 width: 150,
@@ -76,10 +72,7 @@ class ProductCardVertical extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${product.discountValue}%',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .apply(color: ColorPalette.black, fontSizeDelta: 2),
+                        style: Theme.of(context).textTheme.labelSmall!.apply(color: ColorPalette.black, fontSizeDelta: 2),
                       ),
                     ),
                   )),
@@ -114,10 +107,7 @@ class ProductCardVertical extends StatelessWidget {
                     children: [
                       Text(
                         product.title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .apply(fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.labelMedium!.apply(fontWeightDelta: 2),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -126,13 +116,7 @@ class ProductCardVertical extends StatelessWidget {
                         children: [
                           Text(
                             product.brand,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .apply(
-                                    color: isDarkMode
-                                        ? ColorPalette.lightGrey
-                                        : ColorPalette.darkGrey),
+                            style: Theme.of(context).textTheme.labelSmall!.apply(color: isDarkMode ? ColorPalette.lightGrey : ColorPalette.darkGrey),
                           ),
                           SizedBox(
                             height: 10,
@@ -168,12 +152,8 @@ class ProductCardVertical extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        Formatter.formatPrice(Formatter.applyDiscount(
-                            product.price, product.discountValue)),
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .apply(fontWeightDelta: 3),
+                        Formatter.formatPrice(Formatter.applyDiscount(product.price, product.discountValue)),
+                        style: Theme.of(context).textTheme.labelLarge!.apply(fontWeightDelta: 3),
                       ),
                     ],
                   ),

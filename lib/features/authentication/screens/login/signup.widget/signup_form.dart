@@ -10,18 +10,13 @@ import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 
-final formControllersProvider = StateNotifierProvider<SignUpFormControllers,
-    Map<String, TextEditingController>>((ref) => SignUpFormControllers());
-final passwordVisibilityProvider =
-    StateNotifierProvider<PasswordVisibility, bool>(
-        (ref) => PasswordVisibility());
+final formControllersProvider =
+    StateNotifierProvider.autoDispose<SignUpFormControllers, Map<String, TextEditingController>>((ref) => SignUpFormControllers());
+final passwordVisibilityProvider = StateNotifierProvider.autoDispose<PasswordVisibility, bool>((ref) => PasswordVisibility());
 
-final privacyAndTermProvider =
-    StateNotifierProvider<PrivacyPolicyAndTerm, bool>(
-        (ref) => PrivacyPolicyAndTerm());
+final privacyAndTermProvider = StateNotifierProvider.autoDispose<PrivacyPolicyAndTerm, bool>((ref) => PrivacyPolicyAndTerm());
 
-final signUpProvider = StateNotifierProvider<SignUpController, SignUpInfo>(
-    (ref) => SignUpController());
+final signUpProvider = StateNotifierProvider.autoDispose<SignUpController, SignUpInfo>((ref) => SignUpController());
 
 class SignUpForm extends ConsumerWidget {
   const SignUpForm({super.key, required this.mainContext});
@@ -43,56 +38,36 @@ class SignUpForm extends ConsumerWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  validator: (value) =>
-                      PValidator.validateEmptyText('First Name', value),
+                  validator: (value) => PValidator.validateEmptyText('First Name', value),
                   controller: controllers['firstName'],
                   expands: false,
-                  decoration: const InputDecoration(
-                      labelText: TextValue.firstName,
-                      prefixIcon: Icon(Icons.person_outlined)),
+                  decoration: const InputDecoration(labelText: TextValue.firstName, prefixIcon: Icon(Icons.person_outlined)),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: TextFormField(
                   controller: controllers['lastName'],
-                  validator: (value) =>
-                      PValidator.validateEmptyText('Last Name', value),
+                  validator: (value) => PValidator.validateEmptyText('Last Name', value),
                   expands: false,
-                  decoration: const InputDecoration(
-                      labelText: TextValue.lastName,
-                      prefixIcon: Icon(Icons.person_outlined)),
+                  decoration: const InputDecoration(labelText: TextValue.lastName, prefixIcon: Icon(Icons.person_outlined)),
                 ),
               )
             ],
           ),
           const SizedBox(height: 10),
           TextFormField(
-            controller: controllers['username'],
-            validator: (value) =>
-                PValidator.validateEmptyText('UserName', value),
-            expands: false,
-            decoration: const InputDecoration(
-                labelText: TextValue.username,
-                prefixIcon: Icon(Icons.person_add_alt_1_outlined)),
-          ),
-          const SizedBox(height: 10),
-          TextFormField(
             controller: controllers['email'],
             validator: (value) => PValidator.validateEmail(value),
             expands: false,
-            decoration: const InputDecoration(
-                labelText: TextValue.email,
-                prefixIcon: Icon(Icons.email_outlined)),
+            decoration: const InputDecoration(labelText: TextValue.email, prefixIcon: Icon(Icons.email_outlined)),
           ),
           const SizedBox(height: 10),
           TextFormField(
             expands: false,
             controller: controllers['phoneNumber'],
             validator: (value) => PValidator.validatePhoneNumber(value),
-            decoration: const InputDecoration(
-                labelText: TextValue.phoneNo,
-                prefixIcon: Icon(Icons.call_outlined)),
+            decoration: const InputDecoration(labelText: TextValue.phoneNo, prefixIcon: Icon(Icons.call_outlined)),
           ),
           const SizedBox(height: 10),
           TextFormField(
@@ -106,11 +81,8 @@ class SignUpForm extends ConsumerWidget {
               labelText: TextValue.password,
               prefixIcon: const Icon(Icons.password_outlined),
               suffixIcon: IconButton(
-                icon: Icon(isPasswordVisible
-                    ? Icons.visibility_off
-                    : Icons.visibility),
-                onPressed: () =>
-                    ref.read(passwordVisibilityProvider.notifier).toggle(),
+                icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
               ),
             ),
           ),
@@ -135,33 +107,21 @@ class SignUpForm extends ConsumerWidget {
                 child: Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
-                          text: '${TextValue.agreeTo} ',
-                          style: Theme.of(context).textTheme.bodySmall),
+                      TextSpan(text: '${TextValue.agreeTo} ', style: Theme.of(context).textTheme.bodySmall),
                       TextSpan(
                         text: '${TextValue.privacyPolicy} ',
                         style: Theme.of(context).textTheme.bodyMedium!.apply(
-                            color: isDarkMode
-                                ? Colors.white
-                                : ColorPalette.primary,
+                            color: isDarkMode ? Colors.white : ColorPalette.primary,
                             decoration: TextDecoration.underline,
-                            decorationColor: isDarkMode
-                                ? Colors.white
-                                : ColorPalette.primary),
+                            decorationColor: isDarkMode ? Colors.white : ColorPalette.primary),
                       ),
-                      TextSpan(
-                          text: '${TextValue.and} ',
-                          style: Theme.of(context).textTheme.bodySmall),
+                      TextSpan(text: '${TextValue.and} ', style: Theme.of(context).textTheme.bodySmall),
                       TextSpan(
                           text: TextValue.termsOfUse,
                           style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                color: isDarkMode
-                                    ? Colors.white
-                                    : ColorPalette.primary,
+                                color: isDarkMode ? Colors.white : ColorPalette.primary,
                                 decoration: TextDecoration.underline,
-                                decorationColor: isDarkMode
-                                    ? Colors.white
-                                    : ColorPalette.primary,
+                                decorationColor: isDarkMode ? Colors.white : ColorPalette.primary,
                               )),
                     ],
                   ),
@@ -188,17 +148,12 @@ class SignUpForm extends ConsumerWidget {
                         lastName: controllers['lastName']!.text,
                         password: controllers['password']!.text,
                         phoneNumber: controllers['phoneNumber']!.text,
-                        userName: controllers['username']!.text,
                         signupKey: signupKey);
 
-                    ref
-                        .read(signUpProvider.notifier)
-                        .signup(newSignup, mainContext, controllers);
+                    ref.read(signUpProvider.notifier).signup(newSignup, mainContext, controllers);
                   } else {
                     AnimatedSnackBar.material(TextValue.accetpPrivacyAndTerm,
-                            type: AnimatedSnackBarType.warning,
-                            mobileSnackBarPosition:
-                                MobileSnackBarPosition.bottom)
+                            type: AnimatedSnackBarType.warning, mobileSnackBarPosition: MobileSnackBarPosition.bottom)
                         .show(context);
                   }
                 }),

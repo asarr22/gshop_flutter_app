@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class RoundedImage extends StatelessWidget {
   const RoundedImage({
@@ -45,15 +46,17 @@ class RoundedImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: ClipRRect(
-          borderRadius: applyImageRadius
-              ? BorderRadius.circular(borderRadius)
-              : BorderRadius.zero,
-          child: Image(
-            image: isNetworkImage
-                ? NetworkImage(imgUrl)
-                : AssetImage(imgUrl) as ImageProvider,
-            fit: fit,
-          ),
+          borderRadius: applyImageRadius ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
+          child: isNetworkImage
+              ? CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  fit: fit,
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
+              : Image(
+                  image: isNetworkImage ? NetworkImage(imgUrl) : AssetImage(imgUrl) as ImageProvider,
+                  fit: fit,
+                ),
         ),
       ),
     );

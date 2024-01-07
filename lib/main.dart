@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,7 +13,10 @@ import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await GetStorage.init();
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
+
+  /// -- Firebase Initialization
   if (kIsWeb || Platform.isAndroid) {
     await Firebase.initializeApp(
             options: const FirebaseOptions(
@@ -28,5 +32,14 @@ Future main() async {
       (FirebaseApp value) => Get.put(FirebaseAuthService()),
     );
   }
+
+  /// -- Await Splash until other items Load
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // init Get Storage
+  await GetStorage.init();
+
+  // init Firebase Cloud Storage
+  await Firebase.initializeApp();
   runApp(const ProviderScope(child: App()));
 }

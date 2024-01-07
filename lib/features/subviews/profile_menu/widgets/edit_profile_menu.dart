@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PEditProfileMenu extends StatelessWidget {
-  const PEditProfileMenu({super.key, this.icon = Iconsax.arrow_right_34, required this.onPressed, required this.title, required this.value});
+  const PEditProfileMenu(
+      {super.key,
+      this.icon = Iconsax.arrow_right_34,
+      required this.onPressed,
+      required this.title,
+      required this.value});
   final IconData icon;
   final VoidCallback onPressed;
   final String title, value;
@@ -17,9 +22,20 @@ class PEditProfileMenu extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Text(title, style: Theme.of(context).textTheme.labelMedium!.apply(fontSizeFactor: 1.2), overflow: TextOverflow.ellipsis),
+              child: Text(title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .apply(fontSizeFactor: 1.2),
+                  overflow: TextOverflow.ellipsis),
             ),
-            SizedBox(child: Text(value, style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeFactor: 1.2), overflow: TextOverflow.ellipsis)),
+            SizedBox(
+                child: Text(value,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(fontSizeFactor: 1),
+                    overflow: TextOverflow.ellipsis)),
             const SizedBox(
               width: 10,
             ),

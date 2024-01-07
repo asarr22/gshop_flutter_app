@@ -40,7 +40,7 @@ class PValidator {
     }
 // Check for special characters
     if (!value.contains(RegExp(r'[!@#$%^&*(), .? ":{}|<>]'))) {
-      return 'Password must contain at least one special character.';
+      return 'Le mot de passe doit contenir au moins une symbole.';
     }
 
     return null;
@@ -48,14 +48,14 @@ class PValidator {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required.';
+      return 'Le numéro de téléphone est nessesaire.';
     }
 
 // Regular expression for phone number validation (assuming a 10-digit US phone number format)
-    final phoneRegExp = RegExp(r'^\d{10}$');
+    final phoneRegExp = RegExp(r'^\d{9}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number format (10 digits required).';
+      return 'Nombre Invalide.';
     }
     return null;
   }

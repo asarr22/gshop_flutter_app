@@ -4,7 +4,6 @@ import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/common/widgets/texts/section_header.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/variant_controller.dart';
-import 'package:gshopp_flutter/features/subviews/product_details/state/variant_state_provider.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/pd_bottom_bar.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/rating_container.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/variants_selection.dart';
@@ -14,7 +13,9 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/custom_widget/expendable_text.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
-final quantityProvider = StateNotifierProvider<SelectedQuantity, int>((ref) => SelectedQuantity());
+final quantityProvider = StateNotifierProvider.autoDispose<SelectedQuantity, int>((ref) => SelectedQuantity());
+final selectedVariantProvider = StateNotifierProvider.autoDispose<SelectedVariant, Variant?>((ref) => SelectedVariant());
+final selectedSizeProvider = StateNotifierProvider.autoDispose<SelectedSize, Size?>((ref) => SelectedSize());
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   const ProductDetailPage({super.key, required this.indexOfProduct});
@@ -27,11 +28,9 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final selectedVariant = ref.watch(variantSelectionProvider);
     final selectedQuantityValue = ref.watch(quantityProvider);
     final Product product = ProductModel().getByIndex(widget.indexOfProduct);
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
-    final bool isSelectedVariantAvailable = product.totalStock > 0 && selectedVariant.price > 0 && selectedVariant.stock > 0;
     HelperFunctions.pdVariantHandler = product.variants[0];
 /*    final int stock = product.variants
         .map((variant) => variant.stock)
@@ -237,11 +236,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           ),
         ),
         bottomNavigationBar: ProductDetailBottomBar(
-            isSelectedVariantAvailable: isSelectedVariantAvailable,
-            selectedVariant: selectedVariant,
-            selectedQuantityValue: selectedQuantityValue,
-            product: product,
-            isDarkMode: isDarkMode),
+             selectedQuantityValue: selectedQuantityValue, product: product, isDarkMode: isDarkMode),
       ),
     );
   }

@@ -1,10 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gshopp_flutter/common/models/product/product_model.dart';
 
-class SelectedIndex extends StateNotifier<int> {
-  SelectedIndex() : super(-1);
+class SelectedVariant extends StateNotifier<Variant?> {
+  SelectedVariant() : super(null);
 
-  void select(int index) {
-    state = index;
+  void selectVariant(Variant variant) {
+    state = variant;
+  }
+}
+
+class SelectedSize extends StateNotifier<Size?> {
+  SelectedSize() : super(null);
+
+  void selectSize(Size size) {
+    state = size;
+  }
+
+  void resetSelection() {
+    state = null;
   }
 }
 

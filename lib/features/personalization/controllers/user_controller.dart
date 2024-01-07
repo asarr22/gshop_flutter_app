@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
-import 'package:gshopp_flutter/features/authentication/models/user_Model.dart';
+import 'package:gshopp_flutter/common/models/address/address_model.dart';
+import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
+import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends StateNotifier<UserModel> {
   final UserRepository userRepository;
@@ -21,23 +24,39 @@ class UserController extends StateNotifier<UserModel> {
   }
 
   void updateUserInfo(
-      {String? firstName, String? lastName, String? userName, String? email, String? phoneNumber, String? profilePicture, String? id}) {
-    state = UserModel(
-      id: id ?? state.id,
-      firstName: firstName ?? state.firstName,
-      lastName: lastName ?? state.lastName,
-      username: userName ?? state.username,
-      email: email ?? state.email,
-      phoneNumber: phoneNumber ?? state.phoneNumber,
-      profilePicture: profilePicture ?? state.profilePicture,
-    );
+      {String? firstName,
+      String? lastName,
+      String? userName,
+      String? email,
+      String? phoneNumber,
+      String? profilePicture,
+      String? id,
+      String? gender,
+      String? birthday,
+      List<UserAddress>? address}) {
+    var newState = UserModel(
+        id: id ?? state.id,
+        firstName: firstName ?? state.firstName,
+        lastName: lastName ?? state.lastName,
+        username: userName ?? state.username,
+        email: email ?? state.email,
+        phoneNumber: phoneNumber ?? state.phoneNumber,
+        profilePicture: profilePicture ?? state.profilePicture,
+        gender: gender ?? state.gender,
+        address: address ?? state.address,
+        birthday: birthday ?? state.birthday);
+    if (newState != state) {
+      state = newState;
+    }
   }
 
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
       if (userCredentials != null) {
-        final nameParts = UserModel.nameParts(userCredentials.user!.displayName ?? '');
-        final username = UserModel.generateUsername(userCredentials.user!.displayName ?? '');
+        final nameParts =
+            UserModel.nameParts(userCredentials.user!.displayName ?? '');
+        final username =
+            UserModel.generateUsername(userCredentials.user!.displayName ?? '');
 
         final user = UserModel(
           id: userCredentials.user!.uid,
@@ -47,6 +66,9 @@ class UserController extends StateNotifier<UserModel> {
           email: userCredentials.user!.email ?? '',
           phoneNumber: userCredentials.user!.phoneNumber ?? '',
           profilePicture: userCredentials.user!.photoURL ?? '',
+          gender: TextValue.undefined,
+          birthday: TextValue.undefined,
+          address: List.empty(),
         );
 
         await userRepository.saveUserRecord(user);
@@ -54,6 +76,32 @@ class UserController extends StateNotifier<UserModel> {
       }
     } catch (e) {
       SnackBarPop.showErrorPopup(TextValue.errorSavingProfileInfoMessage);
+    }
+  }
+
+  // Upload user Image
+  uploadProfileImage(WidgetRef ref) async {
+    try {
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 1024,
+          maxWidth: 1024);
+      final userController = ref.read(userControllerProvider.notifier);
+      if (image != null) {
+        final imgUrl =
+            await userRepository.uploadImage("Users/Images/Profile/", image);
+
+        //Update User Image Record
+        Map<String, dynamic> json = {'ProfilePicture': imgUrl};
+        await userRepository.updateSingleField(json);
+        userController.updateUserInfo(profilePicture: imgUrl);
+
+        // Send Success Message
+        SnackBarPop.showSucessPopup(TextValue.operationSuccess, duration: 4);
+      }
+    } catch (e) {
+      SnackBarPop.showErrorPopup(e.toString(), duration: 4);
     }
   }
 }
