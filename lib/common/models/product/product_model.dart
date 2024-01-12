@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 
 class Product {
@@ -10,23 +11,76 @@ class Product {
   final String brand;
   final List<Variant> variants;
   final int totalStock;
+  final bool isPopular;
 
-  Product({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.imageUrl,
-    required this.discountValue,
-    required this.brand,
-    required this.variants,
-    required this.totalStock,
-  });
+  Product(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.price,
+      required this.imageUrl,
+      required this.discountValue,
+      required this.brand,
+      required this.variants,
+      required this.totalStock,
+      required this.isPopular});
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'price': price,
+      'imageUrl': imageUrl,
+      'discountValue': discountValue,
+      'brand': brand,
+      'variants': variants.map((v) => v.toJson()).toList(),
+      'totalStock': totalStock,
+      'isPopular': isPopular,
+    };
+  }
+
+  // JSON deserialization
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        price: json['price'],
+        imageUrl: json['imageUrl'],
+        discountValue: json['discountValue'],
+        brand: json['brand'],
+        variants: (json['variants'] as List).map((v) => Variant.fromJson(v)).toList(),
+        isPopular: json['isPopular'],
+        totalStock: json['totalStock']);
+  }
+
+  factory Product.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    return Product(
+      id: snapshot['id'],
+      title: snapshot['title'],
+      description: snapshot['description'],
+      price: snapshot['price'],
+      imageUrl: List<String>.from(snapshot['imageUrl']),
+      discountValue: snapshot['discountValue'],
+      brand: snapshot['brand'],
+      isPopular: snapshot['isPopular'],
+      variants: (snapshot['variants'] as List).map((v) => Variant.fromSnapshot(v)).toList(),
+      totalStock: snapshot['totalStock'],
+    );
+  }
+
+  static Product empty() => Product(
+      id: '',
+      title: '',
+      description: '',
+      price: 0,
+      imageUrl: [],
+      discountValue: 0,
+      brand: '',
+      variants: [],
+      totalStock: 0,
+      isPopular: false);
 }
-
-/// The varinat object handle product variation. It depend on color
-/// ex : For each color we have 10 item in 1TB in size and 5 item in 256GB
-/// There is 2 type of stock : Stock of a single variant and the total of all Stock
 
 class Variant {
   final String color;
@@ -39,6 +93,33 @@ class Variant {
     required this.size,
     required this.color,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color,
+      'size': size.map((s) => s.toJson()).toList(),
+    };
+  }
+
+  // JSON deserialization
+  factory Variant.fromJson(Map<String, dynamic> json) {
+    return Variant(
+      color: json['color'],
+      size: (json['size'] as List).map((s) => Size.fromJson(s)).toList(),
+    );
+  }
+
+  factory Variant.fromSnapshot(Map<String, dynamic> snapshot) {
+    return Variant(
+      color: snapshot['color'],
+      size: (snapshot['size'] as List).map((s) => Size.fromSnapshot(s)).toList(),
+    );
+  }
+
+  static Variant empty() => Variant(
+        color: '',
+        size: [Size.empty()],
+      );
 }
 
 class Size {
@@ -46,6 +127,37 @@ class Size {
   final int stock;
   final double price;
   Size({required this.size, required this.stock, required this.price});
+
+  // JSON serialization
+  Map<String, dynamic> toJson() {
+    return {
+      'size': size,
+      'stock': stock,
+      'price': price,
+    };
+  }
+
+  // JSON deserialization
+  factory Size.fromJson(Map<String, dynamic> json) {
+    return Size(
+      size: json['size'],
+      stock: json['stock'],
+      price: json['price'],
+    );
+  }
+  factory Size.fromSnapshot(Map<String, dynamic> snapshot) {
+    return Size(
+      size: snapshot['size'],
+      stock: snapshot['stock'],
+      price: snapshot['price'],
+    );
+  }
+
+  static Size empty() => Size(
+        size: '',
+        stock: 0,
+        price: 0,
+      );
 }
 
 class ProductModel {
@@ -60,6 +172,7 @@ class ProductModel {
       discountValue: 10,
       brand: 'Samsung',
       totalStock: 60,
+      isPopular: false,
       variants: [
         Variant(
           size: [
@@ -92,6 +205,7 @@ class ProductModel {
       description:
           'The iPhone 13 Pro Max is the largest and most expensive model in Apple\'s 2021 smartphone line-up and features a 6.7-inch Super Retina XDR display with 1284 x 2778 pixels resolution. Like the smaller iPhone 13 Pro, it is powered by Apple\'s latest A15 Bionic chipset and comes with up to 1TB of internal storage.',
       price: 399000,
+      isPopular: false,
       imageUrl: [ImagesValue.productImg2],
       discountValue: 20,
       brand: 'Apple',
@@ -128,6 +242,7 @@ class ProductModel {
       description:
           'HUAWEI WATCH GT 3 46 mm lasts up to 14 days, so you\'re fully prepared to keep track of your every workout and not miss out on any health check. It supports wireless charging, so you can use your phone to reverse charge it when you forget your charger and say goodbye to battery life anxiety.',
       price: 128000,
+      isPopular: false,
       imageUrl: [ImagesValue.productImg3],
       discountValue: 8,
       brand: 'Huawei',
@@ -156,6 +271,7 @@ class ProductModel {
       description:
           'Apple 2023 MacBook Pro Laptop M3 chip with 8‑core CPU, 10‑core GPU: 14.2-inch Liquid Retina XDR Display, 8GB Unified Memory, 512GB SSD Storage. Works with iPhone/iPad; Space Gray. The List Price is the suggested retail price of a new product as provided by a manufacturer, supplier, or seller.',
       price: 910500,
+      isPopular: false,
       imageUrl: [ImagesValue.productImg4],
       discountValue: 13,
       brand: 'Apple',

@@ -8,7 +8,8 @@ import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditingController>> {
-  ChangePasswordFieldController()
+  final Ref ref;
+  ChangePasswordFieldController(this.ref)
       : super({
           'oldPassword': TextEditingController(),
           'newPassword': TextEditingController(),
@@ -23,7 +24,9 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
     super.dispose();
   }
 
+  // Change Password
   Future<void> changeUserPassword(GlobalKey<FormState> nameKey) async {
+    final authService = ref.watch(firebaseAuthService);
     try {
       // Start Loading
       PFullScreenLoader.openLoadingDialog(Get.context!);
@@ -51,8 +54,7 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
       }
 
       // Change Password
-      Get.put(FirebaseAuthService());
-      await FirebaseAuthService.instance.changePassword(state['oldPassword']!.text.trim(), state['newPassword']!.text.trim());
+      await authService.changePassword(state['oldPassword']!.text.trim(), state['newPassword']!.text.trim());
       PFullScreenLoader.stopLoading();
 
       // Show Success Message

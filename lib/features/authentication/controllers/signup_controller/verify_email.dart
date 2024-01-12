@@ -1,26 +1,28 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
-class VerifyEmailController extends GetxController {
-  static VerifyEmailController get instance => Get.find();
+final verifyEmailControllerProvider = StateNotifierProvider<VerifyEmailController, bool>((ref) {
+  return VerifyEmailController(ref);
+});
 
-  @override
-  void onInit() {
+class VerifyEmailController extends StateNotifier<bool> {
+  VerifyEmailController(this.ref) : super(false) {
     sendEmailVerification();
     setTimerForAutoRedirect();
-    super.onInit();
   }
+  final Ref ref;
 
   void sendEmailVerification() async {
     try {
-      await FirebaseAuthService.instance.sendEmailVerification();
+      final authServices = ref.read(firebaseAuthService);
+      await authServices.sendEmailVerification();
       SnackBarPop.showInfoPopup(TextValue.confirmEmailSent);
     } catch (e) {
       SnackBarPop.showErrorPopup('Oh No : ${e.toString()}');

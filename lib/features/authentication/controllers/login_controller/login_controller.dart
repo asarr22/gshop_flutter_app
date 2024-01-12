@@ -7,14 +7,14 @@ import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class LoginController extends StateNotifier<LoginInfo> {
-  LoginController()
-      : super(LoginInfo(
-            email: 'email', password: 'password', signinKey: GlobalKey()));
+  final Ref ref;
+  LoginController(this.ref) : super(LoginInfo(email: 'email', password: 'password', signinKey: GlobalKey()));
 
   /// -- Email and Password SignIn
-  void signWithEmailAndPassword(
-      LoginInfo loginInfo, BuildContext context, controller) async {
+  void signWithEmailAndPassword(LoginInfo loginInfo, BuildContext context, controller) async {
     try {
+      final authService = ref.watch(firebaseAuthService);
+
       // Start Loading
       PFullScreenLoader.openLoadingDialog(context);
 
@@ -32,8 +32,7 @@ class LoginController extends StateNotifier<LoginInfo> {
       }
 
       //Login with user Data
-      await FirebaseAuthService.instance.loginWithEmailAndPassword(
-          loginInfo.email.trim(), loginInfo.password.trim());
+      await authService.loginWithEmailAndPassword(loginInfo.email.trim(), loginInfo.password.trim());
 
       //Clear Fields
       clearTextFields(controller);
@@ -41,7 +40,7 @@ class LoginController extends StateNotifier<LoginInfo> {
       PFullScreenLoader.stopLoading();
 
       // Go to Concerned Page
-      FirebaseAuthService.instance.screenRedirect();
+      authService.screenRedirect();
     } catch (e) {
       PFullScreenLoader.stopLoading();
       SnackBarPop.showErrorPopup(e.toString(), duration: 3);

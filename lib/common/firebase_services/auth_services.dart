@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
@@ -14,24 +15,31 @@ import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final firebaseAuthService = Provider<FirebaseAuthService>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return FirebaseAuthService(prefs);
+});
 
 class FirebaseAuthService extends GetxController {
   static FirebaseAuthService get instance => Get.find();
 
-  /// Variable
+  final SharedPreferences prefs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   User? get authUser => _auth.currentUser;
 
-  final deviceStorage = GetStorage();
   @override
   void onReady() {
-// Remove the native splash screen
+    // Remove the native splash screen
     FlutterNativeSplash.remove();
-// Redirect to the appropriate screch
+    // Redirect to the appropriate screch
     screenRedirect();
   }
 
-  /// Function to Show Relevant Screen
+  FirebaseAuthService(this.prefs);
+
   screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
@@ -44,9 +52,9 @@ class FirebaseAuthService extends GetxController {
       }
     } else {
       // Local Storage
-      deviceStorage.writeIfNull('IsFirstTime', true);
-// Check if it's the first time Launching the app
-      deviceStorage.read('IsFirstTime') != true ? Get.offAll(() => const LoginPage()) : Get.offAll(const OnBoardingPage());
+      prefs.setBool(
+          'IsFirstTime', prefs.getBool('IsFirstTime') ?? true); // Check if it's the first time Launching the app
+      (prefs.getBool('IsFirstTime') != true) ? Get.offAll(() => const LoginPage()) : Get.offAll(const OnBoardingPage());
     }
   }
 

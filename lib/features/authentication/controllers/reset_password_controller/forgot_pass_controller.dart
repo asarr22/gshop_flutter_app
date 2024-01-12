@@ -10,10 +10,12 @@ import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ForgotPasswordController extends StateNotifier<TextEditingController> {
-  ForgotPasswordController() : super(TextEditingController());
+  final Ref ref;
+  ForgotPasswordController(this.ref) : super(TextEditingController());
 
-  void sendPasswordResetLink(
-      BuildContext context, GlobalKey<FormState> validationKey) async {
+  void sendPasswordResetLink(BuildContext context, GlobalKey<FormState> validationKey) async {
+    final authService = ref.watch(firebaseAuthService);
+
     try {
       //Start Loading
       PFullScreenLoader.openLoadingDialog(context);
@@ -31,8 +33,7 @@ class ForgotPasswordController extends StateNotifier<TextEditingController> {
       }
 
       //Send Password Reset Request with Email
-      await FirebaseAuthService.instance
-          .sendPasswordResetEmail(state.text.trim());
+      await authService.sendPasswordResetEmail(state.text.trim());
 
       PFullScreenLoader.stopLoading();
 
@@ -46,6 +47,8 @@ class ForgotPasswordController extends StateNotifier<TextEditingController> {
   }
 
   void resendPasswordResetLink(BuildContext context) async {
+    final authService = ref.watch(firebaseAuthService);
+
     try {
       // Start Loading
       PFullScreenLoader.openLoadingDialog(context);
@@ -56,8 +59,7 @@ class ForgotPasswordController extends StateNotifier<TextEditingController> {
         return;
       }
       // Send Password Reset Request with Email
-      await FirebaseAuthService.instance
-          .sendPasswordResetEmail(state.text.trim());
+      await authService.sendPasswordResetEmail(state.text.trim());
 
       PFullScreenLoader.stopLoading();
 

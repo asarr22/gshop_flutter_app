@@ -17,6 +17,7 @@ class UserAddressState {
       addresses.firstWhereOrNull((address) => address.isDefault);
 }
 
+// Create a StateNotifier to manage the state
 class UserAddressNotifier extends StateNotifier<UserAddressState> {
   UserAddressNotifier(this.ref)
       : super(UserAddressState(

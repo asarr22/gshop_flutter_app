@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
-class EmailSuccessScreen extends StatelessWidget {
+class EmailSuccessScreen extends ConsumerWidget {
   const EmailSuccessScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authService = ref.watch(firebaseAuthService);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,12 +28,10 @@ class EmailSuccessScreen extends StatelessWidget {
               ),
               //Title Subtitle
               Text(TextValue.accountCreatedTitle,
-                  style: Theme.of(context).textTheme.displayLarge,
-                  textAlign: TextAlign.center),
+                  style: Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Text(TextValue.accountCreatedSubtitle,
-                  style: Theme.of(context).textTheme.labelMedium,
-                  textAlign: TextAlign.center),
+                  style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
               const SizedBox(height: 10),
 
               /// Buttons
@@ -39,8 +39,7 @@ class EmailSuccessScreen extends StatelessWidget {
                   height: 60,
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () =>
-                          FirebaseAuthService.instance.screenRedirect(),
+                      onPressed: () async => await authService.screenRedirect(),
                       child: const Text(
                         TextValue.tContinue,
                       ))),

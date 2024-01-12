@@ -11,12 +11,15 @@ import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 final formControllersProvider =
-    StateNotifierProvider.autoDispose<SignUpFormControllers, Map<String, TextEditingController>>((ref) => SignUpFormControllers());
-final passwordVisibilityProvider = StateNotifierProvider.autoDispose<PasswordVisibility, bool>((ref) => PasswordVisibility());
+    StateNotifierProvider.autoDispose<SignUpFormControllers, Map<String, TextEditingController>>(
+        (ref) => SignUpFormControllers());
+final passwordVisibilityProvider =
+    StateNotifierProvider.autoDispose<PasswordVisibility, bool>((ref) => PasswordVisibility());
 
-final privacyAndTermProvider = StateNotifierProvider.autoDispose<PrivacyPolicyAndTerm, bool>((ref) => PrivacyPolicyAndTerm());
+final privacyAndTermProvider =
+    StateNotifierProvider.autoDispose<PrivacyPolicyAndTerm, bool>((ref) => PrivacyPolicyAndTerm());
 
-final signUpProvider = StateNotifierProvider.autoDispose<SignUpController, SignUpInfo>((ref) => SignUpController());
+final signUpProvider = StateNotifierProvider.autoDispose<SignUpController, SignUpInfo>((ref) => SignUpController(ref));
 
 class SignUpForm extends ConsumerWidget {
   const SignUpForm({super.key, required this.mainContext});
@@ -41,7 +44,8 @@ class SignUpForm extends ConsumerWidget {
                   validator: (value) => PValidator.validateEmptyText('First Name', value),
                   controller: controllers['firstName'],
                   expands: false,
-                  decoration: const InputDecoration(labelText: TextValue.firstName, prefixIcon: Icon(Icons.person_outlined)),
+                  decoration:
+                      const InputDecoration(labelText: TextValue.firstName, prefixIcon: Icon(Icons.person_outlined)),
                 ),
               ),
               const SizedBox(width: 10),
@@ -50,7 +54,8 @@ class SignUpForm extends ConsumerWidget {
                   controller: controllers['lastName'],
                   validator: (value) => PValidator.validateEmptyText('Last Name', value),
                   expands: false,
-                  decoration: const InputDecoration(labelText: TextValue.lastName, prefixIcon: Icon(Icons.person_outlined)),
+                  decoration:
+                      const InputDecoration(labelText: TextValue.lastName, prefixIcon: Icon(Icons.person_outlined)),
                 ),
               )
             ],

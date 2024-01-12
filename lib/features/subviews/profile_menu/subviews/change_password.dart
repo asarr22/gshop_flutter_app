@@ -12,7 +12,8 @@ import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 
 final changePasswordControllerProvider =
-    StateNotifierProvider.autoDispose<ChangePasswordFieldController, Map<String, TextEditingController>>((ref) => ChangePasswordFieldController());
+    StateNotifierProvider.autoDispose<ChangePasswordFieldController, Map<String, TextEditingController>>(
+        (ref) => ChangePasswordFieldController(ref));
 
 final changePasswordVisiblityProvider =
     StateNotifierProvider.autoDispose<ChangePasswordVisiblity, Map<String, bool>>((ref) => ChangePasswordVisiblity());

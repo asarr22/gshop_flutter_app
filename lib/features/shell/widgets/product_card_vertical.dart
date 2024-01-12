@@ -14,11 +14,9 @@ class ProductCardVertical extends StatelessWidget {
   const ProductCardVertical({
     super.key,
     required this.product,
-    required this.index,
   });
 
   final Product product;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +24,7 @@ class ProductCardVertical extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ProductDetailPage(
-                  indexOfProduct: index,
-                )));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(product.id)));
       },
       child: Container(
         width: 160,
@@ -72,7 +67,8 @@ class ProductCardVertical extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${product.discountValue}%',
-                        style: Theme.of(context).textTheme.labelSmall!.apply(color: ColorPalette.black, fontSizeDelta: 2),
+                        style:
+                            Theme.of(context).textTheme.labelSmall!.apply(color: ColorPalette.black, fontSizeDelta: 2),
                       ),
                     ),
                   )),
@@ -116,7 +112,10 @@ class ProductCardVertical extends StatelessWidget {
                         children: [
                           Text(
                             product.brand,
-                            style: Theme.of(context).textTheme.labelSmall!.apply(color: isDarkMode ? ColorPalette.lightGrey : ColorPalette.darkGrey),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .apply(color: isDarkMode ? ColorPalette.lightGrey : ColorPalette.darkGrey),
                           ),
                           SizedBox(
                             height: 10,

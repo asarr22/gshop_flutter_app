@@ -32,12 +32,16 @@ class SignUpFormControllers extends StateNotifier<Map<String, TextEditingControl
 }
 
 class SignUpController extends StateNotifier<SignUpInfo> {
-  SignUpController()
+  final Ref ref;
+
+  SignUpController(this.ref)
       : super(
           SignUpInfo(firstName: "", lastName: "", email: "", password: "", phoneNumber: "", signupKey: GlobalKey()),
         );
 
   void signup(SignUpInfo signInfo, context, controllers) async {
+    final authService = ref.watch(firebaseAuthService);
+
     final isConnected = await NetworkManager.instance.isConnected();
     try {
       //Start Loading
@@ -56,8 +60,7 @@ class SignUpController extends StateNotifier<SignUpInfo> {
       }
 
       //Connexion to backend for SignUp
-      Get.put(FirebaseAuthService());
-      final userCredential = await FirebaseAuthService.instance.registerWithEmailAndPassword(signInfo.email, signInfo.password);
+      final userCredential = await authService.registerWithEmailAndPassword(signInfo.email, signInfo.password);
 
       final newUser = UserModel(
         id: userCredential.user!.uid,
@@ -70,11 +73,12 @@ class SignUpController extends StateNotifier<SignUpInfo> {
         gender: '',
         birthday: '',
         address: [
-          UserAddress(fullName: '', phoneNumber: '', country: '', city: '', zone: '', address: '', isDefault: false, id: ''),
+          UserAddress(
+              fullName: '', phoneNumber: '', country: '', city: '', zone: '', address: '', isDefault: false, id: ''),
         ],
       );
 
-      final userRepository = Get.put(UserRepository());
+      final userRepository = ref.watch(userRepositoryProvider);
       userRepository.saveUserRecord(newUser);
 
       //Clear TextFields

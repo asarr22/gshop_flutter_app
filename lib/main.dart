@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final sharedPreferences = await SharedPreferences.getInstance();
 
   /// -- Firebase Initialization
   if (kIsWeb || Platform.isAndroid) {
@@ -25,21 +25,23 @@ Future main() async {
                 messagingSenderId: "78101443712",
                 projectId: "g-tech-app-466c4"))
         .then(
-      (FirebaseApp value) => Get.put(FirebaseAuthService()),
+      (FirebaseApp value) => Get.put(FirebaseAuthService(sharedPreferences)),
     );
   } else {
     await Firebase.initializeApp().then(
-      (FirebaseApp value) => Get.put(FirebaseAuthService()),
+      (FirebaseApp value) => Get.put(FirebaseAuthService(sharedPreferences)),
     );
   }
+
+  /// -- Firebase Services Initialization
 
   /// -- Await Splash until other items Load
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // init Get Storage
-  await GetStorage.init();
+  final prefs = await SharedPreferences.getInstance();
 
   // init Firebase Cloud Storage
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: App()));
+  runApp(ProviderScope(overrides: [sharedPreferencesProvider.overrideWithValue(prefs)], child: const App()));
 }

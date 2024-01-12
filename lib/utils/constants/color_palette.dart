@@ -9,7 +9,7 @@ class ColorPalette {
   static const Color onPrimaryDark = Color(0xFFEBE1D9);
   static const Color backgroundLight = Color(0xFFFFFBFF);
   static const Color backgroundDark = Color(0xFF1F1B16);
-  static const Color darkGrey = Color(0xFF667479);
+  static const Color darkGrey = Color.fromARGB(255, 65, 73, 77);
   static const Color lightGrey = Color(0xFFCCD1D2);
   static const Color grey = Color(0xFF99A2A5);
   static const Color textFieldgrayLight = Color(0xFFF5F6FA);

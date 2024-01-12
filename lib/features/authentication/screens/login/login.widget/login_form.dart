@@ -13,11 +13,13 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 
 final loginFormControllerProvider =
-    StateNotifierProvider.autoDispose<LoginFormControllers, Map<String, TextEditingController>>((ref) => LoginFormControllers());
+    StateNotifierProvider.autoDispose<LoginFormControllers, Map<String, TextEditingController>>(
+        (ref) => LoginFormControllers());
 
-final signInProvider = StateNotifierProvider.autoDispose<LoginController, LoginInfo>((ref) => LoginController());
+final signInProvider = StateNotifierProvider.autoDispose<LoginController, LoginInfo>((ref) => LoginController(ref));
 
-final passwordVisibilityProvider = StateNotifierProvider.autoDispose<LoginPasswordVisibility, bool>((ref) => LoginPasswordVisibility());
+final passwordVisibilityProvider =
+    StateNotifierProvider.autoDispose<LoginPasswordVisibility, bool>((ref) => LoginPasswordVisibility());
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -95,7 +97,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: () {
-                  final info = LoginInfo(email: controller[emailKey]!.text, password: controller[passwordKey]!.text, signinKey: signinKey);
+                  final info = LoginInfo(
+                      email: controller[emailKey]!.text, password: controller[passwordKey]!.text, signinKey: signinKey);
                   ref.read(signInProvider.notifier).signWithEmailAndPassword(info, context, controller);
                 }),
           ),

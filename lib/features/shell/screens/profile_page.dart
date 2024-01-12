@@ -18,6 +18,8 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userControllerProvider);
+    final authService = ref.watch(firebaseAuthService);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -45,7 +47,9 @@ class ProfilePage extends ConsumerWidget {
                     child: RoundedImage(
                       borderRadius: 100,
                       isNetworkImage: true,
-                      imgUrl: user.profilePicture.isNotEmpty ? user.profilePicture : "https://cdn-icons-png.flaticon.com/512/147/147129.png",
+                      imgUrl: user.profilePicture.isNotEmpty
+                          ? user.profilePicture
+                          : "https://cdn-icons-png.flaticon.com/512/147/147129.png",
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -76,10 +80,10 @@ class ProfilePage extends ConsumerWidget {
                   const SizedBox(height: 50),
                   ButtonCardTile(
                     implyDescription: false,
-                    title: FirebaseAuthService.instance.authUser == null ? TextValue.signin : TextValue.signout,
+                    title: authService.authUser == null ? TextValue.signin : TextValue.signout,
                     onTap: () {
-                      if (FirebaseAuthService.instance.authUser != null) {
-                        FirebaseAuthService.instance.logout();
+                      if (authService.authUser != null) {
+                        authService.logout();
                       } else {
                         Get.to(() => const LoginPage());
                       }

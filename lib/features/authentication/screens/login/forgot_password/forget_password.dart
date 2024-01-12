@@ -6,15 +6,13 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 
 final emailFieldProvider =
-    StateNotifierProvider<ForgotPasswordController, TextEditingController>(
-        (ref) => ForgotPasswordController());
+    StateNotifierProvider<ForgotPasswordController, TextEditingController>((ref) => ForgotPasswordController(ref));
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() =>
-      _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
@@ -66,9 +64,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () {
-                    ref
-                        .read(emailFieldProvider.notifier)
-                        .sendPasswordResetLink(context, resetKey);
+                    ref.read(emailFieldProvider.notifier).sendPasswordResetLink(context, resetKey);
                   }),
             ),
           ],
