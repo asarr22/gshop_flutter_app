@@ -42,6 +42,7 @@ class ProductCardVertical extends StatelessWidget {
               RoundedImage(
                 backgroundColor: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
                 imgUrl: product.imageUrl[0],
+                isNetworkImage: true,
                 applyImageRadius: true,
                 height: 110,
                 width: 150,
@@ -151,7 +152,7 @@ class ProductCardVertical extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        Formatter.formatPrice(Formatter.applyDiscount(product.price, product.discountValue)),
+                        Formatter.formatPrice(Formatter.applyDiscount(product.price.toDouble(), product.discountValue)),
                         style: Theme.of(context).textTheme.labelLarge!.apply(fontWeightDelta: 3),
                       ),
                     ],

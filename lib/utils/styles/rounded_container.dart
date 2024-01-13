@@ -15,6 +15,8 @@ class RoundedContainer extends StatelessWidget {
     this.borderColor = Colors.orange,
     this.borderThickness = 1,
     this.boxShadow,
+    this.strokeAlign = BorderSide.strokeAlignInside,
+    this.elevation = 0,
   });
 
   final double? width;
@@ -28,23 +30,28 @@ class RoundedContainer extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final double borderThickness;
   final List<BoxShadow>? boxShadow;
+  final double strokeAlign;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      padding: padding,
-      margin: margin,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(radius),
-        border: showBorder
-            ? Border.all(color: borderColor, width: borderThickness)
-            : null,
-        boxShadow: boxShadow,
+    return Material(
+      color: Colors.transparent,
+      elevation: elevation,
+      borderRadius: BorderRadius.circular(radius),
+      child: Container(
+        width: width,
+        height: height,
+        padding: padding,
+        margin: margin,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(radius),
+          border: showBorder ? Border.all(color: borderColor, width: borderThickness, strokeAlign: strokeAlign) : null,
+          boxShadow: boxShadow,
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }
