@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 class Formatter {
   Formatter._();
 
@@ -18,5 +21,15 @@ class Formatter {
   static double applyDiscount(double initialPrice, int discountPercentage) {
     double discountValue = initialPrice * (discountPercentage / 100);
     return initialPrice - discountValue;
+  }
+
+  static String getFormattedDateTime(String format) {
+    var now = DateTime.now();
+    var formatter = DateFormat(format);
+    return formatter.format(now);
+  }
+
+  static Color hexToColor(String hexString) {
+    return Color(int.parse(hexString.replaceFirst('#', '0xFF')));
   }
 }

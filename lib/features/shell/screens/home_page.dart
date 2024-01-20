@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/category_menu.dart';
+import 'package:gshopp_flutter/features/shell/screens/home.widgets/new_arrival_product_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/popular_item_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/promo_carousel.dart';
 import 'package:gshopp_flutter/common/widgets/texts/section_header.dart';
@@ -108,9 +109,12 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               //Popular Profuct
               SectionHeader(
                 title: TextValue.popular,
-                onTap: () => Get.to(() => const GlobalProductView(
-                      pageTitle: TextValue.popular,
-                    )),
+                onTap: () => Get.to(
+                  () => const GlobalProductPage(
+                    pageTitle: TextValue.popular,
+                    filter: {'isPopular': true},
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
 
@@ -131,11 +135,19 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                 ),
               ),
               const SizedBox(height: 20),
-              //Popular Profuct
-              const SectionHeader(title: TextValue.newArrival),
+              // New Arrival Section
+              SectionHeader(
+                title: TextValue.newArrival,
+                onTap: () => Get.to(
+                  () => const GlobalProductPage(
+                    pageTitle: TextValue.newArrival,
+                    filter: {'isNew': true},
+                  ),
+                ),
+              ),
               const SizedBox(height: 10),
 
-              const PopularProductSection(),
+              const NewArriavalProductSection(),
 
               const SizedBox(height: 120),
             ],

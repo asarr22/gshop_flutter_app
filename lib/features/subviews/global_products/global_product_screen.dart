@@ -6,9 +6,10 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
-class GlobalProductView extends StatelessWidget {
-  const GlobalProductView({super.key, required this.pageTitle});
+class GlobalProductPage extends StatelessWidget {
+  const GlobalProductPage({super.key, required this.pageTitle, required this.filter});
   final String pageTitle;
+  final Map<String, dynamic> filter;
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +39,21 @@ class GlobalProductView extends StatelessWidget {
           ),
         ],
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
         children: [
-          // Category Filter
-          SubcategoriesMenu(),
+          // Category Filter (Disabled for now)
+          const Visibility(
+            visible: false,
+            child: SubcategoriesMenu(),
+          ),
 
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
 
           // List of Product
-          GlobalProductList(),
+          GlobalProductList(
+            filter: filter,
+          ),
         ],
       )),
     );

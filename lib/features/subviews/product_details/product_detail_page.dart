@@ -12,6 +12,7 @@ import 'package:gshopp_flutter/features/subviews/product_details/widgets/pd_bott
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/quantity_selection_widget.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/rating_container.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/widgets/variants_selection.dart';
+import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
@@ -80,117 +81,139 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                   ),
 
                   // Product title
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        product.title,
-                        style: Theme.of(context).textTheme.displayLarge,
-                        maxLines: 1,
-                      ),
-
-                      // Discount Box
-                      Container(
-                        height: 30,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: ColorPalette.secondary.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(100),
+                  FadeTranslateAnimation(
+                    delay: 300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          product.title,
+                          style: Theme.of(context).textTheme.displayLarge,
+                          maxLines: 1,
                         ),
-                        child: Center(
-                          child: Text(
-                            '${product.discountValue}%',
-                            style:
-                                Theme.of(context).textTheme.labelMedium!.apply(color: Colors.black, fontWeightDelta: 3),
+
+                        // Discount Box
+                        Container(
+                          height: 30,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: ColorPalette.secondary.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${product.discountValue}%',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .apply(color: Colors.black, fontWeightDelta: 3),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                   const SizedBox(height: 10),
 
                   // Rating Box
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      width: reviews.isEmpty && product.rating == 0 ? null : 50,
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: reviews.isEmpty && product.rating == 0
-                            ? ColorPalette.lightGrey
-                            : ColorPalette.secondary3.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Row(
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                size: 20,
-                                color: Colors.amber,
-                              ),
-                              Text(
-                                reviews.isEmpty && product.rating == 0
-                                    ? TextValue.noReviewsYet
-                                    : product.rating.toStringAsFixed(1),
-                                style: Theme.of(context).textTheme.bodyMedium,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ],
-                          ),
-                        ],
+                  FadeTranslateAnimation(
+                    delay: 500,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: reviews.isEmpty && product.rating == 0 ? null : 50,
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: reviews.isEmpty && product.rating == 0
+                              ? ColorPalette.lightGrey
+                              : ColorPalette.secondary3.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  size: 20,
+                                  color: Colors.amber,
+                                ),
+                                Text(
+                                  reviews.isEmpty && product.rating == 0
+                                      ? TextValue.noReviewsYet
+                                      : product.rating.toStringAsFixed(1),
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   // Stock Count
                   const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Icon(Iconsax.info_circle, size: 15, color: product.totalStock == 0 ? Colors.red : Colors.green),
-                      const SizedBox(width: 5),
-                      Text(stockStateLogger(),
-                          style: Theme.of(context).textTheme.bodyMedium!.apply(
-                              color: product.totalStock == 0
-                                  ? Colors.red
-                                  : product.totalStock < 5
-                                      ? Colors.orange
-                                      : Colors.green)),
-                    ],
+                  FadeTranslateAnimation(
+                    delay: 600,
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.info_circle, size: 15, color: product.totalStock == 0 ? Colors.red : Colors.green),
+                        const SizedBox(width: 5),
+                        Text(stockStateLogger(),
+                            style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                color: product.totalStock == 0
+                                    ? Colors.red
+                                    : product.totalStock < 5
+                                        ? Colors.orange
+                                        : Colors.green)),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10),
                   //Description
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      TextValue.description,
-                      style: Theme.of(context).textTheme.displayMedium,
+                  FadeTranslateAnimation(
+                    delay: 650,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        TextValue.description,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 5),
-                  ExpandableText(text: product.description),
+                  FadeTranslateAnimation(delay: 700, child: ExpandableText(text: product.description)),
                   const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      TextValue.variant,
-                      style: Theme.of(context).textTheme.displayMedium,
+                  FadeTranslateAnimation(
+                    delay: 750,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        TextValue.variant,
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
 
                   // Variant Selection
-                  VariantSelection(
-                    ref: ref,
-                    variants: product.variants,
+                  FadeTranslateAnimation(
+                    delay: 800,
+                    child: VariantSelection(
+                      ref: ref,
+                      variants: product.variants,
+                    ),
                   ),
                   const SizedBox(height: 20),
 
                   // Quantity Selection
 
-                  QuantitySelectionWidget(ref: ref, selectedQuantityValue: selectedQuantityValue),
+                  FadeTranslateAnimation(
+                      delay: 800,
+                      child: QuantitySelectionWidget(ref: ref, selectedQuantityValue: selectedQuantityValue)),
 
                   // Comment Section
                   const SizedBox(height: 30),
@@ -206,7 +229,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     title:
                         '${product.rating.toStringAsFixed(1)} ${product.rating > 1 ? TextValue.ratings : TextValue.rating}',
                     padding: EdgeInsets.zero,
-                    onTap: () => Get.to(() => GlobalRatingPage(product.id, product.rating)),
+                    onTap: () => Get.to(() => GlobalRatingPage(product.id, product.rating),
+                        transition: Transition.rightToLeftWithFade, duration: const Duration(milliseconds: 500)),
                   ),
                   const SizedBox(height: 10),
                   Align(
@@ -241,8 +265,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: ProductDetailBottomBar(
-          selectedQuantityValue: selectedQuantityValue, product: product, isDarkMode: isDarkMode),
+      bottomNavigationBar: ProductDetailBottomBar(isDarkMode: isDarkMode),
     );
   }
 }

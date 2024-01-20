@@ -86,6 +86,7 @@ class TextValue {
   static const String newArrival = "Nouveaux Arrivages";
   static const String description = "Description";
   static const String colors = "Couleurs";
+  static const String all = "Tout";
   static const String color = "Couleur";
   static const String specs = "Caractéristique";
   static const String variant = "Variations";
@@ -101,6 +102,8 @@ class TextValue {
   static const String howWasYourExperience = "Comment était votre experience ?";
   static const String noReviewsYet = "Pas encore d'avis";
   static const String addToCard = "Ajouter au Panier";
+  static const String itemAddedToCart = "Le produit a été ajouté dans votre panier";
+  static const String itemRemovedfromCart = "Le produit a été retiré dans votre panier";
   static const String total = "Total";
   static const String inStock = "Produit en Stock";
   static const String outOfStock = "En rupture de stock";
@@ -112,6 +115,7 @@ class TextValue {
   static const String soldOut = "stock epuisé";
   static const String cart = "Panier";
   static const String clearAll = "Tout Effacer";
+  static const String noItem = "Pas d'element";
   static const String myAccount = "Mon Compte";
   static const String checkout = "Verifier";
   static const String orderInfo = "Informations sur la commande";
@@ -132,17 +136,20 @@ class TextValue {
   static const String errorSavingProfileInfoMessage =
       "Une erreur s'est produite lors de l'enregistrement de vos informations. Vous pouvez réenregistrer vos données à partir des paramètres de profil";
   static const String somethingWentWrongMessage = "Quelque chose s'est mal passé. Veuillez réessayer";
+  static const String checkYourNetwork = "Veillez verifier votre connexion à internet";
   static const String address = "Adresse";
   static const String operationSuccess = "L'operation est terminé avec succeés";
   static const String selectAndOption = "Choisis une option";
+  static const String selectedItemIsNotAvailable = 'L\'option choisie n\'est pas disponible ';
 
   // Category List
   static const String accessories = "Accessoires";
   static const String headphone = "Ecouteurs";
   static const String watches = "Montres";
-  static const String monitor = "Moniteur";
+  static const String monitor = "Moniteur/TV";
   static const String pc = "Ordinateur";
   static const String phone = "Téléphone";
+  static const String appliance = "Electromenager";
 
   // Profile Page
   static String editName = "Modifier le nom";

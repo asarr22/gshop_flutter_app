@@ -10,9 +10,38 @@ class ProductRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   // Fetch Popular Products
-  Future<List<Product>> getPopularProducts() async {
+  Future<List<Product>> getPopularProducts(int limit) async {
     try {
-      final snapshot = await _db.collection('Products').where('isPopular', isEqualTo: true).get();
+      final snapshot = await _db.collection('Products').where('isPopular', isEqualTo: true).limit(limit).get();
+      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+  }
+
+  // Fetch New Arrival Products
+  Future<List<Product>> getNewArrivalProducts(int limit) async {
+    try {
+      final snapshot = await _db.collection('Products').where('isNew', isEqualTo: true).limit(limit).get();
+      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+  }
+
+  // Fetch Product By Single Filter
+  Future<List<Product>> getProductbySingleFilter(int limit, Map<String, dynamic> filter) async {
+    try {
+      final snapshot =
+          await _db.collection('Products').where(filter.keys.first, isEqualTo: filter.values.first).limit(limit).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;

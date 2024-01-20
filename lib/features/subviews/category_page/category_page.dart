@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/features/shell/models/home.model/category_view_model.dart';
+import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
 import 'package:gshopp_flutter/features/subviews/category_page/widget/horizontal_card.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
@@ -28,8 +28,7 @@ class CategoryPage extends StatelessWidget {
               itemCount: CategoryModel().count,
               itemBuilder: (_, index) {
                 final item = CategoryModel().getItemAt(index);
-                return HorizontalCategoryCard(
-                    isDarkMode: isDarkMode, item: item);
+                return HorizontalCategoryCard(isDarkMode: isDarkMode, item: item);
               }),
         ),
       ),

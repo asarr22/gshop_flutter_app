@@ -13,6 +13,7 @@ class PTextField extends StatelessWidget {
       this.obscureText = false,
       this.suffixicon,
       this.maxLines = 1,
+      this.isEnabled = true,
       this.onShowPassword});
 
   final String? title;
@@ -24,6 +25,7 @@ class PTextField extends StatelessWidget {
   final Widget? suffixicon;
   final VoidCallback? onShowPassword;
   final int maxLines;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,9 @@ class PTextField extends StatelessWidget {
                   controller: textEditingController,
                   cursorColor: ColorPalette.primary,
                   obscureText: obscureText,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
+                    enabled: isEnabled,
                     suffixIcon: suffixicon,
                     fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
                     filled: true,
@@ -73,7 +77,9 @@ class PTextField extends StatelessWidget {
                   maxLines: maxLines,
                   controller: textEditingController,
                   cursorColor: ColorPalette.primary,
+                  style: Theme.of(context).textTheme.bodyLarge,
                   decoration: InputDecoration(
+                    enabled: isEnabled,
                     fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
                     filled: true,
                     contentPadding: const EdgeInsets.all(15.0),

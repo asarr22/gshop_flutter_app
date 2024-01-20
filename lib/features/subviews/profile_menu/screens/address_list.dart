@@ -49,8 +49,7 @@ class AddressesScreen extends ConsumerWidget {
                     selectedAddress: address.isDefault,
                     fullName: address.fullName,
                     phoneNumber: address.phoneNumber,
-                    details:
-                        "${address.address} ${address.country}, ${address.city}, ${address.zone}",
+                    details: "${address.address} ${address.country}, ${address.city}, ${address.zone}",
                     onTap: () {
                       userAddressNotifier.setAsDefault(address.id);
                     },
@@ -59,8 +58,7 @@ class AddressesScreen extends ConsumerWidget {
                         selectedId: address.id,
                       ),
                     ),
-                    onRemove: () =>
-                        userAddressNotifier.removeAddress(address.id),
+                    onRemove: () => userAddressNotifier.removeAddress(address.id),
                   ),
                 );
               },
@@ -72,17 +70,14 @@ class AddressesScreen extends ConsumerWidget {
         height: 60,
         width: 60,
         child: IconButton(
-          style: IconButton.styleFrom(
-              backgroundColor: ColorPalette.primary, elevation: 5),
+          style: IconButton.styleFrom(backgroundColor: ColorPalette.primary, elevation: 5),
           onPressed: () {
             Get.to(() => const AddNewAddressScreen());
           },
           icon: Icon(
             Iconsax.add,
             size: 30,
-            color: isDarkMode
-                ? ColorPalette.backgroundDark
-                : ColorPalette.backgroundLight,
+            color: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
           ),
         ),
       ),

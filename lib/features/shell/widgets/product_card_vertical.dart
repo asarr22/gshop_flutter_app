@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
@@ -24,7 +25,8 @@ class ProductCardVertical extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(product.id)));
+        Get.to(() => ProductDetailPage(product.id),
+            transition: Transition.rightToLeftWithFade, duration: const Duration(milliseconds: 300));
       },
       child: Container(
         width: 160,

@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
@@ -18,6 +19,8 @@ import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final firebaseAuthService = Provider<FirebaseAuthService>((ref) {
+  ref.watch(appControllerProvider);
+
   final prefs = ref.watch(sharedPreferencesProvider);
   return FirebaseAuthService(prefs);
 });

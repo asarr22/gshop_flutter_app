@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/features/shell/models/home.model/category_view_model.dart';
+import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
@@ -21,13 +21,11 @@ class HorizontalCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: SizesValue.padding / 2, horizontal: 2),
+        padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
         child: RoundedContainer(
           height: 100,
           width: double.infinity,
-          backgroundColor:
-              isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
+          backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -52,8 +50,7 @@ class HorizontalCategoryCard extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 10,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
+                        offset: const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -65,10 +62,7 @@ class HorizontalCategoryCard extends StatelessWidget {
                 const SizedBox(width: 20),
                 Text(
                   item.title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .apply(fontSizeDelta: 2, fontWeightDelta: 1),
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(fontSizeDelta: 2, fontWeightDelta: 1),
                 ),
               ],
             ),

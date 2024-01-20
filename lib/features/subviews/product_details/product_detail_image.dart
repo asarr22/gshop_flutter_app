@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_image_controller.dart';
+import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
@@ -66,41 +67,44 @@ class ProductDetailImage extends ConsumerWidget {
               bottom: 30,
               left: 0,
               right: 0,
-              child: SizedBox(
-                height: 60,
-                child: Center(
-                  child: ListView.builder(
-                    itemCount: product.imageUrl.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (_, index) {
-                      String imageUrl = product.imageUrl[index];
+              child: FadeTranslateAnimation(
+                delay: 1000,
+                child: SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: ListView.builder(
+                      itemCount: product.imageUrl.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (_, index) {
+                        String imageUrl = product.imageUrl[index];
 
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        child: product.imageUrl.isEmpty
-                            ? Shimmer.fromColors(
-                                baseColor: ColorPalette.lightGrey,
-                                highlightColor: ColorPalette.extraLightGray,
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration:
-                                      BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          child: product.imageUrl.isEmpty
+                              ? Shimmer.fromColors(
+                                  baseColor: ColorPalette.lightGrey,
+                                  highlightColor: ColorPalette.extraLightGray,
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                                  ),
+                                )
+                              : RoundedImage(
+                                  width: 60,
+                                  backgroundColor: Colors.transparent,
+                                  border: Border.all(color: ColorPalette.primary),
+                                  imgUrl: imageUrl,
+                                  isNetworkImage: true,
+                                  onPressed: () {
+                                    ref.read(productDetailImageControllerProvider.notifier).changeImage(index);
+                                  },
                                 ),
-                              )
-                            : RoundedImage(
-                                width: 60,
-                                backgroundColor: Colors.transparent,
-                                border: Border.all(color: ColorPalette.primary),
-                                imgUrl: imageUrl,
-                                isNetworkImage: true,
-                                onPressed: () {
-                                  ref.read(productDetailImageControllerProvider.notifier).changeImage(index);
-                                },
-                              ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

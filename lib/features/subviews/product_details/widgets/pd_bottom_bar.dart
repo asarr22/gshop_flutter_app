@@ -1,28 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/models/product/user_cart_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
+import 'package:gshopp_flutter/features/subviews/product_details/state/add_to_cart_state.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
+import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
+import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ProductDetailBottomBar extends ConsumerWidget {
   const ProductDetailBottomBar({
     super.key,
-    required this.selectedQuantityValue,
-    required this.product,
     required this.isDarkMode,
   });
 
-  final int selectedQuantityValue;
-  final Product product;
   final bool isDarkMode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final product = ref.watch(productDetailsControllerProvider);
+
     final selectedSize = ref.watch(selectedSizeProvider);
+    final selectedQuantityValue = ref.watch(quantityProvider);
+    final selectedVariant = ref.watch(selectedVariantProvider);
+    final cartRepository = ref.watch(cartRepositoryProvider);
+    bool isLoading = ref.watch(addToCartButtonStateProvider);
+
     final bool isSelectedVariantAvailable = selectedSize != null && selectedSize.stock > 0;
+
+    Future<void> buildAndSendCartItem() async {
+      ref.read(addToCartButtonStateProvider.notifier).toggle();
+
+      // Get the Current time
+      final time = Formatter.getFormattedDateTime("yyyy-MM-dd HH:mm:ss");
+
+      // Get the price
+
+      double price = Formatter.applyDiscount(
+          selectedSize == null ? 0 : selectedSize.price.toDouble() * selectedQuantityValue, product.discountValue);
+
+      //Check if Network is available
+      // Check Internet Connection
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        SnackBarPop.showSucessPopup(TextValue.checkYourNetwork);
+        return;
+      }
+
+      // Check if selected variant is available
+      if (isSelectedVariantAvailable && selectedVariant != null) {
+        // Add to cart
+        final cartItemModel = UserCartItemModel(
+            productId: product.id,
+            quantity: selectedQuantityValue,
+            createdAt: time,
+            productName: product.title,
+            productImage: product.imageUrl[0],
+            productPrice: price.toInt(),
+            color: selectedVariant.color,
+            size: selectedSize.size);
+
+        await cartRepository.addItemToCart(cartItemModel);
+
+        SnackBarPop.showSucessPopup(TextValue.itemAddedToCart);
+        ref.read(addToCartButtonStateProvider.notifier).toggle();
+      } else {
+        SnackBarPop.showInfoPopup(TextValue.selectedItemIsNotAvailable);
+        ref.read(addToCartButtonStateProvider.notifier).toggle();
+
+        return;
+      }
+    }
 
     return SizedBox(
       height: 110,
@@ -37,7 +89,11 @@ class ProductDetailBottomBar extends ConsumerWidget {
           child: SizedBox(
             height: 70,
             child: ElevatedButton(
-                onPressed: !isSelectedVariantAvailable ? null : () {},
+                onPressed: !isSelectedVariantAvailable
+                    ? null
+                    : () async {
+                        await buildAndSendCartItem();
+                      },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
@@ -48,56 +104,69 @@ class ProductDetailBottomBar extends ConsumerWidget {
                     },
                   ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_shopping_cart_outlined,
-                      color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      TextValue.addToCard,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.bodyMedium!.apply(color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary),
-                    ),
-                    Visibility(
-                      visible: isSelectedVariantAvailable,
-                      child: const VerticalDivider(
-                        indent: 20,
-                        endIndent: 20,
-                        thickness: 2,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Visibility(
-                      visible: isSelectedVariantAvailable,
-                      child: Column(
+                child: isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            Formatter.formatPrice(Formatter.applyDiscount(
-                                selectedSize == null ? 0 : selectedSize.price.toDouble() * selectedQuantityValue, product.discountValue)),
-                            style: Theme.of(context).textTheme.displayMedium!.apply(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                          Icon(
+                            Icons.add_shopping_cart_outlined,
+                            color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary,
                           ),
+                          const SizedBox(width: 5),
                           Text(
-                            Formatter.formatPrice(selectedSize == null ? 0 : selectedSize.price.toDouble() * selectedQuantityValue),
-                            style: Theme.of(context).textTheme.labelMedium!.apply(
-                                decorationColor: isDarkMode ? ColorPalette.black : ColorPalette.darkGrey,
-                                color: ColorPalette.extraLightGray,
-                                decoration: TextDecoration.lineThrough),
+                            TextValue.addToCard,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .apply(color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary),
+                          ),
+                          Visibility(
+                            visible: isSelectedVariantAvailable,
+                            child: const VerticalDivider(
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Visibility(
+                            visible: isSelectedVariantAvailable,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  Formatter.formatPrice(Formatter.applyDiscount(
+                                      selectedSize == null ? 0 : selectedSize.price.toDouble() * selectedQuantityValue,
+                                      product.discountValue)),
+                                  style: Theme.of(context).textTheme.displayMedium!.apply(color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                Text(
+                                  Formatter.formatPrice(
+                                      selectedSize == null ? 0 : selectedSize.price.toDouble() * selectedQuantityValue),
+                                  style: Theme.of(context).textTheme.labelMedium!.apply(
+                                      decorationColor: isDarkMode ? ColorPalette.black : ColorPalette.darkGrey,
+                                      color: ColorPalette.extraLightGray,
+                                      decoration: TextDecoration.lineThrough),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
-                      ),
-                    ),
-                  ],
-                )),
+                      )),
           ),
         )
       ]),

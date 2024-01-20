@@ -4,14 +4,12 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/widgets/texts/text_field_borderless.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_address_controller.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/widgets/addresses_city_zone_popup.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/popups/PCombobox.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
-
-final addressFieldControllerProvider = StateNotifierProvider.autoDispose<
-    AddAddressController,
-    Map<String, dynamic>>((ref) => AddAddressController());
 
 class AddNewAddressScreen extends ConsumerWidget {
   const AddNewAddressScreen({super.key});
@@ -23,8 +21,9 @@ class AddNewAddressScreen extends ConsumerWidget {
     final isDefaultToggle = controller["isDefault"];
     GlobalKey<FormState> nameKey = GlobalKey<FormState>();
 
-    ref.read(addressFieldControllerProvider.notifier).setNameAndPhoneNumber(
-        "${user.firstName} ${user.lastName}", user.phoneNumber.toString());
+    ref
+        .read(addressFieldControllerProvider.notifier)
+        .setNameAndPhoneNumber("${user.firstName} ${user.lastName}", user.phoneNumber.toString());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -48,8 +47,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                   PTextField(
                     title: TextValue.name,
                     textEditingController: controller['fullName'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Full Name', value),
+                    validator: (value) => PValidator.validateEmptyText('Full Name', value),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -58,29 +56,54 @@ class AddNewAddressScreen extends ConsumerWidget {
                         child: PTextField(
                           title: TextValue.country,
                           textEditingController: controller['country'],
-                          validator: (value) =>
-                              PValidator.validateEmptyText('Country', value),
+                          validator: (value) => PValidator.validateEmptyText('Country', value),
                         ),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: PTextField(
-                          title: TextValue.city,
-                          textEditingController: controller['city'],
-                          validator: (value) =>
-                              PValidator.validateEmptyText('City', value),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              TextValue.city,
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                            const SizedBox(height: 10),
+                            PComboBox(
+                              tite: controller['city'],
+                              onTap: () {
+                                CityZoneSelectionPopup.showPicker(context, ref, isCity: true, isZone: false);
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
-                    title: TextValue.zone,
-                    textEditingController: controller['zone'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Zone', value),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        TextValue.zone,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      const SizedBox(height: 10),
+                      PComboBox(
+                        tite: controller['zone'],
+                        onTap: () {
+                          CityZoneSelectionPopup.showPicker(
+                            context,
+                            ref,
+                            isCity: false,
+                            isZone: true,
+                            userCity: controller['city'],
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   PTextField(
@@ -92,8 +115,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                   PTextField(
                     title: TextValue.address,
                     textEditingController: controller['address'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Address', value),
+                    validator: (value) => PValidator.validateEmptyText('Address', value),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -101,9 +123,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                       Checkbox(
                         value: isDefaultToggle,
                         onChanged: (bool? value) {
-                          ref
-                              .read(addressFieldControllerProvider.notifier)
-                              .setDefaultToggle(value);
+                          ref.read(addressFieldControllerProvider.notifier).setDefaultToggle(value);
                         },
                       ),
                       const SizedBox(width: 10),
@@ -119,9 +139,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
-                        ref
-                            .read(addressFieldControllerProvider.notifier)
-                            .addNewAddress(nameKey, ref);
+                        ref.read(addressFieldControllerProvider.notifier).addNewAddress(nameKey, ref);
                       },
                       child: const Text(TextValue.add),
                     ),

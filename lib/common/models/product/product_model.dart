@@ -12,6 +12,12 @@ class Product {
   final int totalStock;
   final bool isPopular;
   final num rating;
+  final bool isNew;
+  final String publishDate;
+  final String category;
+  final String subCategory;
+  final String sellerID;
+
   int get price {
     return variants[0].size[0].price;
   }
@@ -27,6 +33,11 @@ class Product {
     required this.totalStock,
     required this.isPopular,
     required this.rating,
+    required this.isNew,
+    required this.publishDate,
+    required this.category,
+    required this.subCategory,
+    required this.sellerID,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -41,6 +52,11 @@ class Product {
       'totalStock': totalStock,
       'isPopular': isPopular,
       'rating': rating,
+      'isNew': isNew,
+      'publishDate': publishDate,
+      'category': category,
+      'subCategory': subCategory,
+      'sellerID': sellerID
     };
   }
 
@@ -57,6 +73,11 @@ class Product {
       isPopular: json['isPopular'],
       totalStock: json['totalStock'],
       rating: json['rating'],
+      isNew: json['isNew'],
+      publishDate: json['publishDate'],
+      category: json['category'],
+      subCategory: json['subCategory'],
+      sellerID: json['sellerID'],
     );
   }
 
@@ -72,21 +93,30 @@ class Product {
       variants: (snapshot['variants'] as List).map((v) => Variant.fromSnapshot(v)).toList(),
       totalStock: (snapshot['totalStock']),
       rating: snapshot['rating'],
+      isNew: snapshot['isNew'],
+      publishDate: snapshot['publishDate'],
+      category: snapshot['category'],
+      subCategory: snapshot['subCategory'],
+      sellerID: snapshot['sellerID'],
     );
   }
 
   static Product empty() => Product(
-        id: '',
-        title: '',
-        description: '',
-        imageUrl: [],
-        discountValue: 0,
-        brand: '',
-        variants: [Variant.empty()],
-        totalStock: 0,
-        isPopular: false,
-        rating: 0,
-      );
+      id: '',
+      title: '',
+      description: '',
+      imageUrl: [],
+      discountValue: 0,
+      brand: '',
+      variants: [Variant.empty()],
+      totalStock: 0,
+      isPopular: false,
+      rating: 0,
+      isNew: false,
+      publishDate: '',
+      category: '',
+      subCategory: '',
+      sellerID: '');
 }
 
 class Variant {
@@ -183,6 +213,11 @@ class ProductModel {
       totalStock: 60,
       isPopular: false,
       rating: 4.5,
+      isNew: false,
+      publishDate: '2022-01-01',
+      category: 'Smartphone',
+      subCategory: 'Samsung',
+      sellerID: '1',
       variants: [
         Variant(
           size: [
@@ -220,6 +255,11 @@ class ProductModel {
       brand: 'Apple',
       totalStock: 60,
       rating: 4.5,
+      isNew: false,
+      publishDate: '2022-01-01',
+      category: 'Smartphone',
+      subCategory: 'Samsung',
+      sellerID: '1',
       variants: [
         Variant(
           size: [
@@ -255,6 +295,11 @@ class ProductModel {
       imageUrl: [ImagesValue.productImg3],
       discountValue: 8,
       brand: 'Huawei',
+      sellerID: '1',
+      isNew: false,
+      publishDate: '2022-01-01',
+      category: 'Smartphone',
+      subCategory: 'Samsung',
       totalStock: 60,
       rating: 4.5,
       variants: [
@@ -286,6 +331,11 @@ class ProductModel {
       brand: 'Apple',
       rating: 4.5,
       totalStock: 60,
+      isNew: false,
+      sellerID: '1',
+      publishDate: '2022-01-01',
+      category: 'Smartphone',
+      subCategory: 'Samsung',
       variants: [
         Variant(
           size: [

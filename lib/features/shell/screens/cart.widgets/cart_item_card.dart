@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
+import 'package:gshopp_flutter/common/models/product/user_cart_model.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/quantity_widget.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
@@ -7,22 +10,25 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:shimmer/shimmer.dart';
 
-class CartItemCard extends StatelessWidget {
+class CartItemCard extends ConsumerWidget {
   const CartItemCard({
     super.key,
+    required this.cartItem,
   });
 
+  final UserCartItemModel cartItem;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: SizesValue.padding / 2, horizontal: 2),
+      padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
       child: RoundedContainer(
         height: 90,
-        backgroundColor:
-            isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGrayPlus,
+        backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGrayPlus,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -35,12 +41,31 @@ class CartItemCard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 80,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Image(image: AssetImage(ImagesValue.productImg2)),
-                ),
+                child: cartItem.productImage.isEmpty
+                    ? Shimmer.fromColors(
+                        baseColor: ColorPalette.lightGrey,
+                        highlightColor: ColorPalette.extraLightGray,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                        ),
+                      )
+                    : Image.network(
+                        cartItem.productImage.isEmpty ? ImagesValue.monitorIcon : cartItem.productImage,
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: ColorPalette.primary,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
               ),
               Flexible(
                 child: Column(
@@ -52,13 +77,15 @@ class CartItemCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "IPhone 13 Pro Max",
+                            cartItem.productName,
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
-                          GestureDetector(
-                            onTap: () {},
+                          InkWell(
+                            onTap: () {
+                              ref.read(userCartControllerProvider.notifier).deleteSingleItem(cartItem);
+                            },
                             child: const Icon(
-                              Icons.delete,
+                              Iconsax.shop_remove,
                               size: 20,
                             ),
                           )
@@ -72,11 +99,8 @@ class CartItemCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         Text(
-                          "256GB",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .apply(fontWeightDelta: 2),
+                          cartItem.size,
+                          style: Theme.of(context).textTheme.labelMedium!.apply(fontWeightDelta: 2),
                         ),
                         const SizedBox(
                           width: 10,
@@ -85,11 +109,11 @@ class CartItemCard extends StatelessWidget {
                           "${TextValue.color} : ",
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
-                        const RoundedContainer(
+                        RoundedContainer(
                           radius: 100,
                           height: 20,
                           width: 20,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Formatter.hexToColor(cartItem.color),
                         ),
                       ],
                     ),
@@ -98,14 +122,12 @@ class CartItemCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            Formatter.formatPrice(410000),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .apply(fontWeightDelta: 2),
+                            Formatter.formatPrice(cartItem.productPrice.toDouble()),
+                            style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
                           ),
-                          const CartQuantityWidget(
-                            quantityValue: 1,
+                          CartQuantityWidget(
+                            cartItem,
+                            quantityValue: cartItem.quantity,
                           ),
                         ],
                       ),

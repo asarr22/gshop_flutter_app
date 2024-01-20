@@ -16,12 +16,10 @@ class FavoriteItemCard extends StatelessWidget {
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: SizesValue.padding / 2, horizontal: 2),
+      padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
       child: RoundedContainer(
         height: 90,
-        backgroundColor:
-            isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
+        backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -75,10 +73,7 @@ class FavoriteItemCard extends StatelessWidget {
                         ),
                         Text(
                           "256GB",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .apply(fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.labelMedium!.apply(fontWeightDelta: 2),
                         ),
                         const SizedBox(
                           width: 10,
@@ -101,13 +96,7 @@ class FavoriteItemCard extends StatelessWidget {
                         children: [
                           Text(
                             Formatter.formatPrice(320000),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .apply(fontWeightDelta: 2),
-                          ),
-                          const CartQuantityWidget(
-                            quantityValue: 1,
+                            style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
                           ),
                         ],
                       ),

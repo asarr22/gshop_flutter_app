@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/common/widgets/texts/text_field_borderless.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
-import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/add_new_address.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_address_controller.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/widgets/addresses_city_zone_popup.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/popups/PCombobox.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 
-class EditdAddressScreen extends ConsumerWidget {
+class EditdAddressScreen extends ConsumerStatefulWidget {
   const EditdAddressScreen({super.key, required this.selectedId});
-
   final String selectedId;
+  @override
+  ConsumerState<EditdAddressScreen> createState() => _EditdAddressScreenState();
+}
+
+class _EditdAddressScreenState extends ConsumerState<EditdAddressScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final user = ref.read(userControllerProvider);
+    UserAddress oldAddress = user.address.firstWhere((e) => e.id == widget.selectedId);
+    ref.read(addressFieldControllerProvider.notifier).setFieldsValue(oldAddress);
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(userControllerProvider);
-    final oldAddress = user.address.firstWhere((e) => e.id == selectedId);
-    final controller = ref.watch(addressFieldControllerProvider);
-    final isDefaultToggle = oldAddress.isDefault;
+  Widget build(BuildContext context) {
     GlobalKey<FormState> nameKey = GlobalKey<FormState>();
-
-    ref
-        .read(addressFieldControllerProvider.notifier)
-        .setFieldsValue(oldAddress);
-
+    final controller = ref.watch(addressFieldControllerProvider);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -49,39 +55,62 @@ class EditdAddressScreen extends ConsumerWidget {
                   PTextField(
                     title: TextValue.name,
                     textEditingController: controller['fullName'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Full Name', value),
+                    validator: (value) => PValidator.validateEmptyText('Full Name', value),
                   ),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: PTextField(
+                          isEnabled: false,
                           title: TextValue.country,
                           textEditingController: controller['country'],
-                          validator: (value) =>
-                              PValidator.validateEmptyText('Country', value),
+                          validator: (value) => PValidator.validateEmptyText('Country', value),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       Expanded(
-                        child: PTextField(
-                          title: TextValue.city,
-                          textEditingController: controller['city'],
-                          validator: (value) =>
-                              PValidator.validateEmptyText('City', value),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              TextValue.city,
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                            const SizedBox(height: 10),
+                            PComboBox(
+                              tite: controller['city'],
+                              onTap: () {
+                                CityZoneSelectionPopup.showPicker(context, ref, isCity: true, isZone: false);
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
-                    title: TextValue.zone,
-                    textEditingController: controller['zone'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Zone', value),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        TextValue.zone,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      const SizedBox(height: 10),
+                      PComboBox(
+                        tite: controller['zone'],
+                        onTap: () {
+                          CityZoneSelectionPopup.showPicker(
+                            context,
+                            ref,
+                            isCity: false,
+                            isZone: true,
+                            userCity: controller['city'],
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   PTextField(
@@ -93,18 +122,15 @@ class EditdAddressScreen extends ConsumerWidget {
                   PTextField(
                     title: TextValue.address,
                     textEditingController: controller['address'],
-                    validator: (value) =>
-                        PValidator.validateEmptyText('Address', value),
+                    validator: (value) => PValidator.validateEmptyText('Address', value),
                   ),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       Checkbox(
-                        value: isDefaultToggle,
+                        value: controller['isDefault'],
                         onChanged: (bool? value) {
-                          ref
-                              .read(addressFieldControllerProvider.notifier)
-                              .setDefaultToggle(value);
+                          ref.read(addressFieldControllerProvider.notifier).setDefaultToggle(value);
                         },
                       ),
                       const SizedBox(width: 10),
@@ -122,7 +148,7 @@ class EditdAddressScreen extends ConsumerWidget {
                       onPressed: () {
                         ref
                             .read(addressFieldControllerProvider.notifier)
-                            .updateAddress(nameKey, ref, selectedId);
+                            .updateAddress(nameKey, ref, widget.selectedId);
                       },
                       child: const Text(TextValue.submit),
                     ),

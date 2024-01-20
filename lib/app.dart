@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/firebase_services/cart_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
@@ -28,6 +29,11 @@ final userRepositoryProvider = Provider<UserRepository>((ref) {
 final productRepositoryProvider = Provider<ProductRepository>((ref) {
   return ProductRepository();
 });
+
+final cartRepositoryProvider = Provider<UserCartRepository>((ref) {
+  return UserCartRepository();
+});
+
 final productControllerProvider = StateNotifierProvider<ProductController, Map<String, List<Product>>>((ref) {
   return ProductController(ref.watch(productRepositoryProvider));
 });
@@ -43,7 +49,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       initialRoute: '/',

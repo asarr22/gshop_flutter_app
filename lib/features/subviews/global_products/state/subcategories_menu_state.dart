@@ -1,5 +1,8 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/category/subcategory_list.dart';
+import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 
 class SubcategoryState {
@@ -10,8 +13,7 @@ class SubcategoryState {
 
   // Method to update the selected subcategory
   SubcategoryState selectSubcategory(Subcategory subcategory) {
-    return SubcategoryState(
-        subcategories: subcategories, selectedSubcategory: subcategory);
+    return SubcategoryState(subcategories: subcategories, selectedSubcategory: subcategory);
   }
 }
 
@@ -24,10 +26,26 @@ class SubcategoryNotifier extends StateNotifier<SubcategoryState> {
   }
 }
 
-final subcategoryProvider =
-    StateNotifierProvider.autoDispose<SubcategoryNotifier, SubcategoryState>(
-        (ref) {
+final subcategoryProvider = StateNotifierProvider.autoDispose<SubcategoryNotifier, SubcategoryState>((ref) {
   // Provide the initial list of subcategories
+  // Method to get the list of subcategories from the category model
+  List<Subcategory> getCategoryListFromCategoryModel() {
+    CategoryModel categoryModel = CategoryModel();
+    final categoryList = categoryModel.getAllItems;
+    List<Subcategory> builtList = [];
+    for (var element in categoryList) {
+      builtList.add(Subcategory(id: element.id, name: element.title, codeName: element.codeName));
+    }
+    return builtList;
+  }
+
+  List<Subcategory> initialSubcategories(String type) {
+    switch (type) {
+      default:
+        return getCategoryListFromCategoryModel();
+    }
+  }
+
   return SubcategoryNotifier([
     Subcategory(id: 0, name: 'Tout', codeName: 'all'),
     Subcategory(

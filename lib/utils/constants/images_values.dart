@@ -7,10 +7,8 @@ class ImagesValue {
   static const String facebookLogo = "assets/logos/facebook.png";
 
   //StorySet
-  static const String emailSent =
-      "assets/images/authentication/email_verificatio.png";
-  static const String emailVerified =
-      "assets/images/authentication/email_success.png";
+  static const String emailSent = "assets/images/authentication/email_verificatio.png";
+  static const String emailVerified = "assets/images/authentication/email_success.png";
 
 //promos
   static const String promo1 = "assets/images/promo/promo1.png";
@@ -32,4 +30,6 @@ class ImagesValue {
   static const String monitorIcon = "assets/icons/categories/monitor.png";
   static const String watchIcon = "assets/icons/categories/watch.png";
   static const String airpodIcon = "assets/icons/categories/airpods.png";
+  static const String tvIcon = "assets/icons/categories/tv.png";
+  static const String applianceIcon = "assets/icons/categories/appliance.png";
 }

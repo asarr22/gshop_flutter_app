@@ -45,7 +45,7 @@ class GlobalRatingPage extends ConsumerWidget {
             // Global Rating Header
             GlobalRatingHeader(
               reviewsNumber: reviews.length,
-              onPressed: () => Get.to(() => AddReviewPage(productId)),
+              onPressed: () => Get.to(() => AddReviewPage(productId), transition: Transition.downToUp),
             ),
 
             const SizedBox(height: 10),

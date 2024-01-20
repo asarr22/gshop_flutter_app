@@ -1,18 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_gender_controller.dart';
+import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
+import 'package:gshopp_flutter/common/models/address/shipping_model.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_address_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
-final genderProvider = StateNotifierProvider<ChangeGenderController, String>((ref) => ChangeGenderController());
-
-class GenderSelect {
-  static void showPicker(BuildContext context, WidgetRef ref) {
+class CityZoneSelectionPopup {
+  static void showPicker(BuildContext context, WidgetRef ref,
+      {bool isCity = false, bool isZone = true, String userCity = ''}) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final appController = ref.watch(appControllerProvider);
+
+    List<dynamic> cities = appController['shippingFee'];
+    String? selectedCity = cities[0].name;
+
+    List<Zone> zones = [];
+    for (var item in cities) {
+      if (item.name == userCity) {
+        zones = item.zones;
+      }
+    }
+
+    // Make City Widget List
+    List<Center> cityList = [];
+    for (var city in cities) {
+      cityList.add(
+        Center(
+          child: Text(
+            city.name,
+            style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 2),
+          ),
+        ),
+      );
+    }
+
+    // Make Zone Widget List
+    List<Center> zoneList = [];
+    for (var zone in zones) {
+      zoneList.add(
+        Center(
+          child: Text(
+            zone.name,
+            style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 2),
+          ),
+        ),
+      );
+    }
+    String? selectedZone = zones.isEmpty ? "" : zones[0].name;
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -36,22 +75,17 @@ class GenderSelect {
                 child: CupertinoPicker(
                   backgroundColor: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
                   onSelectedItemChanged: (value) {
-                    ref.read(genderProvider.notifier).setValue(value == 0 ? 'Male' : 'Female');
+                    if (isCity) {
+                      selectedCity = cities[value].name;
+                    }
+                    if (isZone) {
+                      selectedZone = zones[value].name;
+                    }
                   },
                   itemExtent: 50.0,
                   children: [
-                    Center(
-                      child: Text(
-                        'Male',
-                        style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 2),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Female',
-                        style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 2),
-                      ),
-                    ),
+                    if (isCity) ...cityList,
+                    if (isZone) ...zoneList,
                   ],
                 ),
               ),
@@ -70,7 +104,14 @@ class GenderSelect {
                   ),
                   TextButton(
                     onPressed: () {
-                      ref.read(genderProvider.notifier).updateGender(ref);
+                      if (isCity) {
+                        ref.read(addressFieldControllerProvider.notifier).setCity(selectedCity!);
+                        Get.back();
+                      }
+                      if (isZone) {
+                        ref.read(addressFieldControllerProvider.notifier).setZone(selectedZone!);
+                        Get.back();
+                      }
                     },
                     child: Text(
                       TextValue.submit,

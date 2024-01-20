@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/features/shell/models/home.model/category_view_model.dart';
+import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/vertical_image_text_widget.dart';
 
 class HomeCategoryList extends StatelessWidget {

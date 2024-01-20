@@ -138,7 +138,7 @@ class VariantSelection extends StatelessWidget {
                                   child: Center(
                                       child: Text(
                                     size.size,
-                                    style: Theme.of(context).textTheme.labelLarge,
+                                    style: Theme.of(context).textTheme.labelLarge!.apply(color: Colors.black),
                                   )),
                                 ),
                               ),
