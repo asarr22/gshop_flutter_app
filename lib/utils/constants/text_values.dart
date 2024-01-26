@@ -152,11 +152,32 @@ class TextValue {
   static const String monitor = "Moniteur";
   static const String tv = "TV";
   static const String pc = "Ordinateur";
+  static const String laptop = "Ordinateur Portable";
+  static const String desktop = "Ordinateur Bureau";
+  static const String allInOne = "Tout En Un";
   static const String phone = "Téléphone";
   static const String gadget = "Gadget";
   static const String office = "Bureau";
   static const String appliance = "Electromenager";
   static const String software = "Logiciel";
+  static const String smartphone = "Smartphone";
+  static const String tablet = "Tablette";
+  static const String smartwatch = "Montre intelligente";
+  static const String earbuds = "Écouteurs Sans Fill";
+  static const String earphone = "Écouteur";
+  static const String powerbank = "Batterie externe";
+  static const String tvBox = "Boîte TV";
+  static const String projector = "Projecteur";
+  static const String operatingSystem = "Système d'exploitation";
+  static const String antivirus = "Antivirus";
+  static const String keyboard = "Clavier";
+  static const String mouse = "Souris";
+  static const String webcam = "Webcam";
+  static const String microphone = "Microphone";
+  static const String cable = "Câble";
+  static const String charger = "Chargeur";
+  static const String adapter = "Adaptateur";
+  static const String others = "Autres";
 
   // Profile Page
   static String editName = "Modifier le nom";

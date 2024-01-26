@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/models/category/category_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/vertical_image_text_widget.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/global_product_page.dart';
 
 class HomeCategoryList extends StatelessWidget {
   const HomeCategoryList({
@@ -20,6 +23,14 @@ class HomeCategoryList extends StatelessWidget {
             return VerticalImageText(
               title: categoryItem.title,
               image: categoryItem.image,
+              onTap: () {
+                Get.to(() => GlobalProductPage(
+                      pageTitle: categoryItem.title,
+                      query: FirebaseFirestore.instance
+                          .collection('Products')
+                          .where('category', isEqualTo: CategoryModel().getItemAt(index).codeName),
+                    ));
+              },
             );
           }),
     );

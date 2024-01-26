@@ -45,7 +45,8 @@ final favoriteRepositoryProvider = Provider<FavoriteRepository>((ref) {
   return FavoriteRepository();
 });
 
-final productControllerProvider = StateNotifierProvider<ProductController, Map<String, List<Product>?>>((ref) {
+final productControllerProvider =
+    StateNotifierProvider.autoDispose<ProductController, Map<String, List<Product>?>>((ref) {
   return ProductController(ref.watch(productRepositoryProvider));
 });
 
@@ -60,7 +61,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       initialRoute: '/',

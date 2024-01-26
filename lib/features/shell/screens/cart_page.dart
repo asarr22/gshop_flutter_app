@@ -175,7 +175,6 @@ class CartPage extends ConsumerWidget {
                           child: const Text(TextValue.checkout),
                         ),
                       ),
-                      const SizedBox(height: 120),
                     ],
                   ),
                 ),

@@ -52,6 +52,36 @@ class ProductRepository {
     }
   }
 
+  // Fetch Product By Custom Query
+  Future<List<Product>> getProductbyCustomQuery(int limit, Query<Map<String, dynamic>> query) async {
+    try {
+      final snapshot = await query.limit(limit).get();
+      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+  }
+
+  // Fetch Product By Double Filter
+  Future<List<Product>> getProductbyDoubleFilter(
+      int limit, Map<String, dynamic> filter, Map<String, dynamic> filter2) async {
+    try {
+      final snapshot =
+          await _db.collection('Products').where(filter.keys.first, isEqualTo: filter.values.first).limit(limit).get();
+      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+  }
+
   // Fetch a Single Product and Listen to Changes
 
   Stream<Product> getProductByID(String productID) {

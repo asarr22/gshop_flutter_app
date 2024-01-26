@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greeting
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/shell/widgets/search_container.dart';
 import 'package:gshopp_flutter/features/subviews/category_page/category_page.dart';
-import 'package:gshopp_flutter/features/subviews/global_products/global_product_screen.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/global_product_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
@@ -87,7 +88,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               children: [
                 IconButton(
                   onPressed: () {
-                    Get.to(() => const CartPage());
+                    Get.to(() => const CartPage(), transition: Transition.rightToLeftWithFade);
                   },
                   icon: Container(
                       height: 35,
@@ -159,19 +160,19 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
 
               SectionHeader(
                 title: TextValue.categories,
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CategoryPage())),
+                onTap: () => Get.to(() => const CategoryPage()),
               ),
               const SizedBox(height: 10),
               const HomeCategoryList(),
 
               const SizedBox(height: 20),
-              //Popular Profuct
+              //Popular Product
               SectionHeader(
                 title: TextValue.popular,
                 onTap: () => Get.to(
-                  () => const GlobalProductPage(
+                  () => GlobalProductPage(
                     pageTitle: TextValue.popular,
-                    filter: {'isPopular': true},
+                    query: FirebaseFirestore.instance.collection('Products').where('isPopular', isEqualTo: true),
                   ),
                 ),
               ),
@@ -198,9 +199,9 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               SectionHeader(
                 title: TextValue.newArrival,
                 onTap: () => Get.to(
-                  () => const GlobalProductPage(
+                  () => GlobalProductPage(
                     pageTitle: TextValue.newArrival,
-                    filter: {'isNew': true},
+                    query: FirebaseFirestore.instance.collection('Products').where('isNew', isEqualTo: true),
                   ),
                 ),
               ),

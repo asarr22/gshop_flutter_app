@@ -22,14 +22,14 @@ class ButtonCardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
-    return InkWell(
-      onTap: onTap,
-      child: RoundedContainer(
-        height: 70,
-        width: double.infinity,
-        padding: const EdgeInsets.all(10),
-        boxShadow: [ShadowStyle.tileListShadow],
-        backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
+    return RoundedContainer(
+      height: 70,
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      boxShadow: [ShadowStyle.tileListShadow],
+      backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
+      child: InkWell(
+        onTap: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

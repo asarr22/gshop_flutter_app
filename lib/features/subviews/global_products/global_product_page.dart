@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/widgets/global_product_list.dart';
@@ -7,9 +8,10 @@ import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class GlobalProductPage extends StatelessWidget {
-  const GlobalProductPage({super.key, required this.pageTitle, required this.filter});
+  const GlobalProductPage({super.key, required this.pageTitle, this.query});
   final String pageTitle;
-  final Map<String, dynamic> filter;
+
+  final Query<Map<String, dynamic>>? query;
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +42,21 @@ class GlobalProductPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          // Category Filter (Disabled for now)
-          const Visibility(
-            visible: false,
-            child: SubcategoriesMenu(),
-          ),
+        child: Column(
+          children: [
+            // Category Filter (Disabled for now)
+            const Visibility(
+              visible: false,
+              child: SubcategoriesMenu(),
+            ),
 
-          const SizedBox(height: 15),
+            const SizedBox(height: 15),
 
-          // List of Product
-          GlobalProductList(
-            filter: filter,
-          ),
-        ],
-      )),
+            // List of Product
+            GlobalProductList(query: query),
+          ],
+        ),
+      ),
     );
   }
 }
