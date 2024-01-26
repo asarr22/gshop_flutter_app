@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/common/firebase_services/cart_repository.dart';
+import 'package:gshopp_flutter/common/firebase_services/favorite_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/forget_password.dart';
@@ -26,6 +29,11 @@ final userRepositoryProvider = Provider<UserRepository>((ref) {
   // Pass the FirebaseAuthService instance to UserRepository
   return UserRepository(authService);
 });
+
+final userControllerProvider = StateNotifierProvider<UserController, UserModel>((ref) {
+  return UserController(ref.watch(userRepositoryProvider));
+});
+
 final productRepositoryProvider = Provider<ProductRepository>((ref) {
   return ProductRepository();
 });
@@ -33,8 +41,11 @@ final productRepositoryProvider = Provider<ProductRepository>((ref) {
 final cartRepositoryProvider = Provider<UserCartRepository>((ref) {
   return UserCartRepository();
 });
+final favoriteRepositoryProvider = Provider<FavoriteRepository>((ref) {
+  return FavoriteRepository();
+});
 
-final productControllerProvider = StateNotifierProvider<ProductController, Map<String, List<Product>>>((ref) {
+final productControllerProvider = StateNotifierProvider<ProductController, Map<String, List<Product>?>>((ref) {
   return ProductController(ref.watch(productRepositoryProvider));
 });
 

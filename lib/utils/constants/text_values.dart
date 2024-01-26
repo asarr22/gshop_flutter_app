@@ -2,7 +2,7 @@ class TextValue {
   TextValue._();
 
   //Manifest
-  static const String appName = 'G Tech';
+  static const String appName = 'G-TECH';
 
   //On Board
   static const String go = "Allez";
@@ -67,7 +67,8 @@ class TextValue {
   static const String homeTab = "Acceuil";
   static const String cartTab = "Panier";
   static const String favoriteTab = "Favori";
-  static const String accountTab = "Compte";
+  static const String accountTab = "Profile";
+  static const String categorieTab = "Categorie";
 
 // General
   static const String myAddresses = "Mes Adresses";
@@ -103,7 +104,9 @@ class TextValue {
   static const String noReviewsYet = "Pas encore d'avis";
   static const String addToCard = "Ajouter au Panier";
   static const String itemAddedToCart = "Le produit a été ajouté dans votre panier";
-  static const String itemRemovedfromCart = "Le produit a été retiré dans votre panier";
+  static const String itemAddedToFavorite = "Le produit a été ajouté dans votre favoris";
+  static const String itemRemovedfromCart = "Le produit a été retiré de votre panier";
+  static const String itemRemovedfromFavorite = "Le produit a été retiré de vos favoris";
   static const String total = "Total";
   static const String inStock = "Produit en Stock";
   static const String outOfStock = "En rupture de stock";
@@ -146,10 +149,14 @@ class TextValue {
   static const String accessories = "Accessoires";
   static const String headphone = "Ecouteurs";
   static const String watches = "Montres";
-  static const String monitor = "Moniteur/TV";
+  static const String monitor = "Moniteur";
+  static const String tv = "TV";
   static const String pc = "Ordinateur";
   static const String phone = "Téléphone";
+  static const String gadget = "Gadget";
+  static const String office = "Bureau";
   static const String appliance = "Electromenager";
+  static const String software = "Logiciel";
 
   // Profile Page
   static String editName = "Modifier le nom";

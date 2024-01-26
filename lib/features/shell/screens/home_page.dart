@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
+import 'package:gshopp_flutter/features/shell/screens/cart_page.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/category_menu.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/new_arrival_product_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/popular_item_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/promo_carousel.dart';
-import 'package:gshopp_flutter/common/widgets/texts/section_header.dart';
+import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/shell/widgets/search_container.dart';
@@ -15,7 +17,9 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -30,40 +34,95 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final cartCount = ref.watch(userCartControllerProvider).length;
 
     super.build(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 80,
-          title: Align(
-            alignment: Alignment.center,
-            child: Text(TextValue.appName,
-                style: TextStyle(
-                    color: isDarkMode ? Colors.white : Colors.black,
-                    fontFamily: 'Freight',
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900)),
-          ),
-          leading: IconButton(
-            onPressed: () {},
-            icon: Container(
-              height: 35,
-              width: 35,
-              decoration: BoxDecoration(
-                color: ColorPalette.primary.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const Icon(Icons.menu),
-            ),
-          ),
+          title: Text(TextValue.appName,
+              style: TextStyle(
+                  color: isDarkMode ? Colors.white : Colors.black,
+                  fontFamily: 'Freight',
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900)),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications),
-              color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-              iconSize: 35,
-            )
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                        color: ColorPalette.primary.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Icon(
+                        Iconsax.notification,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      )),
+                  color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                  iconSize: 25,
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: RoundedContainer(
+                      height: 20,
+                      width: 20,
+                      radius: 100,
+                      backgroundColor: ColorPalette.primary,
+                      child: Center(
+                        child: Text(
+                          cartCount.toString(),
+                          style: const TextStyle(color: Colors.white, fontSize: 10),
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => const CartPage());
+                  },
+                  icon: Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                        color: ColorPalette.primary.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Icon(
+                        Iconsax.shopping_cart,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      )),
+                  color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                  iconSize: 25,
+                ),
+                cartCount < 1
+                    ? const SizedBox()
+                    : Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: RoundedContainer(
+                          height: 20,
+                          width: 20,
+                          radius: 100,
+                          backgroundColor: ColorPalette.primary,
+                          child: Center(
+                            child: Text(
+                              cartCount.toString(),
+                              style: const TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                          ),
+                        ))
+              ],
+            ),
+            const SizedBox(width: 10),
           ],
         ),
         body: SingleChildScrollView(

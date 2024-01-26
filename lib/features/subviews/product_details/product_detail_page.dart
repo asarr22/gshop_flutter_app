@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/common/widgets/texts/section_header.dart';
+import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_controller.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/variant_controller.dart';
@@ -143,7 +143,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                   reviews.isEmpty && product.rating == 0
                                       ? TextValue.noReviewsYet
                                       : product.rating.toStringAsFixed(1),
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.black),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),

@@ -32,4 +32,8 @@ class ImagesValue {
   static const String airpodIcon = "assets/icons/categories/airpods.png";
   static const String tvIcon = "assets/icons/categories/tv.png";
   static const String applianceIcon = "assets/icons/categories/appliance.png";
+  static const String accessoriesIcon = "assets/icons/categories/accessories.png";
+  static const String softwareIcon = "assets/icons/categories/software.png";
+  static const String gadgetIcon = "assets/icons/categories/gadget.png";
+  static const String officeIcon = "assets/icons/categories/office.png";
 }

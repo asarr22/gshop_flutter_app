@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/models/product/user_cart_model.dart';
+import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
+import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/add_to_cart_state.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
@@ -27,6 +28,7 @@ class ProductDetailBottomBar extends ConsumerWidget {
     final selectedQuantityValue = ref.watch(quantityProvider);
     final selectedVariant = ref.watch(selectedVariantProvider);
     final cartRepository = ref.watch(cartRepositoryProvider);
+    final cartItems = ref.watch(userCartControllerProvider);
     bool isLoading = ref.watch(addToCartButtonStateProvider);
 
     final bool isSelectedVariantAvailable = selectedSize != null && selectedSize.stock > 0;
@@ -64,14 +66,29 @@ class ProductDetailBottomBar extends ConsumerWidget {
             color: selectedVariant.color,
             size: selectedSize.size);
 
-        await cartRepository.addItemToCart(cartItemModel);
+        // Check if item exists in cart
+
+        if (cartItems
+            .where((item) =>
+                item.productId == cartItemModel.productId &&
+                item.size == cartItemModel.size &&
+                item.color == cartItemModel.color)
+            .isNotEmpty) {
+          final existingItem = cartItems.firstWhere((item) =>
+              item.productId == cartItemModel.productId &&
+              item.size == cartItemModel.size &&
+              item.color == cartItemModel.color);
+
+          await cartRepository.mofidyItemQuantity(existingItem, existingItem.quantity + selectedQuantityValue);
+        } else {
+          await cartRepository.addItemToCart(cartItemModel);
+        }
 
         SnackBarPop.showSucessPopup(TextValue.itemAddedToCart);
         ref.read(addToCartButtonStateProvider.notifier).toggle();
       } else {
         SnackBarPop.showInfoPopup(TextValue.selectedItemIsNotAvailable);
         ref.read(addToCartButtonStateProvider.notifier).toggle();
-
         return;
       }
     }

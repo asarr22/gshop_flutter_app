@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_image_controller.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
@@ -11,20 +13,26 @@ import 'package:gshopp_flutter/utils/custom_widget/custom_app_bar.dart';
 import 'package:gshopp_flutter/utils/styles/circular_icon.dart';
 import 'package:gshopp_flutter/utils/styles/curved_edge_widget.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ProductDetailImage extends ConsumerWidget {
-  const ProductDetailImage({
-    super.key,
-    required this.product,
-  });
-
+class ProductDetailImage extends ConsumerStatefulWidget {
   final Product product;
 
+  const ProductDetailImage({super.key, required this.product});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProductDetailImage> createState() => _ProductDetailImageState();
+}
+
+class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
+  @override
+  Widget build(BuildContext context) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
     final selectedImage = ref.watch(productDetailImageControllerProvider);
+    final favoriteList = ref.watch(favoriteControllerProvider);
+    bool isAmoungFavorite = favoriteList.any((element) => element.id == widget.product.id);
+
     return CurvedEdgesWidget(
       child: Container(
         color: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
@@ -35,7 +43,7 @@ class ProductDetailImage extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(SizesValue.productImageRadius * 2),
                 child: Center(
-                  child: product.imageUrl.isEmpty
+                  child: widget.product.imageUrl.isEmpty
                       ? Shimmer.fromColors(
                           baseColor: ColorPalette.lightGrey,
                           highlightColor: ColorPalette.extraLightGray,
@@ -45,9 +53,9 @@ class ProductDetailImage extends ConsumerWidget {
                           ),
                         )
                       : Image.network(
-                          product.imageUrl[selectedImage].isEmpty
+                          widget.product.imageUrl[selectedImage].isEmpty
                               ? ImagesValue.monitorIcon
-                              : product.imageUrl[selectedImage],
+                              : widget.product.imageUrl[selectedImage],
                           loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
@@ -73,16 +81,16 @@ class ProductDetailImage extends ConsumerWidget {
                   height: 60,
                   child: Center(
                     child: ListView.builder(
-                      itemCount: product.imageUrl.length,
+                      itemCount: widget.product.imageUrl.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemBuilder: (_, index) {
-                        String imageUrl = product.imageUrl[index];
+                        String imageUrl = widget.product.imageUrl[index];
 
                         return Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
-                          child: product.imageUrl.isEmpty
+                          child: widget.product.imageUrl.isEmpty
                               ? Shimmer.fromColors(
                                   baseColor: ColorPalette.lightGrey,
                                   highlightColor: ColorPalette.extraLightGray,
@@ -114,7 +122,18 @@ class ProductDetailImage extends ConsumerWidget {
               showBackArrow: true,
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (isAmoungFavorite) {
+                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(widget.product.id);
+                      return;
+                    }
+                    final item = FavoriteItemModel(
+                        id: widget.product.id,
+                        title: widget.product.title,
+                        image: widget.product.imageUrl[selectedImage],
+                        price: widget.product.variants[0].size[0].price.toDouble());
+                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(item);
+                  },
                   icon: CircularIcon(
                     boxShadow: [
                       BoxShadow(
@@ -125,8 +144,12 @@ class ProductDetailImage extends ConsumerWidget {
                     ],
                     height: 40,
                     width: 40,
-                    icon: Icons.favorite,
-                    color: Colors.red,
+                    icon: isAmoungFavorite ? Iconsax.heart5 : Iconsax.heart,
+                    color: isAmoungFavorite
+                        ? Colors.red
+                        : isDarkMode
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 )
               ],

@@ -22,22 +22,23 @@ class VerticalImageText extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 8, 5, 0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 56,
-              width: 56,
+              height: 55,
+              width: 55,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
-                color: backgroundColor ??
-                    (isDarkMode ? Colors.white : Colors.white),
+                color: backgroundColor ?? (isDarkMode ? Colors.white : Colors.white),
                 borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
+                boxShadow: const [
+                  // BoxShadow(
+                  //   color: Colors.grey.withOpacity(0.5),
+                  //   spreadRadius: 5,
+                  //   blurRadius: 10,
+                  //   offset: const Offset(0, 3), // changes position of shadow
+                  // ),
                 ],
               ),
               child: Image(
@@ -47,11 +48,15 @@ class VerticalImageText extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             SizedBox(
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.labelMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              width: 72,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.labelLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

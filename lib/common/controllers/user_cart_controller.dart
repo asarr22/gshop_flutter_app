@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/firebase_services/cart_repository.dart';
-import 'package:gshopp_flutter/common/models/product/user_cart_model.dart';
+import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 

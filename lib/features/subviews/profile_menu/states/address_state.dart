@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
-import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
@@ -13,15 +12,12 @@ class UserAddressState {
   final String? selectedAddressId; // You can use another unique identifier
   UserAddressState({required this.addresses, this.selectedAddressId});
   // Add a method to get the default address
-  UserAddress? get defaultAddress =>
-      addresses.firstWhereOrNull((address) => address.isDefault);
+  UserAddress? get defaultAddress => addresses.firstWhereOrNull((address) => address.isDefault);
 }
 
 // Create a StateNotifier to manage the state
 class UserAddressNotifier extends StateNotifier<UserAddressState> {
-  UserAddressNotifier(this.ref)
-      : super(UserAddressState(
-            addresses: ref.watch(userControllerProvider).address));
+  UserAddressNotifier(this.ref) : super(UserAddressState(addresses: ref.watch(userControllerProvider).address));
   final Ref ref;
 
   void setAsDefault(String addressId) {
@@ -68,10 +64,7 @@ class UserAddressNotifier extends StateNotifier<UserAddressState> {
       final userRepository = ref.read(userRepositoryProvider);
       final userAddresses = state.addresses;
 
-      Map<String, dynamic> addresses = {
-        'Address':
-            userAddresses.map((userAddress) => userAddress.toJson()).toList()
-      };
+      Map<String, dynamic> addresses = {'Address': userAddresses.map((userAddress) => userAddress.toJson()).toList()};
       await userRepository.updateSingleField(addresses);
 
       // Update the Provider User Value
@@ -82,8 +75,7 @@ class UserAddressNotifier extends StateNotifier<UserAddressState> {
       PFullScreenLoader.stopLoading();
 
       // Show Success Message
-      SnackBarPop.showSucessPopup(TextValue.defaultAddressSetSuccessMessage,
-          duration: 4);
+      SnackBarPop.showSucessPopup(TextValue.defaultAddressSetSuccessMessage, duration: 4);
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
       PFullScreenLoader.stopLoading();
@@ -91,7 +83,6 @@ class UserAddressNotifier extends StateNotifier<UserAddressState> {
   }
 }
 
-final userAddressProvider =
-    StateNotifierProvider<UserAddressNotifier, UserAddressState>((ref) {
+final userAddressProvider = StateNotifierProvider<UserAddressNotifier, UserAddressState>((ref) {
   return UserAddressNotifier(ref);
 });

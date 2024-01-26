@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
@@ -10,8 +13,9 @@ import 'package:gshopp_flutter/utils/styles/circular_icon.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/styles/shadow.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
-class ProductCardVertical extends StatelessWidget {
+class ProductCardVertical extends ConsumerWidget {
   const ProductCardVertical({
     super.key,
     required this.product,
@@ -20,8 +24,10 @@ class ProductCardVertical extends StatelessWidget {
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final favoriteList = ref.watch(favoriteControllerProvider);
+    bool isAmoungFavorite = favoriteList.any((element) => element.id == product.id);
 
     return GestureDetector(
       onTap: () {
@@ -75,23 +81,33 @@ class ProductCardVertical extends StatelessWidget {
                       ),
                     ),
                   )),
-              const Positioned(
+              Positioned(
                 top: 0,
                 right: 0,
-                child: CircularIcon(
-                  icon: Icons.favorite,
-                  color: Colors.red,
-                  backgroundColor: ColorPalette.white,
-                  size: 18,
-                  height: 33,
-                  width: 33,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey, //New
-                        blurRadius: 8.0,
-                        spreadRadius: -2,
-                        offset: Offset(1, 1))
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    if (isAmoungFavorite) {
+                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(product.id);
+                      return;
+                    }
+                    final item = FavoriteItemModel(
+                        id: product.id,
+                        title: product.title,
+                        image: product.imageUrl[0],
+                        price: product.variants[0].size[0].price.toDouble());
+                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(item);
+                  },
+                  child: CircularIcon(
+                    icon: isAmoungFavorite ? Iconsax.heart5 : Iconsax.heart,
+                    color: isAmoungFavorite ? Colors.red : Colors.black,
+                    backgroundColor: ColorPalette.white,
+                    size: 18,
+                    height: 33,
+                    width: 33,
+                    boxShadow: const [
+                      BoxShadow(color: Colors.grey, blurRadius: 8.0, spreadRadius: -2, offset: Offset(1, 1))
+                    ],
+                  ),
                 ),
               ),
               Positioned(

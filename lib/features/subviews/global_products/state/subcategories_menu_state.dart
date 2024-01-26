@@ -2,7 +2,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/category/subcategory_list.dart';
-import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
+import 'package:gshopp_flutter/common/models/category/category_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 
 class SubcategoryState {

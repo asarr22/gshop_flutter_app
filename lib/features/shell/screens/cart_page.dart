@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/cart_item_card.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/purchase_info.dart';
-import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
+import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
 class CartPage extends ConsumerWidget {
   const CartPage({super.key});
@@ -39,7 +41,10 @@ class CartPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Iconsax.arrow_left_24),
+            onPressed: () => Get.back(),
+          ),
           title: Align(
             alignment: Alignment.center,
             child: Text(
@@ -47,6 +52,7 @@ class CartPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
+          actions: const [SizedBox(width: 40)],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -69,7 +75,7 @@ class CartPage extends ConsumerWidget {
 
                 cartItems.isNotEmpty
                     ? Container(
-                        constraints: const BoxConstraints(minHeight: 360),
+                        constraints: const BoxConstraints(minHeight: 300),
                         width: double.infinity,
                         child: ListView.builder(
                             itemCount: cartItems.length,

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:gshopp_flutter/common/widgets/texts/section_header.dart';
-import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
+import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_birthday_date.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_password.dart';
@@ -65,9 +65,8 @@ class EditAccountPage extends ConsumerWidget {
                       child: Container(
                           height: 30,
                           width: 30,
-                          decoration: BoxDecoration(
-                              color: ColorPalette.primary,
-                              borderRadius: BorderRadius.circular(20)),
+                          decoration:
+                              BoxDecoration(color: ColorPalette.primary, borderRadius: BorderRadius.circular(20)),
                           child: const Icon(
                             Icons.edit,
                             size: 18,
@@ -109,9 +108,7 @@ class EditAccountPage extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             PEditProfileMenu(
-                onPressed: () => Get.to(() => const EditNameScreen()),
-                title: TextValue.name,
-                value: user.fullName),
+                onPressed: () => Get.to(() => const EditNameScreen()), title: TextValue.name, value: user.fullName),
             PEditProfileMenu(
                 onPressed: () {
                   Get.to(() => const ChangePhoneNumberScreen());
@@ -129,9 +126,7 @@ class EditAccountPage extends ConsumerWidget {
                   BirthDateSelection.showPicker(context, ref);
                 },
                 title: TextValue.dateOFBirth,
-                value: user.birthday.isEmpty
-                    ? TextValue.undefined
-                    : user.birthday),
+                value: user.birthday.isEmpty ? TextValue.undefined : user.birthday),
             const SizedBox(height: 50),
           ],
         ),

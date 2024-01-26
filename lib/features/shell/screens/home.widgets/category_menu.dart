@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/features/shell/models/category_view_model.dart';
+import 'package:gshopp_flutter/common/models/category/category_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/vertical_image_text_widget.dart';
 
 class HomeCategoryList extends StatelessWidget {
@@ -10,7 +10,7 @@ class HomeCategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 95,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,

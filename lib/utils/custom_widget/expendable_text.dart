@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/state/expendable_text_controller.dart';
+import 'package:gshopp_flutter/common/controllers/expendable_text_controller.dart';
 
 final expandControllerProvider = StateNotifierProvider<ExpandController, bool>((ref) => ExpandController());
 

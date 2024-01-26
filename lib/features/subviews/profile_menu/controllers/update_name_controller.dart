@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
@@ -50,7 +49,10 @@ class NameFieldController extends StateNotifier<Map<String, TextEditingControlle
       final userController = ref.read(userControllerProvider.notifier);
       final userRepository = ref.read(userRepositoryProvider);
 
-      Map<String, dynamic> name = {'FirstName': state['firstName']!.text.trim(), 'LastName': state['lastName']!.text.trim()};
+      Map<String, dynamic> name = {
+        'FirstName': state['firstName']!.text.trim(),
+        'LastName': state['lastName']!.text.trim()
+      };
       await userRepository.updateSingleField(name);
 
       // Update the Provider User Value

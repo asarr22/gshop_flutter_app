@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
-import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
+import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,10 +53,8 @@ class UserController extends StateNotifier<UserModel> {
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
       if (userCredentials != null) {
-        final nameParts =
-            UserModel.nameParts(userCredentials.user!.displayName ?? '');
-        final username =
-            UserModel.generateUsername(userCredentials.user!.displayName ?? '');
+        final nameParts = UserModel.nameParts(userCredentials.user!.displayName ?? '');
+        final username = UserModel.generateUsername(userCredentials.user!.displayName ?? '');
 
         final user = UserModel(
           id: userCredentials.user!.uid,
@@ -82,15 +80,11 @@ class UserController extends StateNotifier<UserModel> {
   // Upload user Image
   uploadProfileImage(WidgetRef ref) async {
     try {
-      final image = await ImagePicker().pickImage(
-          source: ImageSource.gallery,
-          imageQuality: 70,
-          maxHeight: 1024,
-          maxWidth: 1024);
+      final image =
+          await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70, maxHeight: 1024, maxWidth: 1024);
       final userController = ref.read(userControllerProvider.notifier);
       if (image != null) {
-        final imgUrl =
-            await userRepository.uploadImage("Users/Images/Profile/", image);
+        final imgUrl = await userRepository.uploadImage("Users/Images/Profile/", image);
 
         //Update User Image Record
         Map<String, dynamic> json = {'ProfilePicture': imgUrl};
