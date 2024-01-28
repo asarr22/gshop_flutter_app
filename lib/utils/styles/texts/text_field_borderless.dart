@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/utils/styles/borderless_text_field_decoration.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
 class PTextField extends StatelessWidget {
@@ -49,57 +50,14 @@ class PTextField extends StatelessWidget {
                   cursorColor: ColorPalette.primary,
                   obscureText: obscureText,
                   style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: InputDecoration(
-                    enabled: isEnabled,
-                    suffixIcon: suffixicon,
-                    fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(15.0),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                  ),
+                  decoration: TextFieldStyles.borderless(isDarkMode),
                 )
               : TextField(
                   maxLines: maxLines,
                   controller: textEditingController,
                   cursorColor: ColorPalette.primary,
                   style: Theme.of(context).textTheme.bodyLarge,
-                  decoration: InputDecoration(
-                    enabled: isEnabled,
-                    fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(15.0),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                  ),
+                  decoration: TextFieldStyles.borderless(isDarkMode),
                 ),
         ),
       ],

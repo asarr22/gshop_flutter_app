@@ -16,6 +16,14 @@ class ProductController extends StateNotifier<Map<String, List<Product>?>> {
     initHomeScreenProducts(4);
   }
 
+  // Disposing regular
+  // ignore: must_call_super, annotate_overrides
+  void dispose() {
+    state.forEach((key, value) {
+      if (key == 'regular') value?.clear();
+    });
+  }
+
   Future<void> initHomeScreenProducts(int limit) async {
     await fetchProductWithSingleFitler(limit, {'isPopular': true});
     await fetchProductWithSingleFitler(limit, {'isNew': true});

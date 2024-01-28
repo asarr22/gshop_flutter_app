@@ -29,6 +29,24 @@ class ProductCardVertical extends ConsumerWidget {
     final favoriteList = ref.watch(favoriteControllerProvider);
     bool isAmoungFavorite = favoriteList.any((element) => element.id == product.id);
 
+    getColorsWidgets() {
+      List<Widget> widgets = [];
+      for (var varinat in product.variants) {
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: Formatter.hexToColor(varinat.color),
+            shape: BoxShape.circle,
+          ),
+        );
+      }
+      return widgets;
+    }
+
+    // ignore: unused_local_variable
+    final colorList = getColorsWidgets();
+
     return GestureDetector(
       onTap: () {
         Get.to(() => ProductDetailPage(product.id),

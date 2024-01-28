@@ -4,9 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/product_card_vertical.dart';
+import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/shimmer/product_card_shimmer.dart';
+import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
 class GlobalProductList extends ConsumerStatefulWidget {
   const GlobalProductList({super.key, required this.query});
@@ -20,6 +23,7 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
   @override
   void initState() {
     super.initState();
+    ref.read(productControllerProvider.notifier).dispose();
     ref.read(productControllerProvider.notifier).fetchProductWithCustomQuery(20, widget.query!);
   }
 
@@ -31,8 +35,26 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
     // Widget
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-      child: productList == null || productList.isEmpty
-          ? const Center(child: Text(TextValue.noItem))
+      child: productList != null && productList.isEmpty
+          ? SizedBox(
+              height: HelperFunctions.screenHeight(context) - 100,
+              width: double.infinity,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Iconsax.document,
+                    color: ColorPalette.lightGrey,
+                    size: 200,
+                  ),
+                  Text(
+                    TextValue.noItem,
+                    style: Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.lightGrey),
+                  ),
+                ],
+              )))
           : GridView.builder(
               itemCount: isLoading ? 4 : productList.length,
               shrinkWrap: true,
@@ -45,7 +67,7 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
               ),
               itemBuilder: (_, index) {
                 if (isLoading) {
-                  return const ProductCardShimmer(); // Shimmer effect during loading
+                  return const ProductCardShimmer();
                 } else {
                   Product product = productList[index];
                   return ProductCardVertical(

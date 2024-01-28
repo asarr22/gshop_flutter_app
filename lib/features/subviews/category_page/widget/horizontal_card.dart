@@ -25,7 +25,7 @@ class HorizontalCategoryCard extends StatelessWidget {
         child: RoundedContainer(
           height: 100,
           width: double.infinity,
-          backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
+          backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),

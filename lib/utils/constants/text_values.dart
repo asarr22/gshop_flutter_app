@@ -75,11 +75,15 @@ class TextValue {
   static const String tContinue = "Continuer";
   static const String submit = "Soumettre";
   static const String add = "Ajouter";
+  static const String apply = "Appliquer";
+  static const String clear = "Effacer";
   static const String remove = "Supprimer";
   static const String ok = "OK";
   static const String cancel = "Annuler";
   static const String greetings = "Salut, Bienvenue 👋";
   static const String search = "Rechercher";
+  static const String from = "De";
+  static const String to = "à";
   static const String categories = "Categories";
   static const String popular = "Populaires";
   static const String seeAll = "Voir tout";
@@ -178,6 +182,13 @@ class TextValue {
   static const String charger = "Chargeur";
   static const String adapter = "Adaptateur";
   static const String others = "Autres";
+
+  // Filter page
+  static const String filter = "Filtre";
+  static const String priceRange = "Interval de Prix ";
+  static const String discount = "Remise";
+  static const String brand = "Marque";
+  static const String clientRating = "Evaluation client";
 
   // Profile Page
   static String editName = "Modifier le nom";

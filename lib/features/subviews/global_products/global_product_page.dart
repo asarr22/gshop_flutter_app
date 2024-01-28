@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/filter/filter_page.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/widgets/global_product_list.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/widgets/subcategories_menu.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
@@ -15,6 +16,7 @@ class GlobalProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HelperFunctions.mainQueryHandler = query!;
     bool isDarkMode = HelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +39,7 @@ class GlobalProductPage extends StatelessWidget {
               Iconsax.filter,
               color: isDarkMode ? ColorPalette.onPrimaryDark : ColorPalette.onPrimaryLight,
             ),
-            onPressed: () => Get.back(),
+            onPressed: () => Get.to(() => ProductFilterPage(query), transition: Transition.downToUp),
           ),
         ],
       ),
@@ -53,7 +55,7 @@ class GlobalProductPage extends StatelessWidget {
             const SizedBox(height: 15),
 
             // List of Product
-            GlobalProductList(query: query),
+            GlobalProductList(query: HelperFunctions.mainQueryHandler),
           ],
         ),
       ),

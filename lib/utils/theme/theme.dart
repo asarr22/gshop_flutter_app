@@ -13,6 +13,10 @@ class TAppTheme {
     useMaterial3: true,
     fontFamily: 'Roboto',
     brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(
+      primary: ColorPalette.primaryLight,
+      secondary: ColorPalette.secondary,
+    ),
     primaryColor: ColorPalette.primaryLight,
     scaffoldBackgroundColor: const Color(0xFFFFFBFF),
     textTheme: TTextTheme.lightTextTheme,
@@ -27,6 +31,10 @@ class TAppTheme {
     useMaterial3: true,
     fontFamily: 'Roboto',
     brightness: Brightness.dark,
+    colorScheme: const ColorScheme.dark(
+      primary: ColorPalette.primaryDark,
+      secondary: ColorPalette.secondary,
+    ),
     primaryColor: ColorPalette.primaryDark,
     scaffoldBackgroundColor: const Color(0xFF1F1B16),
     textTheme: TTextTheme.darkTextTheme,
