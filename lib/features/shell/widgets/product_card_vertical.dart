@@ -31,20 +31,23 @@ class ProductCardVertical extends ConsumerWidget {
 
     getColorsWidgets() {
       List<Widget> widgets = [];
-      for (var varinat in product.variants) {
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            color: Formatter.hexToColor(varinat.color),
-            shape: BoxShape.circle,
+
+      for (var variant in product.variants) {
+        widgets.add(
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: Formatter.hexToColor(variant.color),
+              shape: BoxShape.circle,
+            ),
           ),
         );
       }
+
       return widgets;
     }
 
-    // ignore: unused_local_variable
     final colorList = getColorsWidgets();
 
     return GestureDetector(
@@ -157,32 +160,7 @@ class ProductCardVertical extends ConsumerWidget {
                           SizedBox(
                             height: 10,
                             child: Row(
-                              children: [
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.green,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.red,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.blue,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ],
+                              children: colorList,
                             ),
                           ),
                         ],
