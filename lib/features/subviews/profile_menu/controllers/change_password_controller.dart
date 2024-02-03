@@ -26,7 +26,7 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
 
   // Change Password
   Future<void> changeUserPassword(GlobalKey<FormState> nameKey) async {
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
     try {
       // Start Loading
       PFullScreenLoader.openLoadingDialog(Get.context!);

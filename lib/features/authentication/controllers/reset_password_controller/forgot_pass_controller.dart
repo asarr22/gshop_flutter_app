@@ -14,7 +14,7 @@ class ForgotPasswordController extends StateNotifier<TextEditingController> {
   ForgotPasswordController(this.ref) : super(TextEditingController());
 
   void sendPasswordResetLink(BuildContext context, GlobalKey<FormState> validationKey) async {
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
 
     try {
       //Start Loading
@@ -47,7 +47,7 @@ class ForgotPasswordController extends StateNotifier<TextEditingController> {
   }
 
   void resendPasswordResetLink(BuildContext context) async {
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
 
     try {
       // Start Loading

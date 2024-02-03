@@ -21,7 +21,7 @@ class VerifyEmailController extends StateNotifier<bool> {
 
   void sendEmailVerification() async {
     try {
-      final authServices = ref.read(firebaseAuthService);
+      final authServices = ref.read(firebaseAuthServiceProvider);
       await authServices.sendEmailVerification();
       SnackBarPop.showInfoPopup(TextValue.confirmEmailSent);
     } catch (e) {

@@ -40,7 +40,7 @@ class SignUpController extends StateNotifier<SignUpInfo> {
         );
 
   void signup(SignUpInfo signInfo, context, controllers) async {
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
 
     final isConnected = await NetworkManager.instance.isConnected();
     try {

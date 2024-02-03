@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/subviews/model/ratings_model.dart';
 import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
@@ -53,16 +54,22 @@ class ProductRepository {
   }
 
   // Fetch Product By Custom Query
-  Future<List<Product>> getProductbyCustomQuery(int limit, Query<Map<String, dynamic>> query) async {
+  Future<QueryResult> getProductbyCustomQuery(int limit, Query<Map<String, dynamic>> query,
+      {DocumentSnapshot? startAfter}) async {
     try {
-      final snapshot = await query.limit(limit).get();
-      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+      Query modifiedQuery = query.limit(limit);
+      if (startAfter != null) {
+        modifiedQuery = modifiedQuery.startAfterDocument(startAfter);
+      }
+      final snapshot = await modifiedQuery.get();
+      final products =
+          snapshot.docs.map((doc) => Product.fromSnapshot(doc as DocumentSnapshot<Map<String, dynamic>>)).toList();
+      final bool hasMore = products.length == limit; // Assuming if products count < limit, there are no more products
+      final DocumentSnapshot? lastDocument = snapshot.docs.isNotEmpty ? snapshot.docs.last : null;
+
+      return QueryResult(products, lastDocument, hasMore);
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw const TFormatException();
-    } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
     }
   }
 
@@ -79,6 +86,8 @@ class ProductRepository {
       throw const TFormatException();
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Error : ${e.toString()}';
     }
   }
 
@@ -147,6 +156,7 @@ class ProductRepository {
 
       // Update Product Rating
       await _db.collection('Products').doc(productID).update({'rating': newRating});
+      await _db.collection('Products').doc(productID).update({'intRating': newRating.toInt()});
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -178,6 +188,29 @@ class ProductRepository {
   Future<List<Product>> getNewProducts() async {
     try {
       final snapshot = await _db.collection('Products').where('isPopular', isEqualTo: true).get();
+      return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Error : ${e.toString()}';
+    }
+  }
+
+  // Search Products
+  Future<List<Product>> searchProducts(String keyword, int limit) async {
+    try {
+      keyword = keyword.toLowerCase();
+      var tags = keyword.split(' ');
+      final snapshot = await _db
+          .collection('Products')
+          .where(Filter.or(Filter('tags', arrayContainsAny: tags),
+              Filter("brand", isEqualTo: keyword.substring(0, 1).toUpperCase() + keyword.substring(1))))
+          .limit(limit)
+          .get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;

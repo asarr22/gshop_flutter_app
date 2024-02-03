@@ -16,39 +16,36 @@ import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
+import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final firebaseAuthService = Provider<FirebaseAuthService>((ref) {
+final firebaseAuthServiceProvider = Provider<FirebaseAuthService>((ref) {
   ref.watch(appControllerProvider);
 
   final prefs = ref.watch(sharedPreferencesProvider);
   return FirebaseAuthService(prefs);
 });
 
-class FirebaseAuthService extends GetxController {
-  static FirebaseAuthService get instance => Get.find();
-
+class FirebaseAuthService {
   final SharedPreferences prefs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  FirebaseAuthService(this.prefs);
   User? get authUser => _auth.currentUser;
 
-  @override
-  void onReady() {
-    // Remove the native splash screen
+  Future<void> initialSetup() async {
     FlutterNativeSplash.remove();
-    // Redirect to the appropriate screch
-    screenRedirect();
+    await screenRedirect();
   }
-
-  FirebaseAuthService(this.prefs);
 
   screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
-        Get.offAll(() => const AppShell());
+        HelperFunctions.initialRoute = () => const AppShell();
       } else {
+        HelperFunctions.initialRoute = () => const AppShell();
+
         Get.offAll(() => VerifyEmailPage(
               email: _auth.currentUser?.email,
             ));

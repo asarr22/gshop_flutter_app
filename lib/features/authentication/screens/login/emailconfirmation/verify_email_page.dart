@@ -16,7 +16,7 @@ class VerifyEmailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
     final verifyEmailController = ref.watch(verifyEmailControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(

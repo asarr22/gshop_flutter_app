@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/filter/widgets/price_range_slider.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/utils/constants/global_value.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
@@ -182,7 +183,13 @@ class _ProductFilterPageState extends ConsumerState<ProductFilterPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  ref.read(productControllerProvider.notifier).fetchProductWithCustomQuery(20, buildFilteredQuery(ref));
+                  // Dispose the previous query
+                  ref.read(productControllerProvider.notifier).dispose();
+                  // Fetch the filtered products
+                  ref
+                      .read(productControllerProvider.notifier)
+                      .fetchProductWithCustomQuery(GlobalValue.defautQueryLimit, buildFilteredQuery(ref));
+                  // Close the filter page
                   Get.back();
                 },
                 child: const Text(TextValue.apply),
@@ -217,7 +224,7 @@ class _ProductFilterPageState extends ConsumerState<ProductFilterPage> {
     if (selectedRating != null) {
       query = query.where('intRating', isEqualTo: selectedRating);
     }
-
+    HelperFunctions.filterQueryHandler = query;
     return query;
   }
 }

@@ -8,6 +8,7 @@ import 'package:gshopp_flutter/features/shell/screens/home.widgets/category_menu
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/new_arrival_product_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/popular_item_section.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/promo_carousel.dart';
+import 'package:gshopp_flutter/features/subviews/search_page/search_page.dart';
 import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
@@ -140,9 +141,13 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               ),
 
               // Search Bar
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
-                child: SearchContainer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+                child: SearchContainer(
+                  onTap: () {
+                    Get.to(() => const SearchPage());
+                  },
+                ),
               ),
 
               const SizedBox(height: 20),

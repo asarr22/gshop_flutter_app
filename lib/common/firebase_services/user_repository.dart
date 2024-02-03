@@ -14,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   // Here, we get the FirebaseAuthService from the ref
-  final authService = ref.watch(firebaseAuthService);
+  final authService = ref.watch(firebaseAuthServiceProvider);
   return UserRepository(authService);
 });
 

@@ -17,6 +17,7 @@ class Product {
   final String category;
   final String subCategory;
   final String sellerID;
+  List<String>? tags;
 
   int get price {
     return variants[0].size[0].price;
@@ -39,6 +40,7 @@ class Product {
     required this.intRating,
     required this.subCategory,
     required this.sellerID,
+    this.tags,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -58,7 +60,8 @@ class Product {
       'category': category,
       'subCategory': subCategory,
       'intRating': intRating,
-      'sellerID': sellerID
+      'sellerID': sellerID,
+      'tags': tags
     };
   }
 
@@ -81,29 +84,30 @@ class Product {
       subCategory: json['subCategory'],
       sellerID: json['sellerID'],
       intRating: json['intRating'],
+      tags: List<String>.from(json['tags']),
     );
   }
 
   factory Product.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     int intRate = snapshot['intRating'].toInt();
     return Product(
-      id: snapshot['id'],
-      title: snapshot['title'],
-      description: snapshot['description'],
-      imageUrl: List<String>.from(snapshot['imageUrl']),
-      discountValue: snapshot['discountValue'],
-      brand: snapshot['brand'],
-      isPopular: snapshot['isPopular'],
-      variants: (snapshot['variants'] as List).map((v) => Variant.fromSnapshot(v)).toList(),
-      totalStock: (snapshot['totalStock']),
-      rating: snapshot['rating'],
-      isNew: snapshot['isNew'],
-      publishDate: snapshot['publishDate'],
-      category: snapshot['category'],
-      subCategory: snapshot['subCategory'],
-      sellerID: snapshot['sellerID'],
-      intRating: intRate,
-    );
+        id: snapshot['id'],
+        title: snapshot['title'],
+        description: snapshot['description'],
+        imageUrl: List<String>.from(snapshot['imageUrl']),
+        discountValue: snapshot['discountValue'],
+        brand: snapshot['brand'],
+        isPopular: snapshot['isPopular'],
+        variants: (snapshot['variants'] as List).map((v) => Variant.fromSnapshot(v)).toList(),
+        totalStock: (snapshot['totalStock']),
+        rating: snapshot['rating'],
+        isNew: snapshot['isNew'],
+        publishDate: snapshot['publishDate'],
+        category: snapshot['category'],
+        subCategory: snapshot['subCategory'],
+        sellerID: snapshot['sellerID'],
+        intRating: intRate,
+        tags: List<String>.from(snapshot['tags']));
   }
 
   static Product empty() => Product(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/features/authentication/screens/onboarding_screen.dart';
 
 class HelperFunctions {
   HelperFunctions._();
@@ -17,6 +18,8 @@ class HelperFunctions {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
+  static Widget Function() initialRoute = () => const OnBoardingPage();
+
   static BuildContext? currentContext;
 
   static BuildContext? loadingContext;
@@ -27,4 +30,6 @@ class HelperFunctions {
   );
 
   static Query<Map<String, dynamic>> mainQueryHandler = FirebaseFirestore.instance.collection('Products');
+
+  static Query<Map<String, dynamic>>? filterQueryHandler;
 }

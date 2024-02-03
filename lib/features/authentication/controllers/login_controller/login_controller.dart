@@ -13,7 +13,7 @@ class LoginController extends StateNotifier<LoginInfo> {
   /// -- Email and Password SignIn
   void signWithEmailAndPassword(LoginInfo loginInfo, BuildContext context, controller) async {
     try {
-      final authService = ref.watch(firebaseAuthService);
+      final authService = ref.watch(firebaseAuthServiceProvider);
 
       // Start Loading
       PFullScreenLoader.openLoadingDialog(context);

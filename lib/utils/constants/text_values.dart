@@ -140,6 +140,9 @@ class TextValue {
   static const String notificationsDescription = "Liste des notifications";
   static const String settings = "Paramètres";
   static const String settingsDescription = "Personnaliser l'application";
+  static const String theme = 'Thème';
+  static const String darkTheme = 'Thème sombre';
+  static const String lightTheme = 'Thème clair';
   static const String errorSavingProfileInfoMessage =
       "Une erreur s'est produite lors de l'enregistrement de vos informations. Vous pouvez réenregistrer vos données à partir des paramètres de profil";
   static const String somethingWentWrongMessage = "Quelque chose s'est mal passé. Veuillez réessayer";
@@ -189,6 +192,9 @@ class TextValue {
   static const String discount = "Remise";
   static const String brand = "Marque";
   static const String clientRating = "Evaluation client";
+  static const String reset = "Réinitialiser";
+  static const String searchResultFor = 'Résultat de la recherche pour';
+  static const String noResultFound = 'Aucun résultat trouvé';
 
   // Profile Page
   static String editName = "Modifier le nom";

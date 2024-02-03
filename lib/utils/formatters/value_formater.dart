@@ -32,4 +32,8 @@ class Formatter {
   static Color hexToColor(String hexString) {
     return Color(int.parse(hexString.replaceFirst('#', '0xFF')));
   }
+
+  static String capitalizeFirstLetter(String text) {
+    return '${text[0].toUpperCase()}${text.substring(1)}';
+  }
 }

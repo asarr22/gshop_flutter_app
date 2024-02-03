@@ -6,8 +6,7 @@ import 'package:gshopp_flutter/features/shell/widgets/circular_container_of_caro
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 
 final carouselIndicatorProvider =
-    StateNotifierProvider<CarousleIndicatorControler, int>(
-        (ref) => CarousleIndicatorControler());
+    StateNotifierProvider<CarousleIndicatorControler, int>((ref) => CarousleIndicatorControler());
 
 class PromoCarousel extends ConsumerWidget {
   const PromoCarousel({
@@ -27,10 +26,13 @@ class PromoCarousel extends ConsumerWidget {
           options: CarouselOptions(
               viewportFraction: 1,
               aspectRatio: 2,
-              onPageChanged: (index, _) => ref
-                  .read(carouselIndicatorProvider.notifier)
-                  .updateIndicator(index)),
-          items: banners.map((url) => RoundedImage(imgUrl: url)).toList(),
+              onPageChanged: (index, _) => ref.read(carouselIndicatorProvider.notifier).updateIndicator(index)),
+          items: banners
+              .map((url) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: RoundedImage(imgUrl: url),
+                  ))
+              .toList(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,9 +42,7 @@ class PromoCarousel extends ConsumerWidget {
                   width: 5,
                   height: 5,
                   margin: const EdgeInsets.fromLTRB(0, 0, 5, 10),
-                  backgroundColor: indicatorValue == i
-                      ? Colors.white
-                      : Colors.grey.withOpacity(0.7)),
+                  backgroundColor: indicatorValue == i ? Colors.white : Colors.grey.withOpacity(0.7)),
           ],
         ),
       ],

@@ -11,7 +11,7 @@ class EmailSuccessScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authService = ref.watch(firebaseAuthService);
+    final authService = ref.watch(firebaseAuthServiceProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

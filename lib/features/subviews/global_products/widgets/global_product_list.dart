@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
@@ -12,20 +11,14 @@ import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class GlobalProductList extends ConsumerStatefulWidget {
-  const GlobalProductList({super.key, required this.query});
-  final Query<Map<String, dynamic>>? query;
+  const GlobalProductList({super.key});
 
   @override
   ConsumerState<GlobalProductList> createState() => _GlobalProductListState();
 }
 
 class _GlobalProductListState extends ConsumerState<GlobalProductList> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(productControllerProvider.notifier).dispose();
-    ref.read(productControllerProvider.notifier).fetchProductWithCustomQuery(20, widget.query!);
-  }
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +67,15 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
                     product: product,
                   );
                 }
-              }),
+              },
+            ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    HelperFunctions.filterQueryHandler = null;
+    super.dispose();
   }
 }
