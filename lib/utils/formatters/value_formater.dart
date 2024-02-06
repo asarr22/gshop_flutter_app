@@ -23,10 +23,10 @@ class Formatter {
     return initialPrice - discountValue;
   }
 
-  static String getFormattedDateTime(String format) {
-    var now = DateTime.now();
+  static String getFormattedDateTime(String format, {DateTime? dateTime}) {
+    var value = dateTime ?? DateTime.now();
     var formatter = DateFormat(format);
-    return formatter.format(now);
+    return formatter.format(value);
   }
 
   static Color hexToColor(String hexString) {
