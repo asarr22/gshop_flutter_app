@@ -18,7 +18,7 @@ class TElevatedButtonTheme {
       textStyle: const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w600,
-        fontSize: 16.0,
+        fontSize: 18.0,
         color: Colors.white,
       ),
     ),
@@ -26,18 +26,20 @@ class TElevatedButtonTheme {
 
   static final darkelevButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-        backgroundColor: ColorPalette.primaryDark,
-        elevation: 3,
-        disabledBackgroundColor: Colors.grey,
-        disabledForegroundColor: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SizesValue.buttonCornerRadius),
-        ),
-        foregroundColor: Colors.white,
-        textStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color.fromARGB(255, 225, 225, 225))),
+      backgroundColor: ColorPalette.primaryDark,
+      elevation: 3,
+      disabledBackgroundColor: Colors.grey,
+      disabledForegroundColor: Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(SizesValue.buttonCornerRadius),
+      ),
+      foregroundColor: Colors.white,
+      textStyle: const TextStyle(
+        fontFamily: 'Roboto',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+    ),
   );
 }
