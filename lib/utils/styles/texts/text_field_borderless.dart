@@ -4,18 +4,20 @@ import 'package:gshopp_flutter/utils/styles/borderless_text_field_decoration.dar
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
 class PTextField extends StatelessWidget {
-  const PTextField(
-      {super.key,
-      this.title,
-      this.textEditingController,
-      this.isForm = false,
-      this.validator,
-      this.isPassword = false,
-      this.obscureText = false,
-      this.suffixicon,
-      this.maxLines = 1,
-      this.isEnabled = true,
-      this.onShowPassword});
+  const PTextField({
+    super.key,
+    this.title,
+    this.textEditingController,
+    this.isForm = false,
+    this.validator,
+    this.isPassword = false,
+    this.obscureText = false,
+    this.suffixicon,
+    this.maxLines = 1,
+    this.isEnabled = true,
+    this.onShowPassword,
+    this.keyboardType,
+  });
 
   final String? title;
   final TextEditingController? textEditingController;
@@ -27,6 +29,7 @@ class PTextField extends StatelessWidget {
   final VoidCallback? onShowPassword;
   final int maxLines;
   final bool isEnabled;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,7 @@ class PTextField extends StatelessWidget {
                   obscureText: obscureText,
                   style: Theme.of(context).textTheme.bodyMedium,
                   decoration: TextFieldStyles.borderless(isDarkMode),
+                  keyboardType: keyboardType,
                 )
               : TextField(
                   maxLines: maxLines,
@@ -58,6 +62,7 @@ class PTextField extends StatelessWidget {
                   cursorColor: ColorPalette.primary,
                   style: Theme.of(context).textTheme.bodyLarge,
                   decoration: TextFieldStyles.borderless(isDarkMode),
+                  keyboardType: keyboardType,
                 ),
         ),
       ],
