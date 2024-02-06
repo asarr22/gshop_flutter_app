@@ -92,7 +92,6 @@ class ProductRepository {
   }
 
   // Fetch a Single Product and Listen to Changes
-
   Stream<Product> getProductByID(String productID) {
     try {
       DocumentReference reference = _db.collection('Products').doc(productID);
@@ -108,6 +107,29 @@ class ProductRepository {
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
+  }
+
+  // Fetch Single Product Without Listening
+  Future<Product> getProductByIDListenOff(String productId) {
+    try {
+      final product = _db.collection('Products').doc(productId).get();
+      return product.then((snapshot) => Product.fromSnapshot(snapshot));
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Error : ${e.toString()}';
+    }
+  }
+
+  // Fetch Single Product Without Listening
+  Future<void> updateProduct(Product product) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    DocumentReference productRef = firestore.collection('Products').doc(product.id);
+    await productRef.update(product.toJson());
   }
 
 // Fetch Product Reviews
@@ -221,5 +243,13 @@ class ProductRepository {
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
+  }
+
+  // Get Product remaining stock
+  Future<int> getProductStockFromVariant(String productID, String color, String size) async {
+    var product = await getProductByIDListenOff(productID);
+    var variant = product.variants.firstWhere((element) => element.color == color);
+    var stock = variant.size.firstWhere((element) => element.size == size).stock;
+    return stock;
   }
 }

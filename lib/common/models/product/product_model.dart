@@ -171,7 +171,7 @@ class Variant {
 
 class Size {
   final String size;
-  final int stock;
+  int stock;
   final int price;
   Size({required this.size, required this.stock, required this.price});
 

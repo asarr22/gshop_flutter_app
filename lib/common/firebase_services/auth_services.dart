@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,10 +43,16 @@ class FirebaseAuthService {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
-        HelperFunctions.initialRoute = () => const AppShell();
+        try {
+          Get.offAll(const AppShell());
+        } catch (e) {
+          if (kDebugMode) {
+            print('Error: $e, App Will try to set manual route');
+          }
+        } finally {
+          HelperFunctions.initialRoute = () => const AppShell();
+        }
       } else {
-        HelperFunctions.initialRoute = () => const AppShell();
-
         Get.offAll(() => VerifyEmailPage(
               email: _auth.currentUser?.email,
             ));
@@ -54,7 +61,9 @@ class FirebaseAuthService {
       // Local Storage
       prefs.setBool(
           'IsFirstTime', prefs.getBool('IsFirstTime') ?? true); // Check if it's the first time Launching the app
-      (prefs.getBool('IsFirstTime') != true) ? Get.offAll(() => const LoginPage()) : Get.offAll(const OnBoardingPage());
+      (prefs.getBool('IsFirstTime') != true)
+          ? Get.offAll(() => const LoginPage())
+          : HelperFunctions.initialRoute = () => const OnBoardingPage();
     }
   }
 

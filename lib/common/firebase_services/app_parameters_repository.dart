@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/address/shipping_model.dart';
@@ -20,7 +21,10 @@ class AppRepository {
       final snapshot = await _db.collection('Cities').get();
       return snapshot.docs.map((doc) => City.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      if (kDebugMode) {
+        print('FirebaseException: ${TFirebaseException(e.code).message}');
+      }
+      return [];
     } on FormatException catch (_) {
       throw const TFormatException();
     } on PlatformException catch (e) {

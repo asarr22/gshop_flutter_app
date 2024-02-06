@@ -74,6 +74,9 @@ class TextValue {
   static const String myAddresses = "Mes Adresses";
   static const String tContinue = "Continuer";
   static const String submit = "Soumettre";
+  static const String save = "Sauvegarder";
+  static const String confirmation = "Confirmation";
+  static const String saveChanges = "Sauvegarder les modifications";
   static const String add = "Ajouter";
   static const String apply = "Appliquer";
   static const String clear = "Effacer";
@@ -92,6 +95,11 @@ class TextValue {
   static const String description = "Description";
   static const String colors = "Couleurs";
   static const String all = "Tout";
+  static const String next = 'Suivant';
+  static const String previous = 'Précédent';
+  static const String confirm = 'Confirmer';
+  static const String no = 'Non';
+  static const String yes = 'Oui';
   static const String color = "Couleur";
   static const String specs = "Caractéristique";
   static const String variant = "Variations";
@@ -123,12 +131,21 @@ class TextValue {
   static const String cart = "Panier";
   static const String clearAll = "Tout Effacer";
   static const String noItem = "Pas d'element";
+  static const String item = "Element";
   static const String myAccount = "Mon Compte";
   static const String checkout = "Verifier";
+  static const String orderVerification = "Verification de la commande";
+  static const String orderStatus = "Etat de la commande";
+  static const String orderPlacedSuccessfly = "Command effectué avec succés";
   static const String orderInfo = "Informations sur la commande";
   static const String purchase = "Achat";
   static const String shippingFee = "Frais de Livraison";
+  static const String shipping = "Livraison";
+  static const String shippingInfo = "Informations de livraison";
+  static const String payment = "Payment";
+  static const String paymentMethod = "Mode de paiement";
   static const String couponCode = "Code du coupon";
+  static const String couponValue = "Valeur du coupon";
   static const String myFavorite = "Mes Favoris";
   static const String profile = "Profile";
   static const String personalInfo = "Information personnelle";
@@ -186,6 +203,22 @@ class TextValue {
   static const String adapter = "Adaptateur";
   static const String others = "Autres";
 
+  // Checkout Page
+  static const String shippingAddress = "Adresse de livraison";
+  static const String billingAddress = "Adresse de facturation";
+  static const String cardOwner = "Propriétaire de la carte";
+  static const String cardNumber = "Numéro de la carte";
+  static const String expiryDate = "Date d'expiration";
+  static const String cvv = "CVV";
+  static const String payInCashMessage = 'Veuillez préparer le montant exact avant l\'arrivée du livreur.';
+  static const String payInCash = 'Payer en cash';
+  static const String useMyAddressInfo = 'Utiliser mes informations d\'adresse';
+  static const String itemOutOfStockErrorMessage =
+      "Le produit est en rupture de stock. Veuillez le retirer de votre panier";
+  static const String orderPlacedSuccessflyDescription = 'Un mail de confirmation vous sera envoyé';
+  static const String trackOrder = 'Suivre votre commande';
+  static const String continueShopping = 'Continuer vos achats';
+
   // Filter page
   static const String filter = "Filtre";
   static const String priceRange = "Interval de Prix ";
@@ -211,6 +244,7 @@ class TextValue {
   static const String city = "Ville";
   static const String zone = "Zone";
   static const String setAsDefault = "Définir comme default";
+  static const String selectAddress = "Choisissez une adresse";
   static const String defaultAddressSetSuccessMessage = "Votre adresse par défaut a été définie avec succès.";
 
   // Global Products Page

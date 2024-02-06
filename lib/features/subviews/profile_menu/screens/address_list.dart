@@ -17,8 +17,7 @@ class AddressesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
-    final state = ref.watch(userAddressProvider);
-    final userAddressNotifier = ref.read(userAddressProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -31,55 +30,69 @@ class AddressesScreen extends ConsumerWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-          child: SizedBox(
-            width: double.infinity,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: state.addresses.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final address = state.addresses[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: AddressTile(
-                    selectedAddress: address.isDefault,
-                    fullName: address.fullName,
-                    phoneNumber: address.phoneNumber,
-                    details: "${address.address} ${address.country}, ${address.city}, ${address.zone}",
-                    onTap: () {
-                      userAddressNotifier.setAsDefault(address.id);
-                    },
-                    onEdit: () => Get.to(
-                      () => EditdAddressScreen(
-                        selectedId: address.id,
-                      ),
-                    ),
-                    onRemove: () => userAddressNotifier.removeAddress(address.id),
-                  ),
-                );
-              },
-            ),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
+          child: AddressListWidget(),
         ),
       ),
       floatingActionButton: SizedBox(
         height: 60,
         width: 60,
         child: IconButton(
-          style: IconButton.styleFrom(backgroundColor: ColorPalette.primary, elevation: 5),
+          style: IconButton.styleFrom(
+              backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primary, elevation: 5),
           onPressed: () {
             Get.to(() => const AddNewAddressScreen());
           },
-          icon: Icon(
+          icon: const Icon(
             Iconsax.add,
             size: 30,
-            color: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
+            color: Colors.white,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AddressListWidget extends ConsumerWidget {
+  const AddressListWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(userAddressProvider);
+    final userAddressNotifier = ref.read(userAddressProvider.notifier);
+    return SizedBox(
+      width: double.infinity,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: state.addresses.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          final address = state.addresses[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: AddressTile(
+              selectedAddress: address.isDefault,
+              fullName: address.fullName,
+              phoneNumber: address.phoneNumber,
+              details: "${address.address} ${address.country}, ${address.city}, ${address.zone}",
+              onTap: () {
+                userAddressNotifier.setAsDefault(address.id);
+              },
+              onEdit: () => Get.to(
+                () => EditdAddressScreen(
+                  selectedId: address.id,
+                ),
+              ),
+              onRemove: () => userAddressNotifier.removeAddress(address.id),
+            ),
+          );
+        },
       ),
     );
   }

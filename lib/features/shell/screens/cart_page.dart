@@ -6,6 +6,7 @@ import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/cart_item_card.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/purchase_info.dart';
 import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/features/subviews/checkout_page/checkout_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
@@ -124,55 +125,27 @@ class CartPage extends ConsumerWidget {
                             InfoDetailWidget(
                                 title: TextValue.total, info: Formatter.formatPrice(totalBrute + userShippingFee())),
                             const SizedBox(height: 10),
-                            Container(
-                              height: 60,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: isDarkMode ? ColorPalette.lightGrey : ColorPalette.extraLightGray,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Expanded(
-                                      child: TextField(
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.horizontal_split,
-                                        color: ColorPalette.darkGrey,
-                                      ),
-                                      hintText: TextValue.couponCode,
-                                      border: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                    ),
-                                  )),
-                                  RoundedContainer(
-                                    height: 40,
-                                    width: 40,
-                                    margin: const EdgeInsets.all(5),
-                                    backgroundColor: ColorPalette.primary,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
+                            couponCodeContainer(isDarkMode),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 40),
                       SizedBox(
                         height: 60,
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(TextValue.checkout),
+                        child: Material(
+                          elevation: 7,
+                          borderRadius: BorderRadius.circular(100),
+                          shadowColor: ColorPalette.primary,
+                          child: ElevatedButton(
+                            style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                                  elevation: MaterialStateProperty.all(0),
+                                ),
+                            onPressed: () {
+                              Get.to(() => const CheckoutPage());
+                            },
+                            child: const Text(TextValue.checkout),
+                          ),
                         ),
                       ),
                     ],
@@ -182,6 +155,49 @@ class CartPage extends ConsumerWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Container couponCodeContainer(bool isDarkMode) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+              child: TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.horizontal_split,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+              hintText: TextValue.couponCode,
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          )),
+          RoundedContainer(
+            height: 40,
+            width: 40,
+            radius: 100,
+            margin: const EdgeInsets.all(5),
+            backgroundColor: ColorPalette.primary,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

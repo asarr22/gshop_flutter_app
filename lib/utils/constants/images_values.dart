@@ -4,13 +4,17 @@ class ImagesValue {
   static const String appLogoLight = "assets/logos/shop_logo_light.png";
   static const String appLogoDark = "assets/logos/shop_logo_dark.png";
   static const String googleLogo = "assets/logos/google.png";
+  static const String waveLogo = "assets/logos/wave.png";
+  static const String visaLogo = "assets/logos/visa.png";
   static const String facebookLogo = "assets/logos/facebook.png";
 
   //StorySet
   static const String emailSent = "assets/images/authentication/email_verificatio.png";
   static const String emailVerified = "assets/images/authentication/email_success.png";
+  static const String cashPayPicture = "assets/storyset/cash_pay.png";
+  static const String orderSuccess = "assets/storyset/successful_purchase.png";
 
-//promos
+  //promos
   static const String promo1 = "assets/images/promo/promo1.png";
   static const String promo2 = "assets/images/promo/promo2.png";
   static const String promo3 = "assets/images/promo/promo3.png";

@@ -9,6 +9,7 @@ import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
+import 'package:gshopp_flutter/utils/styles/shadow.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
@@ -28,15 +29,8 @@ class CartItemCard extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
       child: RoundedContainer(
         height: 90,
-        backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGrayPlus,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1.5,
-            blurRadius: 5.0,
-            offset: const Offset(-1, 4),
-          ),
-        ],
+        backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
+        boxShadow: [ShadowStyle.tileListShadow],
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

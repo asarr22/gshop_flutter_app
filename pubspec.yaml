@@ -66,6 +66,7 @@ flutter:
     - assets/images/products/
     - assets/images/authentication/
     - assets/logos/
+    - assets/storyset/
     - assets/images/animations/
     - assets/icons/categories/
   fonts:

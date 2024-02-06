@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/login_controller/login_info.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
@@ -41,6 +42,9 @@ class LoginController extends StateNotifier<LoginInfo> {
 
       // Go to Concerned Page
       authService.screenRedirect();
+
+      // Init App Controller methods For the first time to avoid null exception
+      ref.read(appControllerProvider.notifier).getShippmentData();
     } catch (e) {
       PFullScreenLoader.stopLoading();
       SnackBarPop.showErrorPopup(e.toString(), duration: 3);

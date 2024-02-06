@@ -89,7 +89,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               children: [
                 IconButton(
                   onPressed: () {
-                    Get.to(() => const CartPage(), transition: Transition.rightToLeftWithFade);
+                    Get.to(() => const CartPage(), transition: Transition.downToUp);
                   },
                   icon: Container(
                       height: 35,
