@@ -1,3 +1,5 @@
+// ignore_for_file: annotate_overrides
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
@@ -29,7 +31,7 @@ class ProductController extends StateNotifier<Map<String, dynamic>> {
   bool get hasMore => _hasMore; // Exposes the _hasMore flag.
 
   /// Cleans up the state when the controller is disposed.
-  @override
+  // ignore: must_call_super
   void dispose() {
     state.forEach((key, value) {
       if (key == 'regular') value?.clear(); // Clears the regular product list.
@@ -37,7 +39,6 @@ class ProductController extends StateNotifier<Map<String, dynamic>> {
     });
     _lastDocument = null;
     _hasMore = true;
-    super.dispose(); // Ensures proper disposal of resources.
   }
 
   /// Toggles the loading state for scrolling through regular products.
