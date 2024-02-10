@@ -11,10 +11,32 @@ import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
-class OrderController extends StateNotifier<List<OrderModel>> {
+class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
   final OrderRepository _repository;
   Ref ref;
-  OrderController(this._repository, this.ref) : super([]);
+  OrderController(this._repository, this.ref)
+      : super({
+          'ongoing': [],
+          'completed': [],
+        }) {
+    getOrder();
+  }
+
+  /// Retrieves all orders from the database and listen to its changes.
+
+  void getOrder() {
+    _repository.getOrders().listen((orders) {
+      var ongoing = orders.where((element) => element.orderStatus < 3).toList();
+      var completed = orders.where((element) => element.orderStatus == 3).toList();
+      state = {
+        ...state,
+        'ongoing': ongoing,
+        'completed': completed,
+      };
+    });
+  }
+
+  /// Sets an order to the database.
 
   Future<void> setOrder(OrderModel order, BuildContext context) async {
     // Start Loading
@@ -95,6 +117,6 @@ class OrderController extends StateNotifier<List<OrderModel>> {
   }
 }
 
-final orderControllerProvider = StateNotifierProvider<OrderController, List<OrderModel>>(
+final orderControllerProvider = StateNotifierProvider<OrderController, Map<String, List<OrderModel>>>(
   (ref) => OrderController(OrderRepository(ref), ref),
 );

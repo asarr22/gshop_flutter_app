@@ -40,6 +40,7 @@ class RoundedContainer extends StatelessWidget {
       elevation: elevation,
       borderRadius: BorderRadius.circular(radius),
       child: Container(
+        clipBehavior: Clip.antiAlias,
         width: width,
         height: height,
         padding: padding,

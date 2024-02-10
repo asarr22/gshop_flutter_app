@@ -45,6 +45,24 @@ class OrderRepository {
     }
   }
 
+  // Get Order By User ID
+  Stream<List<OrderModel>> getOrders() {
+    try {
+      final userID = ref.watch(userControllerProvider).id;
+      return _db.collection('Orders').where('userID', isEqualTo: userID).snapshots().map((snapshot) {
+        return snapshot.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList();
+      });
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Error : ${e.toString()}';
+    }
+  }
+
   void updateProductStock(Product product, String color, String sizeName, int newStock) {
     for (Variant variant in product.variants) {
       if (variant.color == color) {

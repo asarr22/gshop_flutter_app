@@ -6,6 +6,7 @@ import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/common/firebase_services/cart_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/favorite_repository.dart';
+import 'package:gshopp_flutter/common/firebase_services/order_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
 import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
 //import 'package:gshopp_flutter/common/models/product/product_model.dart';
@@ -42,6 +43,11 @@ final productRepositoryProvider = Provider<ProductRepository>((ref) {
 final cartRepositoryProvider = Provider<UserCartRepository>((ref) {
   return UserCartRepository();
 });
+
+final orderRepositoryProvider = Provider<OrderRepository>((ref) {
+  return OrderRepository(ref);
+});
+
 final favoriteRepositoryProvider = Provider<FavoriteRepository>((ref) {
   return FavoriteRepository();
 });

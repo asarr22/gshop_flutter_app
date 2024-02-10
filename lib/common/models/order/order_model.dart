@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class OrderModel {
   final double couponValue;
   final String title;
@@ -65,8 +67,8 @@ class OrderModel {
         orderETA: json['orderETA'],
         orderID: json['orderID'],
         orderItems: (json['orderItems'] as List).map((e) => OrderItems.fromJson(e)).toList(),
-        orderDateStatus: json['orderDateStatus'],
-        orderTimeStatus: json['orderTimeStatus'],
+        orderDateStatus: json['orderDateStatus'] != null ? List<String>.from(json['orderDateStatus']) : [],
+        orderTimeStatus: json['orderTimeStatus'] != null ? List<String>.from(json['orderTimeStatus']) : [],
         orderStatus: json['orderStatus'],
         paymentMethod: json['paymentMethod'],
         paymentMethodCode: json['paymentMethodCode'],
@@ -78,7 +80,7 @@ class OrderModel {
   }
 
   // From Snapshot
-  factory OrderModel.fromSnapshot(Map<String, dynamic> snapshot) {
+  factory OrderModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     return OrderModel(
         couponValue: snapshot['couponValue'],
         title: snapshot['title'],
@@ -86,8 +88,8 @@ class OrderModel {
         orderETA: snapshot['orderETA'],
         orderID: snapshot['orderID'],
         orderItems: (snapshot['orderItems'] as List).map((e) => OrderItems.fromSnapshot(e)).toList(),
-        orderDateStatus: snapshot['orderDateStatus'],
-        orderTimeStatus: snapshot['orderTimeStatus'],
+        orderDateStatus: snapshot['orderDateStatus'] != null ? List<String>.from(snapshot['orderDateStatus']) : [],
+        orderTimeStatus: snapshot['orderTimeStatus'] != null ? List<String>.from(snapshot['orderTimeStatus']) : [],
         orderStatus: snapshot['orderStatus'],
         paymentMethod: snapshot['paymentMethod'],
         paymentMethodCode: snapshot['paymentMethodCode'],

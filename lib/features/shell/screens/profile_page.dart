@@ -7,6 +7,7 @@ import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
 import 'package:gshopp_flutter/features/shell/screens/profile.widgets/button_card.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
+import 'package:gshopp_flutter/features/subviews/order_page/order_page.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/address_list.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/edit_account_info.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/setting_page.dart';
@@ -72,7 +73,11 @@ class ProfilePage extends ConsumerWidget {
                   const SizedBox(height: 10),
 
                   // Order Page
-                  const ButtonCardTile(title: TextValue.myOrders, description: TextValue.myOrdersDescription),
+                  ButtonCardTile(
+                    title: TextValue.myOrders,
+                    description: TextValue.myOrdersDescription,
+                    onTap: () => Get.to(() => const OrderPage()),
+                  ),
                   const SizedBox(height: 10),
 
                   // Address Page

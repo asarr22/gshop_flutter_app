@@ -83,6 +83,7 @@ class TextValue {
   static const String remove = "Supprimer";
   static const String ok = "OK";
   static const String cancel = "Annuler";
+  static const String canceled = "Annulé";
   static const String greetings = "Salut, Bienvenue 👋";
   static const String search = "Rechercher";
   static const String from = "De";
@@ -90,6 +91,8 @@ class TextValue {
   static const String categories = "Categories";
   static const String popular = "Populaires";
   static const String seeAll = "Voir tout";
+  static const String seeDetails = "Voir les details";
+
   static const String edit = "Modifier";
   static const String newArrival = "Nouveaux Arrivages";
   static const String description = "Description";
@@ -104,7 +107,7 @@ class TextValue {
   static const String specs = "Caractéristique";
   static const String variant = "Variations";
   static const String quantitie = "Quantité";
-  static const String capacity = "capacité";
+  static const String capacity = "Capacité";
   static const String undefined = "undéfinie";
   static const String reviews = "Avis";
   static const String review = "Avis";
@@ -138,6 +141,7 @@ class TextValue {
   static const String orderStatus = "Etat de la commande";
   static const String orderPlacedSuccessfly = "Command effectué avec succés";
   static const String orderInfo = "Informations sur la commande";
+  static const String order = "Commande";
   static const String purchase = "Achat";
   static const String shippingFee = "Frais de Livraison";
   static const String shipping = "Livraison";
@@ -218,6 +222,29 @@ class TextValue {
   static const String orderPlacedSuccessflyDescription = 'Un mail de confirmation vous sera envoyé';
   static const String trackOrder = 'Suivre votre commande';
   static const String continueShopping = 'Continuer vos achats';
+
+  // Order Page
+  static const String onGoing = "En cours";
+  static const String completed = "Terminé";
+  static const String delivered = "Livré";
+  static const String pending = "En attente";
+  static const String processing = "Traitement";
+  static const String confirmed = "Confirmé";
+  static const String delivering = "Livraison";
+  static const String orderPlaced = "Commande passée";
+  static const String orderPlacedDescription = "Nous avons reçu votre commande";
+  static const String orderProcessing = 'Commande en Traitement.';
+  static const String orderProcessingDescription = 'Votre commande est en cours de traitement.';
+  static const String orderConfirmed = 'Commande confirmée';
+  static const String orderDelivering = 'Commande en expédition';
+  static const String orderDeliveringDescription = 'Votre commande est en cours d\'expedition.';
+  static const String orderCompleted = 'Commande terminée';
+  static const String orderDelivered = "Commande livrée";
+  static const String orderDeliveredDescription = 'Votre commande a été livrée.';
+  static const String orderCancelled = "Commande annulée";
+  static const String orderDetails = 'Details de la commande';
+  static const String orderFailedOrCancelled = 'Commande annulée ou echouée';
+  static const String orderFailedOrCancelledDescription = 'Nous n\'avons pas pu traiter votre commande.';
 
   // Filter page
   static const String filter = "Filtre";
