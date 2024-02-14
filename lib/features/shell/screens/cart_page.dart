@@ -91,11 +91,19 @@ class CartPage extends ConsumerWidget {
                       )
                     : SizedBox(
                         width: double.infinity,
-                        height: 200,
+                        height: HelperFunctions.screenHeight(context) - 100,
                         child: Center(
-                          child: Text(
-                            TextValue.noItem,
-                            style: Theme.of(context).textTheme.bodyLarge,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Iconsax.document, size: 100, color: isDarkMode ? Colors.white : Colors.black),
+                              const SizedBox(height: SizesValue.spaceBtwItems),
+                              Text(
+                                TextValue.noItem,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              )
+                            ],
                           ),
                         )),
                 const SizedBox(height: 10),

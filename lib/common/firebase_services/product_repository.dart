@@ -245,11 +245,17 @@ class ProductRepository {
     }
   }
 
-  // Get Product remaining stock
+  // Get Product remaining stock of a variant
   Future<int> getProductStockFromVariant(String productID, String color, String size) async {
     var product = await getProductByIDListenOff(productID);
     var variant = product.variants.firstWhere((element) => element.color == color);
     var stock = variant.size.firstWhere((element) => element.size == size).stock;
     return stock;
+  }
+
+  // Get Product remaining stock of all variants
+  Future<int> getProductStock(String productID) async {
+    var product = await getProductByIDListenOff(productID);
+    return product.getStock;
   }
 }

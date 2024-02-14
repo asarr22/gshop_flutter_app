@@ -6,6 +6,7 @@ class AppController extends StateNotifier<Map<String, dynamic>> {
   AppController(this._repository)
       : super({
           'shippingFee': [],
+          'promoEvent': [],
         }) {
     getShippmentData();
   }

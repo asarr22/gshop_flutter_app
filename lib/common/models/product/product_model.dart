@@ -13,11 +13,15 @@ class Product {
   final int intRating;
   final num rating;
   final bool isNew;
+  final String? promoCode;
   final String publishDate;
   final String category;
   final String subCategory;
   final String sellerID;
   List<String>? tags;
+  int get getStock {
+    return variants.fold(0, (sums, item) => sums + item.stock);
+  }
 
   int get price {
     return variants[0].size[0].price;
@@ -40,6 +44,7 @@ class Product {
     required this.intRating,
     required this.subCategory,
     required this.sellerID,
+    this.promoCode,
     this.tags,
   });
   Map<String, dynamic> toJson() {
@@ -61,6 +66,7 @@ class Product {
       'subCategory': subCategory,
       'intRating': intRating,
       'sellerID': sellerID,
+      'promoCode': promoCode,
       'tags': tags
     };
   }
@@ -84,6 +90,7 @@ class Product {
       subCategory: json['subCategory'],
       sellerID: json['sellerID'],
       intRating: json['intRating'],
+      promoCode: json['promoCode'],
       tags: List<String>.from(json['tags']),
     );
   }
@@ -107,26 +114,30 @@ class Product {
         subCategory: snapshot['subCategory'],
         sellerID: snapshot['sellerID'],
         intRating: intRate,
+        promoCode: snapshot['promoCode'],
         tags: List<String>.from(snapshot['tags']));
   }
 
   static Product empty() => Product(
-      id: '',
-      title: '',
-      description: '',
-      imageUrl: [],
-      discountValue: 0,
-      brand: '',
-      variants: [Variant.empty()],
-      totalStock: 0,
-      isPopular: false,
-      rating: 0,
-      isNew: false,
-      publishDate: '',
-      category: '',
-      intRating: 0,
-      subCategory: '',
-      sellerID: '');
+        id: '',
+        title: '',
+        description: '',
+        imageUrl: [],
+        discountValue: 0,
+        brand: '',
+        variants: [Variant.empty()],
+        totalStock: 0,
+        isPopular: false,
+        rating: 0,
+        isNew: false,
+        publishDate: '',
+        category: '',
+        intRating: 0,
+        subCategory: '',
+        sellerID: '',
+        promoCode: '',
+        tags: [],
+      );
 }
 
 class Variant {

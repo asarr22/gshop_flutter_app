@@ -52,7 +52,7 @@ final favoriteRepositoryProvider = Provider<FavoriteRepository>((ref) {
   return FavoriteRepository();
 });
 
-final productControllerProvider = StateNotifierProvider.autoDispose<ProductController, Map<String, dynamic>>((ref) {
+final productControllerProvider = StateNotifierProvider<ProductController, Map<String, dynamic>>((ref) {
   return ProductController(ref.watch(productRepositoryProvider));
 });
 

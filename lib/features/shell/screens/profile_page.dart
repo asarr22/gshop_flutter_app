@@ -13,6 +13,7 @@ import 'package:gshopp_flutter/features/subviews/profile_menu/screens/edit_accou
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/setting_page.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -21,6 +22,7 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userControllerProvider);
     final authService = ref.watch(firebaseAuthServiceProvider);
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return SafeArea(
       child: Scaffold(
@@ -47,12 +49,17 @@ class ProfilePage extends ConsumerWidget {
                   SizedBox(
                     height: 100,
                     width: 100,
-                    child: RoundedImage(
-                      borderRadius: 100,
-                      isNetworkImage: true,
-                      imgUrl: user.profilePicture.isNotEmpty
-                          ? user.profilePicture
-                          : "https://cdn-icons-png.flaticon.com/512/147/147129.png",
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(100),
+                      shadowColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primary,
+                      child: RoundedImage(
+                        borderRadius: 100,
+                        isNetworkImage: true,
+                        imgUrl: user.profilePicture.isNotEmpty
+                            ? user.profilePicture
+                            : "https://cdn-icons-png.flaticon.com/512/147/147129.png",
+                      ),
                     ),
                   ),
 

@@ -29,6 +29,11 @@ class Formatter {
     return formatter.format(value);
   }
 
+  static DateTime getDateFromString(String dateString) {
+    DateTime parsedDate = DateFormat('dd/MM/yyyy HH:mm').parse(dateString);
+    return parsedDate;
+  }
+
   static Color hexToColor(String hexString) {
     return Color(int.parse(hexString.replaceFirst('#', '0xFF')));
   }

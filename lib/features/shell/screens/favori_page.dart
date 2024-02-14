@@ -16,7 +16,7 @@ class FavoritePage extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Align(
-          alignment: Alignment.center,
+          alignment: Alignment.centerLeft,
           child: Text(
             TextValue.myFavorite,
             style: Theme.of(context).textTheme.displayLarge,

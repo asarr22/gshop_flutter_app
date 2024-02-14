@@ -152,13 +152,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
 
               const SizedBox(height: 20),
 
-              const PromoCarousel(
-                banners: [
-                  ImagesValue.promo1,
-                  ImagesValue.promo2,
-                  ImagesValue.promo3,
-                ],
-              ),
+              const PromoCarousel(),
               const SizedBox(height: 20),
 
               //Categories
@@ -170,6 +164,8 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               const SizedBox(height: 10),
               const HomeCategoryList(),
 
+              const SizedBox(height: 20),
+              // Flash Salea
               const SizedBox(height: 20),
               //Popular Product
               SectionHeader(

@@ -1,24 +1,28 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/features/shell/controllers/carousel_indicator_controler.dart';
 import 'package:gshopp_flutter/features/shell/widgets/circular_container_of_carousel.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/global_product_page.dart';
+import 'package:gshopp_flutter/utils/animations/beat_animation.dart';
 
 final carouselIndicatorProvider =
     StateNotifierProvider<CarousleIndicatorControler, int>((ref) => CarousleIndicatorControler());
 
 class PromoCarousel extends ConsumerWidget {
   const PromoCarousel({
-    required this.banners,
     super.key,
   });
-
-  final List<String> banners;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final indicatorValue = ref.watch(carouselIndicatorProvider);
+    final promoEventList = ref.watch(promoEventControllerProvider);
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -27,17 +31,32 @@ class PromoCarousel extends ConsumerWidget {
               viewportFraction: 1,
               aspectRatio: 2,
               onPageChanged: (index, _) => ref.read(carouselIndicatorProvider.notifier).updateIndicator(index)),
-          items: banners
-              .map((url) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: RoundedImage(imgUrl: url),
+          items: promoEventList
+              .map<Widget>((event) => BeatAnimationWidget(
+                    onTap: () {
+                      Get.to(
+                        GlobalProductPage(
+                          pageTitle: event.title,
+                          isFlashSale: event.id == '0',
+                          query:
+                              FirebaseFirestore.instance.collection('Products').where('promoCode', isEqualTo: event.id),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: RoundedImage(
+                        imgUrl: event.imageUrl,
+                        isNetworkImage: true,
+                      ),
+                    ),
                   ))
               .toList(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (int i = 0; i < banners.length; i++)
+            for (int i = 0; i < promoEventList.length; i++)
               CircularContainer(
                   width: 5,
                   height: 5,

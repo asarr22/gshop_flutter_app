@@ -30,7 +30,7 @@ class FavoriteItemCard extends ConsumerWidget {
         },
         child: RoundedContainer(
           height: 90,
-          backgroundColor: isDarkMode ? ColorPalette.grey : ColorPalette.extraLightGray,
+          backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -88,24 +88,21 @@ class FavoriteItemCard extends ConsumerWidget {
                               onTap: () {
                                 ref.read(favoriteControllerProvider.notifier).deleteSingleItem(favoriteItem.id);
                               },
-                              child: const Icon(
-                                Iconsax.shop_remove,
+                              child: Icon(
+                                Iconsax.close_circle,
                                 size: 20,
-                                color: ColorPalette.black,
+                                color: isDarkMode ? Colors.white : ColorPalette.primary,
                               ),
                             )
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            Formatter.formatPrice(favoriteItem.price),
-                            style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
-                          ),
-                        ],
-                      )
+                      const SizedBox(height: SizesValue.spaceBtwItems),
+                      Text(
+                        Formatter.formatPrice(favoriteItem.price),
+                        style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
+                      ),
+                      const SizedBox(height: SizesValue.spaceBtwItems),
                     ],
                   ),
                 )

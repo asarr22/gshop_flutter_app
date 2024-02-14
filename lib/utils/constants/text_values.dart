@@ -88,6 +88,7 @@ class TextValue {
   static const String search = "Rechercher";
   static const String from = "De";
   static const String to = "à";
+  static const String see = 'Voir';
   static const String categories = "Categories";
   static const String popular = "Populaires";
   static const String seeAll = "Voir tout";
@@ -276,4 +277,5 @@ class TextValue {
 
   // Global Products Page
   static String allProducts = "Tout les Produits";
+  static String endWithin = 'Se termine dans';
 }

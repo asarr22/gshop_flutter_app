@@ -25,6 +25,12 @@ class CartItemCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    // Future<int> getRemainingStockFromVariant() async {
+    //   return ref
+    //       .watch(productRepositoryProvider)
+    //       .getProductStockFromVariant(cartItem.productId, cartItem.color, cartItem.size);
+    // }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
       child: RoundedContainer(
@@ -79,7 +85,7 @@ class CartItemCard extends ConsumerWidget {
                               ref.read(userCartControllerProvider.notifier).deleteSingleItem(cartItem);
                             },
                             child: const Icon(
-                              Iconsax.shop_remove,
+                              Iconsax.close_circle,
                               size: 20,
                             ),
                           )
@@ -97,7 +103,7 @@ class CartItemCard extends ConsumerWidget {
                           style: Theme.of(context).textTheme.labelMedium!.apply(fontWeightDelta: 2),
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
                           "${TextValue.color} : ",
@@ -105,8 +111,8 @@ class CartItemCard extends ConsumerWidget {
                         ),
                         RoundedContainer(
                           radius: 100,
-                          height: 20,
-                          width: 20,
+                          height: 15,
+                          width: 15,
                           backgroundColor: Formatter.hexToColor(cartItem.color),
                         ),
                       ],
