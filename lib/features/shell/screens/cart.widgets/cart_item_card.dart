@@ -11,7 +11,6 @@ import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/styles/shadow.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CartItemCard extends ConsumerWidget {
@@ -34,7 +33,7 @@ class CartItemCard extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
       child: RoundedContainer(
-        height: 90,
+        height: 95,
         backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
         boxShadow: [ShadowStyle.tileListShadow],
         child: Padding(
@@ -42,7 +41,7 @@ class CartItemCard extends ConsumerWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 80,
+                width: 65,
                 child: cartItem.productImage.isEmpty
                     ? Shimmer.fromColors(
                         baseColor: ColorPalette.lightGrey,
@@ -67,6 +66,9 @@ class CartItemCard extends ConsumerWidget {
                         },
                       ),
               ),
+              const SizedBox(
+                width: 5,
+              ),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,12 +87,16 @@ class CartItemCard extends ConsumerWidget {
                               ref.read(userCartControllerProvider.notifier).deleteSingleItem(cartItem);
                             },
                             child: const Icon(
-                              Iconsax.close_circle,
+                              Icons.delete,
                               size: 20,
+                              color: Colors.redAccent,
                             ),
                           )
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     Row(
                       children: [

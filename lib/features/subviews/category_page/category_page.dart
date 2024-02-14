@@ -6,6 +6,7 @@ import 'package:gshopp_flutter/features/subviews/category_page/widget/horizontal
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});
@@ -19,6 +20,10 @@ class CategoryPage extends StatelessWidget {
         title: Text(
           TextValue.categories,
           style: Theme.of(context).textTheme.displayLarge,
+        ),
+        leading: IconButton(
+          icon: const Icon(Iconsax.arrow_left_24),
+          onPressed: () => Get.back(),
         ),
       ),
       body: SingleChildScrollView(

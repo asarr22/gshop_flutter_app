@@ -93,10 +93,10 @@ class TextValue {
   static const String popular = "Populaires";
   static const String seeAll = "Voir tout";
   static const String seeDetails = "Voir les details";
-
   static const String edit = "Modifier";
   static const String newArrival = "Nouveaux Arrivages";
   static const String description = "Description";
+  static const String flashSale = "Vente Flash";
   static const String colors = "Couleurs";
   static const String all = "Tout";
   static const String next = 'Suivant';
@@ -153,6 +153,7 @@ class TextValue {
   static const String couponValue = "Valeur du coupon";
   static const String myFavorite = "Mes Favoris";
   static const String profile = "Profile";
+  static const String myProfile = "Mon Profile";
   static const String personalInfo = "Information personnelle";
   static const String accountInfo = "Information du Compte";
   static const String personalInfoDescription = "Nom, Téléphone, Adresse, Mot de passe";

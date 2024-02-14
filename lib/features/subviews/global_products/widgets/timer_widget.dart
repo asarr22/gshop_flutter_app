@@ -21,7 +21,7 @@ class CountdownNotifier extends StateNotifier<Duration> {
     // Initialize your targetDate and start the timer here
   }
 
-  void startTimer(String dateString) {
+  void startTimer(String dateString, bool goBackWhenEventEnd) {
     targetDate = Formatter.getDateFromString(dateString);
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -32,7 +32,7 @@ class CountdownNotifier extends StateNotifier<Duration> {
           // Handle countdown end
           state = Duration.zero;
           _timer?.cancel();
-          onCountdownEnd();
+          onCountdownEnd(goBackWhenEventEnd);
         } else {
           state = countdownDuration; // Update state with new countdown value
         }
@@ -40,9 +40,12 @@ class CountdownNotifier extends StateNotifier<Duration> {
     });
   }
 
-  void onCountdownEnd() {
+  void onCountdownEnd(bool flag) {
     // Use GetX navigation to close the current page
-    Get.back();
+
+    if (flag) {
+      Get.back();
+    }
   }
 
   @override
@@ -55,8 +58,9 @@ class CountdownNotifier extends StateNotifier<Duration> {
 // Refactor your CountdownWidget to consume the countdownProvider
 class CountdownWidget extends ConsumerWidget {
   final String dateString;
+  final bool goBackWhenEventEnd;
 
-  const CountdownWidget({super.key, required this.dateString});
+  const CountdownWidget({super.key, required this.dateString, this.goBackWhenEventEnd = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,7 +70,7 @@ class CountdownWidget extends ConsumerWidget {
 
     // You may call startTimer here or in an appropriate lifecycle method
     // Ensure you manage the lifecycle appropriately to avoid memory leaks or multiple timers
-    ref.read(countdownProvider.notifier).startTimer(dateString);
+    ref.read(countdownProvider.notifier).startTimer(dateString, goBackWhenEventEnd);
 
     return SizedBox(
       height: 60.0,

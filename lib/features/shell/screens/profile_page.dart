@@ -28,12 +28,9 @@ class ProfilePage extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Align(
-            alignment: Alignment.center,
-            child: Text(
-              TextValue.profile,
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
+          title: Text(
+            TextValue.myProfile,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         body: SingleChildScrollView(

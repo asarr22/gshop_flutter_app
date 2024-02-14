@@ -46,6 +46,7 @@ class PromoCarousel extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: RoundedImage(
+                        borderRadius: 10,
                         imgUrl: event.imageUrl,
                         isNetworkImage: true,
                       ),

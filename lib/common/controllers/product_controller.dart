@@ -19,6 +19,7 @@ class ProductController extends StateNotifier<Map<String, dynamic>> {
   ProductController(this.productRepository)
       : super({
           'isPopular': null, // Holds popular products.
+          'isFlash': null, // Holds flash sale products.
           'isNew': null, // Holds new arrival products.
           'regular': null, // Holds regular products, used in scrollable lists.
           'isRegularScrollLoading': false, // Indicates if the regular product list is currently loading.
@@ -50,6 +51,7 @@ class ProductController extends StateNotifier<Map<String, dynamic>> {
   Future<void> initHomeScreenProducts(int limit) async {
     await fetchProductWithSingleFitler(limit, {'isPopular': true});
     await fetchProductWithSingleFitler(limit, {'isNew': true});
+    await fetchProductWithSingleFitler(2, {'promoCode': '0'});
   }
 
   /// Fetches products based on a single filter criteria with a specified [limit].

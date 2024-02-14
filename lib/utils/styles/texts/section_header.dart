@@ -9,22 +9,26 @@ class SectionHeader extends StatelessWidget {
     this.onTap,
     this.showActionButton = true,
     this.padding = const EdgeInsets.symmetric(horizontal: 20),
+    this.action,
+    this.height = 30,
   });
 
   final String title;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
   final bool showActionButton;
+  final Widget? action;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30,
+      height: height,
       child: Padding(
         padding: padding,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               title,
@@ -35,20 +39,25 @@ class SectionHeader extends StatelessWidget {
                 onTap: onTap,
                 child: Ink(
                   padding: const EdgeInsets.only(top: 5),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        TextValue.seeAll,
-                        style: TextStyle(fontFamily: 'Roboto', fontSize: 16, fontWeight: FontWeight.w500, color: ColorPalette.primary),
+                  child: action ??
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            TextValue.seeAll,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: ColorPalette.primary),
+                          ),
+                          SizedBox(width: 2),
+                          Icon(
+                            Icons.arrow_right_alt_outlined,
+                            color: ColorPalette.primary,
+                          )
+                        ],
                       ),
-                      SizedBox(width: 2),
-                      Icon(
-                        Icons.arrow_right_alt_outlined,
-                        color: ColorPalette.primary,
-                      )
-                    ],
-                  ),
                 ),
               ),
           ],

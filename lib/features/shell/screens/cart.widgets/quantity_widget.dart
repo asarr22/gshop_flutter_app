@@ -32,7 +32,7 @@ class CartQuantityWidget extends ConsumerWidget {
             child: Center(
               child: Text(
                 "-",
-                style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 1),
+                style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 1, color: Colors.white),
               ),
             ),
           ),
@@ -62,7 +62,7 @@ class CartQuantityWidget extends ConsumerWidget {
             child: Center(
               child: Text(
                 "+",
-                style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 1),
+                style: Theme.of(context).textTheme.labelLarge!.apply(fontSizeDelta: 1, color: Colors.white),
               ),
             ),
           ),

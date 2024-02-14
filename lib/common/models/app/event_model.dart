@@ -52,4 +52,16 @@ class PromoEventModel {
       endDate: snapshot['endDate'],
     );
   }
+
+  // empty promo event
+  factory PromoEventModel.empty() {
+    return PromoEventModel(
+      id: '',
+      title: '',
+      description: '',
+      imageUrl: '',
+      startDate: '01/01/2024 00:00',
+      endDate: '01/01/2024 00:00',
+    );
+  }
 }

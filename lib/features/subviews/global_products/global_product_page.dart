@@ -114,6 +114,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
                     ),
                     CountdownWidget(
                       dateString: event!.endDate,
+                      goBackWhenEventEnd: true,
                     ),
                   ],
                 ),
