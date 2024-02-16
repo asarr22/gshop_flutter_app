@@ -14,6 +14,7 @@ import 'package:gshopp_flutter/features/shell/screens/home.widgets/promo_carouse
 import 'package:gshopp_flutter/features/subviews/global_products/widgets/timer_widget.dart';
 import 'package:gshopp_flutter/features/subviews/search_page/search_page.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
+import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
@@ -35,6 +36,14 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
+final isFlashSaleEndedProvider = StateProvider<bool>((ref) {
+  final event = ref.watch(promoEventControllerProvider).firstWhere(
+        (e) => e.id == '0',
+        orElse: () => PromoEventModel.empty(),
+      );
+  return Formatter.getDateFromString(event.endDate).isBefore(DateTime.now());
+});
+
 class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -46,6 +55,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
           (e) => e.id == '0',
           orElse: () => PromoEventModel.empty(), // Handle the case where no event matches.
         );
+    final hasFlashEventEnded = ref.watch(isFlashSaleEndedProvider);
     super.build(context);
     return SafeArea(
       child: Scaffold(
@@ -179,36 +189,44 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                 delay: 400,
                 child: HomeCategoryList(),
               ),
-
-              // Flash Sale
               const SizedBox(height: SizesValue.spaceBtwSections),
-              SectionHeader(
-                height: 40,
-                title: TextValue.flashSale,
-                action: Row(
+              // Flash Sale
+              Visibility(
+                visible: !hasFlashEventEnded,
+                child: Column(
                   children: [
-                    CountdownWidget(
-                      dateString: event.endDate,
-                      goBackWhenEventEnd: false,
+                    SectionHeader(
+                      height: 40,
+                      title: TextValue.flashSale,
+                      action: Row(
+                        children: [
+                          CountdownWidget(
+                            dateString: event.endDate,
+                            goBackWhenEventEnd: false,
+                          ),
+                          Icon(
+                            Iconsax.arrow_right_3,
+                            size: 15,
+                            color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                          )
+                        ],
+                      ),
+                      onTap: () => Get.to(
+                        () => GlobalProductPage(
+                          pageTitle: TextValue.popular,
+                          query: FirebaseFirestore.instance
+                              .collection('Products')
+                              .where('promoCode', isEqualTo: '0')
+                              .limit(2),
+                        ),
+                      ),
                     ),
-                    Icon(
-                      Iconsax.arrow_right_3,
-                      size: 15,
-                      color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                    )
+                    const SizedBox(height: SizesValue.spaceBtwItems),
+                    const FlashSaleItemSection(),
+                    const SizedBox(height: SizesValue.spaceBtwSections),
                   ],
                 ),
-                onTap: () => Get.to(
-                  () => GlobalProductPage(
-                    pageTitle: TextValue.popular,
-                    query:
-                        FirebaseFirestore.instance.collection('Products').where('promoCode', isEqualTo: '0').limit(2),
-                  ),
-                ),
               ),
-              const SizedBox(height: SizesValue.spaceBtwItems),
-              const FlashSaleItemSection(),
-              const SizedBox(height: SizesValue.spaceBtwSections),
 
               //Popular Product
               SectionHeader(

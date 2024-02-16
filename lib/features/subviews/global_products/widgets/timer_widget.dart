@@ -3,21 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:gshopp_flutter/features/shell/screens/home_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 
 // Define a provider for managing the countdown state
-final countdownProvider = StateNotifierProvider.autoDispose<CountdownNotifier, Duration>((ref) {
+final countdownProvider = StateNotifierProvider<CountdownNotifier, Duration>((ref) {
   // Initialize your CountdownNotifier here
-  return CountdownNotifier();
+  return CountdownNotifier(ref);
 });
 
 // StateNotifier that holds the countdown logic
 class CountdownNotifier extends StateNotifier<Duration> {
   Timer? _timer;
   DateTime? targetDate;
+  Ref ref;
 
-  CountdownNotifier() : super(Duration.zero) {
+  CountdownNotifier(this.ref) : super(Duration.zero) {
     // Initialize your targetDate and start the timer here
   }
 
@@ -32,6 +34,7 @@ class CountdownNotifier extends StateNotifier<Duration> {
           // Handle countdown end
           state = Duration.zero;
           _timer?.cancel();
+
           onCountdownEnd(goBackWhenEventEnd);
         } else {
           state = countdownDuration; // Update state with new countdown value
@@ -42,10 +45,10 @@ class CountdownNotifier extends StateNotifier<Duration> {
 
   void onCountdownEnd(bool flag) {
     // Use GetX navigation to close the current page
-
     if (flag) {
       Get.back();
     }
+    ref.read(isFlashSaleEndedProvider.notifier).state = true;
   }
 
   @override

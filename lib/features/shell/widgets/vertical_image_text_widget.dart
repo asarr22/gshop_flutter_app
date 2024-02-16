@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 class VerticalImageText extends StatelessWidget {
-  const VerticalImageText({
-    super.key,
-    required this.image,
-    required this.title,
-    this.backgroundColor,
-    this.onTap,
-  });
+  const VerticalImageText(
+      {super.key,
+      required this.image,
+      required this.title,
+      this.backgroundColor,
+      this.onTap,
+      this.firstItemPadding = false});
 
   final String image, title;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool firstItemPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class VerticalImageText extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 8, 5, 0),
+        padding: EdgeInsets.fromLTRB(firstItemPadding ? 20 : 0, 0, 5, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,12 +49,12 @@ class VerticalImageText extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             SizedBox(
-              width: 72,
+              width: 85,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(fontWeightDelta: 2),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

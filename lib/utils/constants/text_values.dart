@@ -84,6 +84,10 @@ class TextValue {
   static const String ok = "OK";
   static const String cancel = "Annuler";
   static const String canceled = "Annulé";
+  static const String close = "Fermer";
+  static const String error = "Erreur";
+  static const String choose = 'Choisir';
+  static const String select = 'Selecionner';
   static const String greetings = "Salut, Bienvenue 👋";
   static const String search = "Rechercher";
   static const String from = "De";
@@ -92,6 +96,8 @@ class TextValue {
   static const String categories = "Categories";
   static const String popular = "Populaires";
   static const String seeAll = "Voir tout";
+  static const String option = "Option";
+  static const String options = "Options";
   static const String seeDetails = "Voir les details";
   static const String edit = "Modifier";
   static const String newArrival = "Nouveaux Arrivages";
@@ -119,6 +125,7 @@ class TextValue {
   static const String howWasYourExperience = "Comment était votre experience ?";
   static const String noReviewsYet = "Pas encore d'avis";
   static const String addToCard = "Ajouter au Panier";
+  static const String buy = "Acheter";
   static const String itemAddedToCart = "Le produit a été ajouté dans votre panier";
   static const String itemAddedToFavorite = "Le produit a été ajouté dans votre favoris";
   static const String itemRemovedfromCart = "Le produit a été retiré de votre panier";

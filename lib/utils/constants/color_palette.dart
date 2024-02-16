@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   ColorPalette._();
   static const Color primary = Color(0xFFEB8948);
+  static const Color primaryOxfordBlue = Color(0xFF04132F);
   static const Color primaryLight = Color(0xFFEB8948);
   static const Color primaryDark = Color.fromARGB(255, 230, 153, 70);
   static const Color onPrimaryLight = Color(0xFF1F1B16);
@@ -23,6 +24,8 @@ class ColorPalette {
   static const Color secondary = Color(0xFFFFDB90);
   static const Color secondary2 = Color(0xFFFF9675);
   static const Color secondary3 = Color(0xFFADBAFF);
+  static const Color secondary4 = Color(0xFFE1CDFF);
   static const Color tertiary = Color(0xFFFCC8A8);
   static const Color tertiary2 = Color(0xFFE7F9FE);
+  static const Color tertiaryAzure = Color(0xFFF4F1FE);
 }

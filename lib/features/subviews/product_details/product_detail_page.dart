@@ -258,7 +258,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                 imgUrl: review.userImage ?? "",
                               );
                             }),
-                  )
+                  ),
                 ],
               ),
             ),

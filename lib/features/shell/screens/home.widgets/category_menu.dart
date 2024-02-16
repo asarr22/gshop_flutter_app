@@ -22,8 +22,10 @@ class HomeCategoryList extends StatelessWidget {
           itemBuilder: (_, index) {
             CategoryItem categoryItem = CategoryModel().getItemAt(index);
             return FadeTranslateAnimation(
-              delay: 100 * index,
+              delay: 200,
               child: VerticalImageText(
+                firstItemPadding:
+                    index == 0, // This will add padding to the first item of the list in order to align the items
                 title: categoryItem.title,
                 image: categoryItem.image,
                 onTap: () {

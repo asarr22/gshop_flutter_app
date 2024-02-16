@@ -11,6 +11,7 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ProductDetailBottomBar extends ConsumerWidget {
   const ProductDetailBottomBar({
@@ -93,14 +94,15 @@ class ProductDetailBottomBar extends ConsumerWidget {
       }
     }
 
-    return SizedBox(
-      height: 110,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: ColorPalette.grey.withOpacity(0.3), width: 1),
+        ),
+      ),
+      height: 95,
       width: double.infinity,
       child: Column(children: [
-        const Divider(
-          indent: 10,
-          endIndent: 10,
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding, vertical: SizesValue.padding / 2),
           child: SizedBox(
@@ -134,24 +136,24 @@ class ProductDetailBottomBar extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.add_shopping_cart_outlined,
+                            Iconsax.shopping_cart,
                             color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary,
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            TextValue.addToCard,
+                            TextValue.buy,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyMedium!
+                                .labelLarge!
                                 .apply(color: isSelectedVariantAvailable ? Colors.white : ColorPalette.primary),
                           ),
                           Visibility(
                             visible: isSelectedVariantAvailable,
                             child: const VerticalDivider(
-                              indent: 20,
-                              endIndent: 20,
+                              indent: 25,
+                              endIndent: 25,
                               thickness: 2,
                               color: Colors.white,
                             ),
