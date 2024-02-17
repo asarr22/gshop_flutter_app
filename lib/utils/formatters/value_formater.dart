@@ -19,8 +19,20 @@ class Formatter {
   }
 
   static double applyDiscount(double initialPrice, int discountPercentage) {
+    if (discountPercentage == 100) {
+      throw ArgumentError("Discount percentage cannot be 100.");
+    }
     double discountValue = initialPrice * (discountPercentage / 100);
     return initialPrice - discountValue;
+  }
+
+  static double removeDiscount(double finalPrice, int discountPercentage) {
+    // Ensure the discount percentage is not 100% to avoid division by zero
+    if (discountPercentage == 100) {
+      throw ArgumentError("Discount percentage cannot be 100.");
+    }
+
+    return finalPrice / (1 - (discountPercentage / 100.0));
   }
 
   static String getFormattedDateTime(String format, {DateTime? dateTime}) {

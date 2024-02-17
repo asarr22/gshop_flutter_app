@@ -23,7 +23,7 @@ class UserCartRepository {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -40,7 +40,7 @@ class UserCartRepository {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -59,7 +59,7 @@ class UserCartRepository {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -82,7 +82,7 @@ class UserCartRepository {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -96,7 +96,17 @@ class UserCartRepository {
 
       for (var doc in query.docs) {
         Map<String, dynamic> docData = doc.data();
-        if (mapEquals(oldJson, docData)) {
+
+        // Create copies of the maps
+        Map<String, dynamic> oldJsonCopy = Map<String, dynamic>.from(oldJson);
+        Map<String, dynamic> docDataCopy = Map<String, dynamic>.from(docData);
+
+        // Remove the field to exclude from the copies
+        oldJsonCopy.remove('productPrice');
+        docDataCopy.remove('productPrice');
+
+        // Compare Field
+        if (mapEquals(oldJsonCopy, docDataCopy)) {
           await _db.collection('Users').doc(user?.uid).collection('Cart').doc(doc.id).set(jsonData);
         }
       }
@@ -107,7 +117,7 @@ class UserCartRepository {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
@@ -44,7 +45,9 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
         state = items;
       } catch (e) {
         // Handle errors, possibly set an error state
-        SnackBarPop.showErrorPopup(e.toString(), duration: 4);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     });
   }
@@ -66,7 +69,11 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     if (item.quantity < 10) {
       quantity++;
     }
+    item.removeDiscount(item.appliedDiscountValue);
     userCartRepository.mofidyItemQuantity(item, quantity);
+
+    // Refresh State
+    state = [...state];
   }
 
   // Decrease Quantity
@@ -75,7 +82,10 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     if (item.quantity > 1) {
       quantity--;
     }
+    item.removeDiscount(item.appliedDiscountValue);
     userCartRepository.mofidyItemQuantity(item, quantity);
+    // Refresh State
+    state = [...state];
   }
 }
 

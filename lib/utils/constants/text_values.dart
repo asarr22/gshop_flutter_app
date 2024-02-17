@@ -87,7 +87,7 @@ class TextValue {
   static const String close = "Fermer";
   static const String error = "Erreur";
   static const String choose = 'Choisir';
-  static const String select = 'Selecionner';
+  static const String select = 'Selectionner';
   static const String greetings = "Salut, Bienvenue 👋";
   static const String search = "Rechercher";
   static const String from = "De";

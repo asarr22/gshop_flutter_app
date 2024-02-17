@@ -10,8 +10,14 @@ class UserCartItemModel {
   int productPrice;
   final String color;
   final String size;
+  int appliedDiscountValue = 0;
   void applyDiscount(int discountValue) {
     productPrice = Formatter.applyDiscount(productPrice.toDouble(), discountValue).toInt();
+    appliedDiscountValue = discountValue;
+  }
+
+  void removeDiscount(int discountValue) {
+    productPrice = Formatter.removeDiscount(productPrice.toDouble(), discountValue).toInt();
   }
 
   UserCartItemModel({
