@@ -67,7 +67,7 @@ class CityZoneSelectionPopup {
             children: [
               Center(
                 child: Text(
-                  TextValue.selectAndOption,
+                  TextValue.selectAnOption,
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),

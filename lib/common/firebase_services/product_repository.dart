@@ -125,6 +125,37 @@ class ProductRepository {
     }
   }
 
+  // Fetch Multiple Products By their IDs
+  Future<List<Product>> getProductsByIds(List<String> productIds) async {
+    try {
+      // Split productIds into chunks if necessary since Firestore `whereIn` supports a maximum of 10 elements per query.
+      List<List<String>> chunks = [];
+      const int chunkSize = 10; // Firestore limit
+      for (var i = 0; i < productIds.length; i += chunkSize) {
+        chunks.add(productIds.sublist(i, i + chunkSize > productIds.length ? productIds.length : i + chunkSize));
+      }
+
+      List<Product> products = [];
+      for (List<String> chunk in chunks) {
+        // Perform a query for each chunk
+        var querySnapshot = await _db.collection('Products').where(FieldPath.documentId, whereIn: chunk).get();
+        for (var doc in querySnapshot.docs) {
+          products.add(Product.fromSnapshot(doc));
+        }
+      }
+
+      return products;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Error: ${e.toString()}';
+    }
+  }
+
   // Fetch Single Product Without Listening
   Future<void> updateProduct(Product product) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;

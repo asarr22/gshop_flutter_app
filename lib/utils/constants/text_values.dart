@@ -134,6 +134,8 @@ class TextValue {
   static const String inStock = "Produit en Stock";
   static const String outOfStock = "En rupture de stock";
   static const String lowStock = "Stock faible";
+  static const String insufficentStockMessage = "Stock insuffisant pour l'option choisie ";
+  static const String maxQuantityReached = "Quantité maximale atteinte";
   static const String selectAColorFirst = "Choisissez une couleur";
   static const String choiceUnavailable = "Choix no disponible";
   static const String itemsRemaining = "articles restants";
@@ -179,8 +181,11 @@ class TextValue {
   static const String checkYourNetwork = "Veillez verifier votre connexion à internet";
   static const String address = "Adresse";
   static const String operationSuccess = "L'operation est terminé avec succeés";
-  static const String selectAndOption = "Choisis une option";
+  static const String selectAnOption = "Choisis une option";
+  static const String selectColorAndSizeFirst = "Choisissez une Couleur et une Caracteristique d'abord";
+  static const String selectedVariantIsNotAvailable = "La variante sélectionnée n'est pas disponible";
   static const String selectedItemIsNotAvailable = 'L\'option choisie n\'est pas disponible ';
+  static const String maxCartItemLimit10Message = "Vous ne pouvez pas avoir plus de 10 element dans votre panier";
 
   // Category List
   static const String accessories = "Accessoires";

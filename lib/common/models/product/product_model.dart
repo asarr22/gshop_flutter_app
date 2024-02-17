@@ -6,6 +6,7 @@ class Product {
   final String description;
   final List<String> imageUrl;
   final int discountValue;
+  int? promoDiscountValue;
   final String brand;
   final List<Variant> variants;
   final int totalStock;
@@ -33,6 +34,7 @@ class Product {
     required this.description,
     required this.imageUrl,
     required this.discountValue,
+    this.promoDiscountValue,
     required this.brand,
     required this.variants,
     required this.totalStock,
@@ -55,6 +57,7 @@ class Product {
       'price': price,
       'imageUrl': imageUrl,
       'discountValue': discountValue,
+      'promoDiscountValue': promoDiscountValue,
       'brand': brand,
       'variants': variants.map((v) => v.toJson()).toList(),
       'totalStock': totalStock,
@@ -79,6 +82,7 @@ class Product {
       description: json['description'],
       imageUrl: json['imageUrl'],
       discountValue: json['discountValue'],
+      promoDiscountValue: json['promoDiscountValue'],
       brand: json['brand'],
       variants: (json['variants'] as List).map((v) => Variant.fromJson(v)).toList(),
       isPopular: json['isPopular'],
@@ -96,13 +100,15 @@ class Product {
   }
 
   factory Product.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    int intRate = snapshot['intRating'].toInt();
+    int intRate = snapshot['intRating']?.toInt() ?? 0;
+    int promoDiscountValue = snapshot.data()?['promoDiscountValue'] as int? ?? 0;
     return Product(
         id: snapshot['id'],
         title: snapshot['title'],
         description: snapshot['description'],
         imageUrl: List<String>.from(snapshot['imageUrl']),
         discountValue: snapshot['discountValue'],
+        promoDiscountValue: promoDiscountValue,
         brand: snapshot['brand'],
         isPopular: snapshot['isPopular'],
         variants: (snapshot['variants'] as List).map((v) => Variant.fromSnapshot(v)).toList(),
@@ -124,6 +130,7 @@ class Product {
         description: '',
         imageUrl: [],
         discountValue: 0,
+        promoDiscountValue: 0,
         brand: '',
         variants: [Variant.empty()],
         totalStock: 0,

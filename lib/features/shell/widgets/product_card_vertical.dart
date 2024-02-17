@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
+import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
@@ -28,6 +29,8 @@ class ProductCardVertical extends ConsumerWidget {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
     final favoriteList = ref.watch(favoriteControllerProvider);
     bool isAmoungFavorite = favoriteList.any((element) => element.id == product.id);
+    final promoEventList = ref.watch(promoEventControllerProvider);
+    final bool isTherePromoDiscount = HelperFunctions.isTherePromoDiscount(product, promoEventList);
 
     getColorsWidgets() {
       List<Widget> widgets = [];
@@ -96,7 +99,7 @@ class ProductCardVertical extends ConsumerWidget {
                     ),
                     child: Center(
                       child: Text(
-                        '${product.discountValue}%',
+                        '${isTherePromoDiscount ? product.promoDiscountValue! : product.discountValue}%',
                         style:
                             Theme.of(context).textTheme.labelSmall!.apply(color: ColorPalette.black, fontSizeDelta: 2),
                       ),
@@ -166,7 +169,8 @@ class ProductCardVertical extends ConsumerWidget {
                         ],
                       ),
                       Text(
-                        Formatter.formatPrice(Formatter.applyDiscount(product.price.toDouble(), product.discountValue)),
+                        Formatter.formatPrice(Formatter.applyDiscount(product.price.toDouble(),
+                            isTherePromoDiscount ? product.promoDiscountValue! : product.discountValue)),
                         style: Theme.of(context).textTheme.labelLarge!.apply(fontWeightDelta: 3),
                       ),
                     ],

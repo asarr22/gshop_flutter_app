@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 
 class UserCartItemModel {
-  String productId;
+  final String productId;
   int quantity;
-  String createdAt;
-  String productName;
-  String productImage;
+  final String createdAt;
+  final String productName;
+  final String productImage;
   int productPrice;
-  String color;
-  String size;
+  final String color;
+  final String size;
+  void applyDiscount(int discountValue) {
+    productPrice = Formatter.applyDiscount(productPrice.toDouble(), discountValue).toInt();
+  }
 
   UserCartItemModel({
     required this.productId,

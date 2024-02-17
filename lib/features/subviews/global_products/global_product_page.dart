@@ -112,9 +112,14 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    CountdownWidget(
-                      dateString: event!.endDate,
-                      goBackWhenEventEnd: true,
+                    Hero(
+                      tag: 'countdown',
+                      child: ClipRect(
+                        child: CountdownWidget(
+                          dateString: event!.endDate,
+                          goBackWhenEventEnd: true,
+                        ),
+                      ),
                     ),
                   ],
                 ),

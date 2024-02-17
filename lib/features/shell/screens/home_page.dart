@@ -200,9 +200,14 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                       title: TextValue.flashSale,
                       action: Row(
                         children: [
-                          CountdownWidget(
-                            dateString: event.endDate,
-                            goBackWhenEventEnd: false,
+                          Hero(
+                            tag: 'countdown',
+                            child: ClipRRect(
+                              child: CountdownWidget(
+                                dateString: event.endDate,
+                                goBackWhenEventEnd: false,
+                              ),
+                            ),
                           ),
                           Icon(
                             Iconsax.arrow_right_3,
@@ -213,7 +218,8 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                       ),
                       onTap: () => Get.to(
                         () => GlobalProductPage(
-                          pageTitle: TextValue.popular,
+                          pageTitle: TextValue.flashSale,
+                          isFlashSale: true,
                           query: FirebaseFirestore.instance
                               .collection('Products')
                               .where('promoCode', isEqualTo: '0')

@@ -53,7 +53,23 @@ class CartPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
-          actions: const [SizedBox(width: 40)],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: RoundedContainer(
+                height: 30,
+                width: 30,
+                radius: 100,
+                backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                child: Center(
+                  child: Text(
+                    cartItems.length.toString(),
+                    style: Theme.of(context).textTheme.bodySmall!.apply(color: Colors.white),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(

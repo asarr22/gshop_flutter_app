@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
@@ -8,6 +6,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
+import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
@@ -39,7 +38,7 @@ class VariantSelection extends StatelessWidget {
           height: 70,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: ColorPalette.secondary,
+            color: ColorPalette.secondary.withOpacity(0.8),
             borderRadius: BorderRadius.circular(100),
           ),
           child: Row(
@@ -218,7 +217,7 @@ class VariantSelection extends StatelessWidget {
           height: 70,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: ColorPalette.secondary,
+            color: ColorPalette.secondary.withOpacity(0.8),
             borderRadius: BorderRadius.circular(100),
           ),
           child: Row(
@@ -244,7 +243,8 @@ class VariantSelection extends StatelessWidget {
                                   SizedBox(
                                     child: Text(
                                       selectedSize!.size,
-                                      style: Theme.of(context).textTheme.labelLarge!.apply(color: Colors.black),
+                                      style:
+                                          Theme.of(context).textTheme.labelLarge!.apply(color: ColorPalette.secondary2),
                                     ),
                                   ),
                                   const SizedBox(width: 5),
@@ -330,6 +330,10 @@ class VariantSelection extends StatelessWidget {
                                                 onTap: () {
                                                   ref.read(selectedSizeProvider.notifier).selectSize(size);
                                                   Navigator.pop(context);
+                                                  if (selectedSize != null && selectedSize.stock < 1) {
+                                                    SnackBarPop.showInfoPopup(TextValue.selectedVariantIsNotAvailable,
+                                                        duration: 4);
+                                                  }
                                                 },
                                                 child: Container(
                                                   clipBehavior: Clip.antiAlias,

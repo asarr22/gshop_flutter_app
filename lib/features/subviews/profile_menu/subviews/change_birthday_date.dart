@@ -9,7 +9,8 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:intl/intl.dart';
 
-final birthdaychangeProvider = StateNotifierProvider<ChangeBirthdayController, String>((ref) => ChangeBirthdayController());
+final birthdaychangeProvider =
+    StateNotifierProvider<ChangeBirthdayController, String>((ref) => ChangeBirthdayController());
 
 class BirthDateSelection {
   static void showPicker(BuildContext context, WidgetRef ref) {
@@ -29,7 +30,7 @@ class BirthDateSelection {
             children: [
               Center(
                 child: Text(
-                  TextValue.selectAndOption,
+                  TextValue.selectAnOption,
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
@@ -54,7 +55,8 @@ class BirthDateSelection {
                     },
                     child: Text(
                       TextValue.cancel,
-                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
+                      style:
+                          Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
                     ),
                   ),
                   TextButton(
@@ -63,7 +65,8 @@ class BirthDateSelection {
                     },
                     child: Text(
                       TextValue.submit,
-                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
+                      style:
+                          Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
                     ),
                   ),
                 ],

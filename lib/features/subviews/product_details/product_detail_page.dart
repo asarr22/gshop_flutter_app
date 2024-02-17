@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_image.dart';
@@ -48,11 +49,16 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final product = ref.watch(productDetailsControllerProvider);
     ref.watch(globalRatingProvider.notifier).getProductReviews(product.id);
 
+    final promoEventList = ref.watch(promoEventControllerProvider);
+
     final reviews = ref.watch(globalRatingProvider);
 
     final bool isDarkMode = HelperFunctions.isDarkMode(context);
+
+    final bool isTherePromoDiscount = HelperFunctions.isTherePromoDiscount(product, promoEventList);
+
     String stockStateLogger() {
-      if (product.totalStock == 0) {
+      if (product.getStock == 0) {
         return TextValue.outOfStock;
       } else if (product.totalStock < 5) {
         return TextValue.lowStock;
@@ -102,7 +108,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                           ),
                           child: Center(
                             child: Text(
-                              '${product.discountValue}%',
+                              '${isTherePromoDiscount ? product.promoDiscountValue : product.discountValue}%',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium!
@@ -121,18 +127,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     delay: 500,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Container(
-                        width: reviews.isEmpty && product.rating == 0 ? null : 50,
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          color: reviews.isEmpty && product.rating == 0
-                              ? ColorPalette.lightGrey
-                              : ColorPalette.secondary3.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            Row(
+                      child: reviews.isEmpty || product.rating == 0
+                          ? Row(
                               children: [
                                 const Icon(
                                   Icons.star,
@@ -140,18 +136,42 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                   color: Colors.amber,
                                 ),
                                 Text(
-                                  reviews.isEmpty && product.rating == 0
-                                      ? TextValue.noReviewsYet
-                                      : product.rating.toStringAsFixed(1),
+                                  TextValue.noReviewsYet,
                                   style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.black),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
                               ],
+                            )
+                          : Container(
+                              width: reviews.isEmpty && product.rating == 0 ? null : 50,
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: reviews.isEmpty && product.rating == 0
+                                    ? ColorPalette.lightGrey
+                                    : ColorPalette.secondary3.withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        size: 20,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        product.rating.toStringAsFixed(1),
+                                        style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.black),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                   // Stock Count
@@ -160,13 +180,13 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     delay: 600,
                     child: Row(
                       children: [
-                        Icon(Iconsax.info_circle, size: 15, color: product.totalStock == 0 ? Colors.red : Colors.green),
+                        Icon(Iconsax.info_circle, size: 15, color: product.getStock == 0 ? Colors.red : Colors.green),
                         const SizedBox(width: 5),
                         Text(stockStateLogger(),
                             style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                color: product.totalStock == 0
+                                color: product.getStock == 0
                                     ? Colors.red
-                                    : product.totalStock < 5
+                                    : product.getStock < 5
                                         ? Colors.orange
                                         : Colors.green)),
                       ],
@@ -213,7 +233,11 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
 
                   FadeTranslateAnimation(
                       delay: 800,
-                      child: QuantitySelectionWidget(ref: ref, selectedQuantityValue: selectedQuantityValue)),
+                      child: QuantitySelectionWidget(
+                        ref: ref,
+                        selectedQuantityValue: selectedQuantityValue,
+                        product: product,
+                      )),
 
                   // Comment Section
                   const SizedBox(height: 30),
