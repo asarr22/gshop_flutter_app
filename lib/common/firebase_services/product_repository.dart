@@ -69,7 +69,8 @@ class ProductRepository {
 
       return QueryResult(products, lastDocument, hasMore);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      print(e.toString());
+      throw e.toString();
     }
   }
 

@@ -7,10 +7,10 @@ import 'package:gshopp_flutter/features/subviews/product_details/product_detail_
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
+import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavoriteItemCard extends ConsumerWidget {
@@ -24,90 +24,98 @@ class FavoriteItemCard extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),
-      child: GestureDetector(
-        onTap: () {
-          Get.to(() => ProductDetailPage(favoriteItem.id));
-        },
-        child: RoundedContainer(
-          height: 90,
-          backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1.5,
-              blurRadius: 5.0,
-              offset: const Offset(-1, 4),
-            ),
-          ],
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 80,
-                  child: favoriteItem.image.isEmpty
-                      ? Shimmer.fromColors(
-                          baseColor: ColorPalette.lightGrey,
-                          highlightColor: ColorPalette.extraLightGray,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
-                          ),
-                        )
-                      : Image.network(
-                          favoriteItem.image.isEmpty ? ImagesValue.monitorIcon : favoriteItem.image,
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: ColorPalette.primary,
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
+      child: RoundedContainer(
+        height: 90,
+        backgroundColor: isDarkMode ? const Color.fromARGB(255, 71, 66, 59) : ColorPalette.extraLightGrayPlus,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1.5,
+            blurRadius: 5.0,
+            offset: const Offset(-1, 4),
+          ),
+        ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 80,
+                child: favoriteItem.image.isEmpty
+                    ? Shimmer.fromColors(
+                        baseColor: ColorPalette.lightGrey,
+                        highlightColor: ColorPalette.extraLightGray,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
                         ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              favoriteItem.title,
-                              style: Theme.of(context).textTheme.displaySmall,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
+                      )
+                    : Image.network(
+                        favoriteItem.image.isEmpty ? ImagesValue.monitorIcon : favoriteItem.image,
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: ColorPalette.primary,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                  : null,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                ref.read(favoriteControllerProvider.notifier).deleteSingleItem(favoriteItem.id);
-                              },
-                              child: Icon(
-                                Iconsax.close_circle,
-                                size: 20,
-                                color: isDarkMode ? Colors.white : ColorPalette.primary,
-                              ),
-                            )
-                          ],
+                          );
+                        },
+                      ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            favoriteItem.title,
+                            style: Theme.of(context).textTheme.displaySmall,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              ref.read(favoriteControllerProvider.notifier).deleteSingleItem(favoriteItem.id);
+                            },
+                            child: Icon(
+                              Icons.delete_outline_rounded,
+                              size: 25,
+                              color: isDarkMode ? Colors.white : ColorPalette.primary,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text(
+                      Formatter.formatPrice(favoriteItem.price),
+                      style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => ProductDetailPage(favoriteItem.id));
+                          },
+                          child: Text(
+                            TextValue.see,
+                            style: Theme.of(context).textTheme.labelMedium!.apply(color: Colors.white),
+                          ),
                         ),
                       ),
-                      const SizedBox(height: SizesValue.spaceBtwItems),
-                      Text(
-                        Formatter.formatPrice(favoriteItem.price),
-                        style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
-                      ),
-                      const SizedBox(height: SizesValue.spaceBtwItems),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

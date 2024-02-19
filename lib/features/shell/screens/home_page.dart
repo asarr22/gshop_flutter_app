@@ -182,7 +182,9 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
               // Categories
               SectionHeader(
                 title: TextValue.categories,
-                onTap: () => Get.to(() => const CategoryPage()),
+                onTap: () => Get.to(() => const CategoryPage(
+                      automaticallyImplyLeading: true,
+                    )),
               ),
               const SizedBox(height: SizesValue.spaceBtwItems),
               const FadeTranslateAnimation(
@@ -190,6 +192,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                 child: HomeCategoryList(),
               ),
               const SizedBox(height: SizesValue.spaceBtwSections),
+
               // Flash Sale
               Visibility(
                 visible: !hasFlashEventEnded,
@@ -220,7 +223,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                         () => GlobalProductPage(
                           pageTitle: TextValue.flashSale,
                           isFlashSale: true,
-                          query: FirebaseFirestore.instance
+                          initialQuery: FirebaseFirestore.instance
                               .collection('Products')
                               .where('promoCode', isEqualTo: '0')
                               .limit(2),
@@ -240,7 +243,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                 onTap: () => Get.to(
                   () => GlobalProductPage(
                     pageTitle: TextValue.popular,
-                    query: FirebaseFirestore.instance.collection('Products').where('isPopular', isEqualTo: true),
+                    initialQuery: FirebaseFirestore.instance.collection('Products').where('isPopular', isEqualTo: true),
                   ),
                 ),
               ),
@@ -269,7 +272,7 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
                 onTap: () => Get.to(
                   () => GlobalProductPage(
                     pageTitle: TextValue.newArrival,
-                    query: FirebaseFirestore.instance.collection('Products').where('isNew', isEqualTo: true),
+                    initialQuery: FirebaseFirestore.instance.collection('Products').where('isNew', isEqualTo: true),
                   ),
                 ),
               ),

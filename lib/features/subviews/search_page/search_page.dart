@@ -106,7 +106,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         List<String> tags = keyword.toLowerCase().split(' ');
         Get.to(() => GlobalProductPage(
               pageTitle: '${TextValue.searchResultFor} "$keyword"',
-              query: FirebaseFirestore.instance.collection('Products').where(Filter.or(
+              initialQuery: FirebaseFirestore.instance.collection('Products').where(Filter.or(
                   Filter('tags', arrayContainsAny: tags),
                   Filter("brand", isEqualTo: keyword.substring(0, 1).toUpperCase() + keyword.substring(1)))),
             ));

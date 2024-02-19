@@ -143,6 +143,7 @@ class TextValue {
   static const String soldOut = "stock epuisé";
   static const String cart = "Panier";
   static const String clearAll = "Tout Effacer";
+  static const String default_ = "Par Défaut";
   static const String noItem = "Pas d'element";
   static const String item = "Element";
   static const String myAccount = "Mon Compte";
@@ -171,6 +172,8 @@ class TextValue {
   static const String notifications = "Notifications";
   static const String notificationsDescription = "Liste des notifications";
   static const String settings = "Paramètres";
+  static const String lowerPrice = 'Prix bas';
+  static const String higherPrice = 'Prix haut';
   static const String settingsDescription = "Personnaliser l'application";
   static const String theme = 'Thème';
   static const String darkTheme = 'Thème sombre';

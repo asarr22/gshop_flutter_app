@@ -71,9 +71,6 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     }
     item.removeDiscount(item.appliedDiscountValue);
     userCartRepository.mofidyItemQuantity(item, quantity);
-
-    // Refresh State
-    state = [...state];
   }
 
   // Decrease Quantity
@@ -84,8 +81,6 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     }
     item.removeDiscount(item.appliedDiscountValue);
     userCartRepository.mofidyItemQuantity(item, quantity);
-    // Refresh State
-    state = [...state];
   }
 }
 

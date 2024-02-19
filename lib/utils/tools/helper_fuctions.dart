@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/common/models/app/event_model.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/authentication/screens/onboarding_screen.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/state/global_product_order.dart';
+import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 
 class HelperFunctions {
@@ -75,5 +77,17 @@ class HelperFunctions {
       }
     }
     return false;
+  }
+
+  // Get name From ProductOrder
+  static String getNameFromProductOrder(ProductOrder productOrder) {
+    switch (productOrder) {
+      case ProductOrder.default_:
+        return TextValue.default_;
+      case ProductOrder.priceAsc:
+        return TextValue.lowerPrice;
+      case ProductOrder.priceDesc:
+        return TextValue.higherPrice;
+    }
   }
 }

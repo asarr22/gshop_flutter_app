@@ -31,7 +31,7 @@ class HomeCategoryList extends StatelessWidget {
                 onTap: () {
                   Get.to(() => GlobalProductPage(
                         pageTitle: categoryItem.title,
-                        query: FirebaseFirestore.instance
+                        initialQuery: FirebaseFirestore.instance
                             .collection('Products')
                             .where('category', isEqualTo: CategoryModel().getItemAt(index).codeName),
                       ));

@@ -48,14 +48,14 @@ class SubcategoryPage extends StatelessWidget {
                         if (item.keys.first == 'all') {
                           Get.to(() => GlobalProductPage(
                                 pageTitle: title,
-                                query: FirebaseFirestore.instance
+                                initialQuery: FirebaseFirestore.instance
                                     .collection('Products')
                                     .where('category', isEqualTo: CategoryModel().getItemAt(mainIndex).codeName),
                               ));
                         } else {
                           Get.to(() => GlobalProductPage(
                                 pageTitle: title,
-                                query: FirebaseFirestore.instance
+                                initialQuery: FirebaseFirestore.instance
                                     .collection('Products')
                                     .where('category', isEqualTo: CategoryModel().getItemAt(mainIndex).codeName)
                                     .where('subCategory', isEqualTo: item.keys.first.toLowerCase()),

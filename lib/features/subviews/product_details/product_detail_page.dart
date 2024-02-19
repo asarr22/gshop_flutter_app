@@ -137,7 +137,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                 ),
                                 Text(
                                   TextValue.noReviewsYet,
-                                  style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.black),
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -286,6 +286,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
           ],
         ),
       ),

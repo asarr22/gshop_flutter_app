@@ -9,7 +9,9 @@ import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
+  const CategoryPage({super.key, this.automaticallyImplyLeading = false});
+
+  final bool automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,12 @@ class CategoryPage extends StatelessWidget {
           TextValue.categories,
           style: Theme.of(context).textTheme.displayLarge,
         ),
-        leading: IconButton(
-          icon: const Icon(Iconsax.arrow_left_24),
-          onPressed: () => Get.back(),
-        ),
+        leading: automaticallyImplyLeading
+            ? IconButton(
+                icon: const Icon(Iconsax.arrow_left_24),
+                onPressed: () => Get.back(),
+              )
+            : null,
       ),
       body: SingleChildScrollView(
         child: Padding(

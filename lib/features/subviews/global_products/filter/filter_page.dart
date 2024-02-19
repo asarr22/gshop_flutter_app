@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/filter/widgets/price_range_slider.dart';
+import 'package:gshopp_flutter/features/subviews/global_products/state/global_product_order.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/global_value.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
@@ -189,6 +190,9 @@ class _ProductFilterPageState extends ConsumerState<ProductFilterPage> {
                   ref
                       .read(productControllerProvider.notifier)
                       .fetchProductWithCustomQuery(GlobalValue.defautQueryLimit, buildFilteredQuery(ref));
+
+                  // Set the filter state to true
+                  ref.read(productOrderFilterCheckerProvider.notifier).update(true);
                   // Close the filter page
                   Get.back();
                 },

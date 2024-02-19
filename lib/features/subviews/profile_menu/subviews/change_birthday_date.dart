@@ -20,7 +20,7 @@ class BirthDateSelection {
       builder: (BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
             color: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
           ),
           padding: const EdgeInsets.all(10),

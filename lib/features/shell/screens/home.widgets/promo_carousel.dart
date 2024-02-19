@@ -38,7 +38,7 @@ class PromoCarousel extends ConsumerWidget {
                         GlobalProductPage(
                           pageTitle: event.title,
                           isFlashSale: event.id == '0',
-                          query:
+                          initialQuery:
                               FirebaseFirestore.instance.collection('Products').where('promoCode', isEqualTo: event.id),
                         ),
                       );
