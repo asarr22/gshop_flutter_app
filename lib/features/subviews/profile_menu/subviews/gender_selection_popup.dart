@@ -7,12 +7,22 @@ import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/app.dart';
 
 final genderProvider = StateNotifierProvider<ChangeGenderController, String>((ref) => ChangeGenderController());
 
 class GenderSelect {
   static void showPicker(BuildContext context, WidgetRef ref) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final user = ref.watch(userControllerProvider);
+
+    // Check if there is a saved value in DataBase and set it
+    if (user.gender.isNotEmpty && user.gender != '') {
+      ref.read(genderProvider.notifier).setValue(user.gender);
+    } else {
+      ref.read(genderProvider.notifier).setValue('Male');
+    }
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {

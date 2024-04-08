@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class NetworkManager extends GetxController {
   static final NetworkManager _instance = NetworkManager._internal();
@@ -22,18 +22,14 @@ class NetworkManager extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   /// Update the connection status based on changes in connectivity and show a relevant popup for no internet connection.
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus.value = result;
     if (_connectionStatus.value == ConnectivityResult.none) {
-      AnimatedSnackBar.material(
-        'This a snackbar with info type',
-        type: AnimatedSnackBarType.error,
-      ).show(HelperFunctions.currentContext!);
+      SnackBarPop.showErrorPopup(TextValue.checkYourNetwork, duration: 4);
     }
   }
 

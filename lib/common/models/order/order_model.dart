@@ -12,6 +12,11 @@ class OrderModel {
   final int orderStatus;
   final String paymentMethod;
   String paymentMethodCode;
+  int get subtotal {
+    return orderItems.fold(0, (x, item) => x + (item.price.toInt() * item.quantity));
+  }
+
+  final int deliveryFee;
   final double totalAmount;
   final String userAddress;
   final String userID;
@@ -34,6 +39,7 @@ class OrderModel {
       required this.userAddress,
       required this.userID,
       required this.username,
+      required this.deliveryFee,
       required this.userPhone});
 
   // To Json
@@ -54,6 +60,7 @@ class OrderModel {
       'userAddress': userAddress,
       'userID': userID,
       'username': username,
+      'deliveryFee': deliveryFee,
       'userPhone': userPhone,
     };
   }
@@ -75,6 +82,7 @@ class OrderModel {
         totalAmount: json['totalAmount'],
         userAddress: json['userAddress'],
         userID: json['userID'],
+        deliveryFee: json['deliveryFee'],
         username: json['username'],
         userPhone: json['userPhone']);
   }
@@ -96,8 +104,32 @@ class OrderModel {
         totalAmount: snapshot['totalAmount'],
         userAddress: snapshot['userAddress'],
         userID: snapshot['userID'],
+        deliveryFee: snapshot['deliveryFee'],
         username: snapshot['username'],
         userPhone: snapshot['userPhone']);
+  }
+
+  // Empty Order
+  factory OrderModel.empty() {
+    return OrderModel(
+      couponValue: 0.0,
+      title: '',
+      orderDate: '',
+      orderETA: '',
+      orderID: '',
+      orderItems: [OrderItems.empty()],
+      orderDateStatus: [],
+      orderTimeStatus: [],
+      orderStatus: 0,
+      paymentMethod: '',
+      paymentMethodCode: '',
+      totalAmount: 0.0,
+      userAddress: '',
+      userID: '',
+      username: '',
+      deliveryFee: 0,
+      userPhone: '',
+    );
   }
 }
 

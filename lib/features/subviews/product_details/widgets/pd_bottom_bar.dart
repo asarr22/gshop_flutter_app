@@ -65,7 +65,7 @@ class ProductDetailBottomBar extends ConsumerWidget {
       if (isSelectedVariantAvailable && selectedVariant != null) {
         // Add to cart
         final cartItemModel = UserCartItemModel(
-          productId: product.id,
+          productId: product.id.toString(),
           quantity: selectedQuantityValue,
           createdAt: time,
           productName: product.title,

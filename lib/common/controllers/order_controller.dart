@@ -53,7 +53,7 @@ class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
 
     // Check if Orders item has enough stock
     for (var item in order.orderItems) {
-      var stock = await productRepository.getProductStockFromVariant(item.iD, item.color, item.size);
+      var stock = await productRepository.getProductStockFromVariant(int.parse(item.iD), item.color, item.size);
       if (item.quantity > stock) {
         PFullScreenLoader.stopLoading();
         SnackBarPop.showErrorPopup("${TextValue.itemOutOfStockErrorMessage} : ${item.name}", duration: 4);
@@ -98,8 +98,8 @@ class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
       /// Don't forget to get the transaction ID from the payment system after the transaction is complete. Store it in the order as paymentMethodCode
     }
 
-    if (order.paymentMethod == 'Cash On Delivery') {
-      order.paymentMethodCode = 'No Code';
+    if (order.paymentMethod == 'Cash') {
+      order.paymentMethodCode = 'No Code Required';
     }
 
     // Set Order

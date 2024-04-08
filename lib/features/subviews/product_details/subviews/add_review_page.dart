@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 
 class AddReviewPage extends ConsumerWidget {
   const AddReviewPage(this.productID, {super.key});
-  final String productID;
+  final int productID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

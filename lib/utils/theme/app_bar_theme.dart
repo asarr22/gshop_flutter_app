@@ -17,7 +17,7 @@ class TAppBarTheme {
       color: Color(0xFFFFFFFF),
     ),
     titleTextStyle: TextStyle(
-      fontFamily: 'Poppins',
+      fontFamily: 'Freight',
       fontSize: 24,
       fontWeight: FontWeight.w600,
       color: Color(0xFFEBE1D9),
@@ -38,7 +38,7 @@ class TAppBarTheme {
       color: Color(0xFF492900),
     ),
     titleTextStyle: TextStyle(
-      fontFamily: 'Poppins',
+      fontFamily: 'Freight',
       fontSize: 24,
       fontWeight: FontWeight.w600,
       color: Color(0xFF1F1B16),

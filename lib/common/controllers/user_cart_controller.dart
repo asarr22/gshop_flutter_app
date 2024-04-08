@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
@@ -10,28 +9,29 @@ import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
 class UserCartController extends StateNotifier<List<UserCartItemModel>> {
   UserCartRepository userCartRepository;
-  Ref ref;
+  final Ref ref;
   UserCartController(this.userCartRepository, this.ref) : super(List<UserCartItemModel>.empty()) {
     fetchCart();
   }
 
   void fetchCart() async {
-    // Get Promo Event List
-    var promoEventList = ref.watch(promoEventControllerProvider);
+    // Wait for sometime before starting
+    await Future.delayed(const Duration(seconds: 2));
+    try {
+      // Get Promo Event List
+      final promoEventList = ref.watch(promoEventControllerProvider);
 
-    // Listen to Cart Changes
-    userCartRepository.getUserCartItems().listen((items) async {
-      try {
-        // Fetch all products at once to reduce await points inside the loop
-        var productIds = items.map((item) => item.productId).toList();
-        var products = await ref.watch(productRepositoryProvider).getProductsByIds(productIds);
+      // Listen to Cart Changes
+      userCartRepository.getUserCartItems().listen((items) async {
+        final productIds = items.map((item) => int.parse(item.productId)).toList();
+        final products = await ref.watch(productRepositoryProvider).getProductsByIds(productIds);
 
         // Map products by ID for quick lookup
-        var productMap = {for (var product in products) product.id: product};
+        final productMap = {for (var product in products) product.id: product};
 
         // Apply Discount Value on Item in Live So we can Spot Changes
         for (var item in items) {
-          var product = productMap[item.productId];
+          final product = productMap[int.parse(item.productId)];
           if (product != null) {
             int discountValue = HelperFunctions.isTherePromoDiscount(product, promoEventList)
                 ? product.promoDiscountValue ?? 0
@@ -41,15 +41,14 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
             item.applyDiscount(discountValue);
           }
         }
-
         state = items;
-      } catch (e) {
-        // Handle errors, possibly set an error state
-        if (kDebugMode) {
-          print(e);
-        }
-      }
-    });
+      }, onError: (error) {
+        // Handle errors, possibly by logging them or setting an error state.
+        SnackBarPop.showErrorPopup(error.toString(), duration: 3);
+      });
+    } catch (e) {
+      SnackBarPop.showErrorPopup(e.toString(), duration: 3);
+    }
   }
 
   // Clear Cart
@@ -68,9 +67,9 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     int quantity = item.quantity;
     if (item.quantity < 10) {
       quantity++;
+      item.removeDiscount(item.appliedDiscountValue);
+      userCartRepository.mofidyItemQuantity(item, quantity);
     }
-    item.removeDiscount(item.appliedDiscountValue);
-    userCartRepository.mofidyItemQuantity(item, quantity);
   }
 
   // Decrease Quantity
@@ -78,15 +77,14 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     int quantity = item.quantity;
     if (item.quantity > 1) {
       quantity--;
+      item.removeDiscount(item.appliedDiscountValue);
+      userCartRepository.mofidyItemQuantity(item, quantity);
+    } else {
+      SnackBarPop.showInfoPopup(TextValue.quantityCannotBeZero, duration: 3);
     }
-    item.removeDiscount(item.appliedDiscountValue);
-    userCartRepository.mofidyItemQuantity(item, quantity);
   }
 }
 
 final userCartControllerProvider = StateNotifierProvider<UserCartController, List<UserCartItemModel>>(
-  (ref) {
-    final userCartRepository = ref.watch(cartRepositoryProvider);
-    return UserCartController(userCartRepository, ref);
-  },
+  (ref) => UserCartController(ref.watch(cartRepositoryProvider), ref),
 );

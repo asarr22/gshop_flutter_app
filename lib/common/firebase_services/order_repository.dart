@@ -26,7 +26,7 @@ class OrderRepository {
     // Update Product Stock
     var items = order.orderItems;
     for (var item in items) {
-      var product = await productRepository.getProductByIDListenOff(item.iD);
+      var product = await productRepository.getProductByIDListenOff(int.parse(item.iD));
       updateProductStock(product, item.color, item.size, item.quantity);
       await productRepository.updateProduct(product);
     }

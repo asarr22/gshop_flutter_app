@@ -30,7 +30,7 @@ final productDetailsControllerProvider = StateNotifierProvider<ProductDetailsCon
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   const ProductDetailPage(this.productID, {super.key});
-  final String productID;
+  final int productID;
 
   @override
   ConsumerState<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -92,11 +92,16 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          product.title,
-                          style: Theme.of(context).textTheme.displayLarge,
-                          maxLines: 1,
+                        Expanded(
+                          child: Text(
+                            product.title,
+                            style: Theme.of(context).textTheme.displayLarge,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
+
+                        const SizedBox(width: 10),
 
                         // Discount Box
                         Container(

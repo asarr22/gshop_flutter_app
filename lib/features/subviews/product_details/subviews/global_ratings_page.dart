@@ -17,7 +17,7 @@ final globalRatingProvider = StateNotifierProvider<ProductRatingController, List
 
 class GlobalRatingPage extends ConsumerWidget {
   const GlobalRatingPage(this.productId, this.globalRating, {super.key});
-  final String productId;
+  final int productId;
   final num globalRating;
 
   @override

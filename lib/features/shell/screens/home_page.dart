@@ -44,9 +44,7 @@ final isFlashSaleEndedProvider = StateProvider<bool>((ref) {
   return Formatter.getDateFromString(event.endDate).isBefore(DateTime.now());
 });
 
-class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
@@ -56,7 +54,6 @@ class _HomePageState extends ConsumerState<HomePage> with AutomaticKeepAliveClie
           orElse: () => PromoEventModel.empty(), // Handle the case where no event matches.
         );
     final hasFlashEventEnded = ref.watch(isFlashSaleEndedProvider);
-    super.build(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

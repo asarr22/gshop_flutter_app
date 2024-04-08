@@ -11,12 +11,12 @@ class ProductRatingController extends StateNotifier<List<RatingModel>> {
   final ProductRepository productRepository;
   ProductRatingController(this.productRepository) : super(List<RatingModel>.empty());
 
-  void getProductReviews(String productID) async {
+  void getProductReviews(int productID) async {
     final reviews = productRepository.getProductReviews(productID);
     state = await reviews;
   }
 
-  void addProductReview(String productID, RatingModel ratingModel) async {
+  void addProductReview(int productID, RatingModel ratingModel) async {
     try {
       PFullScreenLoader.openLoadingDialog(Get.context!);
 

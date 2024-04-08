@@ -10,8 +10,8 @@ import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 class ChangeGenderController extends StateNotifier<String> {
   ChangeGenderController() : super(TextValue.undefined);
 
-  void setValue(String number) {
-    state = number;
+  void setValue(String value) {
+    state = value;
   }
 
   Future<void> updateGender(WidgetRef ref) async {

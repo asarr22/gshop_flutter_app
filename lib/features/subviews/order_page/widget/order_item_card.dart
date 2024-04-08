@@ -73,9 +73,13 @@ class OrderItemCard extends ConsumerWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    orderItem.name,
-                                    style: Theme.of(context).textTheme.displaySmall,
+                                  Flexible(
+                                    child: Text(
+                                      orderItem.name,
+                                      style: Theme.of(context).textTheme.displaySmall,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -91,21 +95,27 @@ class OrderItemCard extends ConsumerWidget {
                                 Text(
                                   orderItem.size,
                                   style: Theme.of(context).textTheme.labelMedium!.apply(fontWeightDelta: 2),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
-                                  "${TextValue.color} : ",
-                                  style: Theme.of(context).textTheme.labelMedium,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                Flexible(
+                                  child: Text(
+                                    "${TextValue.color} : ",
+                                    style: Theme.of(context).textTheme.labelMedium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                                RoundedContainer(
-                                  radius: 100,
-                                  height: 15,
-                                  width: 15,
-                                  backgroundColor: Formatter.hexToColor(orderItem.color),
+                                Flexible(
+                                  child: RoundedContainer(
+                                    radius: 100,
+                                    height: 15,
+                                    width: 15,
+                                    backgroundColor: Formatter.hexToColor(orderItem.color),
+                                  ),
                                 ),
                               ],
                             ),

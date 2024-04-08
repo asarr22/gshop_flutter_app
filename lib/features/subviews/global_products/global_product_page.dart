@@ -83,7 +83,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
   void setQueryOrder(ProductOrder queryOrder) {
     final isThereFilter = ref.read(productOrderFilterCheckerProvider);
 
-    if (isThereFilter) {
+    if (isThereFilter && HelperFunctions.filterQueryHandler != null) {
       switch (queryOrder) {
         case ProductOrder.default_:
           query = HelperFunctions.filterQueryHandler!.orderBy('id', descending: true);
@@ -150,6 +150,8 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
           icon: const Icon(Iconsax.arrow_left_24),
           onPressed: () {
             HelperFunctions.filterQueryHandler = null;
+
+            // Forcre disposing some item to avoid null error when returning to this page
             Get.back();
           },
         ),

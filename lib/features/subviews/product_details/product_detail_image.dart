@@ -31,7 +31,7 @@ class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
     bool isDarkMode = HelperFunctions.isDarkMode(context);
     final selectedImage = ref.watch(productDetailImageControllerProvider);
     final favoriteList = ref.watch(favoriteControllerProvider);
-    bool isAmoungFavorite = favoriteList.any((element) => element.id == widget.product.id);
+    bool isAmoungFavorite = favoriteList.any((element) => element.id == widget.product.id.toString());
 
     return CurvedEdgesWidget(
       child: Container(
@@ -124,11 +124,11 @@ class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
                 IconButton(
                   onPressed: () {
                     if (isAmoungFavorite) {
-                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(widget.product.id);
+                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(widget.product.id.toString());
                       return;
                     }
                     final item = FavoriteItemModel(
-                        id: widget.product.id,
+                        id: widget.product.id.toString(),
                         title: widget.product.title,
                         image: widget.product.imageUrl[selectedImage],
                         price: widget.product.variants[0].size[0].price.toDouble());

@@ -74,11 +74,13 @@ class FavoriteItemCard extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            favoriteItem.title,
-                            style: Theme.of(context).textTheme.displaySmall,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                          Flexible(
+                            child: Text(
+                              favoriteItem.title,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -93,9 +95,11 @@ class FavoriteItemCard extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    Text(
-                      Formatter.formatPrice(favoriteItem.price),
-                      style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
+                    Flexible(
+                      child: Text(
+                        Formatter.formatPrice(favoriteItem.price),
+                        style: Theme.of(context).textTheme.displaySmall!.apply(fontWeightDelta: 2),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -103,7 +107,7 @@ class FavoriteItemCard extends ConsumerWidget {
                         height: 30,
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.to(() => ProductDetailPage(favoriteItem.id));
+                            Get.to(() => ProductDetailPage(int.parse(favoriteItem.id)));
                           },
                           child: Text(
                             TextValue.see,

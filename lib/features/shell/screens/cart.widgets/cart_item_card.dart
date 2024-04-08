@@ -78,9 +78,13 @@ class CartItemCard extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            cartItem.productName,
-                            style: Theme.of(context).textTheme.displaySmall,
+                          Flexible(
+                            child: Text(
+                              cartItem.productName,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                           InkWell(
                             onTap: () {

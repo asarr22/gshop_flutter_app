@@ -7,7 +7,7 @@ class ProductDetailsController extends StateNotifier<Product> {
 
   ProductDetailsController(this.productRepository) : super(Product.empty());
 
-  void setProduct(String productID) {
+  void setProduct(int productID) {
     productRepository.getProductByID(productID).listen((product) {
       state = product;
     });

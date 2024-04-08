@@ -226,11 +226,10 @@ class CheckoutPage extends ConsumerWidget {
     String orderID = Formatter.getFormattedDateTime('ddMMyyyyHHmmss');
 
     // Payment Method
-    String paymentType = '';
     var paymentMethod = ref.watch(paymentMethodControllerProvider)['payment_method'];
 
     if (paymentMethod == 'cashOnDelivery') {
-      paymentMethod = 'Cash On Delivery';
+      paymentMethod = 'Cash';
     } else if (paymentMethod == 'creditCard') {
       paymentMethod = 'Credit Card';
     } else if (paymentMethod == 'localPayment') {
@@ -252,12 +251,13 @@ class CheckoutPage extends ConsumerWidget {
         orderDateStatus: [orderDate, '', '', ''],
         orderTimeStatus: [orderTime, '', '', ''],
         orderStatus: 0,
-        paymentMethod: paymentType,
+        paymentMethod: paymentMethod,
         paymentMethodCode: '',
         totalAmount: totalNet,
         userAddress: userAddress,
         userID: user.id,
         username: user.fullName,
+        deliveryFee: shippingFee.toInt(),
         userPhone: user.phoneNumber);
 
     // Set Order

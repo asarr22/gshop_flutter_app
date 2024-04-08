@@ -69,7 +69,6 @@ class ProductRepository {
 
       return QueryResult(products, lastDocument, hasMore);
     } on FirebaseException catch (e) {
-      print(e.toString());
       throw e.toString();
     }
   }
@@ -93,9 +92,9 @@ class ProductRepository {
   }
 
   // Fetch a Single Product and Listen to Changes
-  Stream<Product> getProductByID(String productID) {
+  Stream<Product> getProductByID(int productID) {
     try {
-      DocumentReference reference = _db.collection('Products').doc(productID);
+      DocumentReference reference = _db.collection('Products').doc(productID.toString());
       return reference
           .snapshots()
           .map((snapshot) => Product.fromSnapshot(snapshot as DocumentSnapshot<Map<String, dynamic>>));
@@ -111,9 +110,9 @@ class ProductRepository {
   }
 
   // Fetch Single Product Without Listening
-  Future<Product> getProductByIDListenOff(String productId) {
+  Future<Product> getProductByIDListenOff(int productId) {
     try {
-      final product = _db.collection('Products').doc(productId).get();
+      final product = _db.collection('Products').doc(productId.toString()).get();
       return product.then((snapshot) => Product.fromSnapshot(snapshot));
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
@@ -127,13 +126,17 @@ class ProductRepository {
   }
 
   // Fetch Multiple Products By their IDs
-  Future<List<Product>> getProductsByIds(List<String> productIds) async {
+  Future<List<Product>> getProductsByIds(List<int> productIds) async {
     try {
+      // Turn products ids to String list so we can use `whereIn`
+      List<String> productIdsString = productIds.map((e) => e.toString()).toList();
+
       // Split productIds into chunks if necessary since Firestore `whereIn` supports a maximum of 10 elements per query.
       List<List<String>> chunks = [];
       const int chunkSize = 10; // Firestore limit
-      for (var i = 0; i < productIds.length; i += chunkSize) {
-        chunks.add(productIds.sublist(i, i + chunkSize > productIds.length ? productIds.length : i + chunkSize));
+      for (var i = 0; i < productIdsString.length; i += chunkSize) {
+        chunks.add(productIdsString.sublist(
+            i, i + chunkSize > productIdsString.length ? productIdsString.length : i + chunkSize));
       }
 
       List<Product> products = [];
@@ -160,17 +163,17 @@ class ProductRepository {
   // Fetch Single Product Without Listening
   Future<void> updateProduct(Product product) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    DocumentReference productRef = firestore.collection('Products').doc(product.id);
+    DocumentReference productRef = firestore.collection('Products').doc(product.id.toString());
     await productRef.update(product.toJson());
   }
 
 // Fetch Product Reviews
-  Future<List<RatingModel>> getProductReviews(String productID) async {
+  Future<List<RatingModel>> getProductReviews(int productID) async {
     try {
-      if (productID == "") {
+      if (productID < 0) {
         return List.empty();
       }
-      final snapshot = await _db.collection('Products').doc(productID).collection('Reviews').get();
+      final snapshot = await _db.collection('Products').doc(productID.toString()).collection('Reviews').get();
 
       //Set users profile image for each review
       final data = snapshot.docs.map((doc) => RatingModel.fromSnapshot(doc)).toList();
@@ -190,10 +193,10 @@ class ProductRepository {
   }
 
   // Add Product Review
-  Future<void> addProductReview(String productID, RatingModel ratingModel) async {
+  Future<void> addProductReview(int productID, RatingModel ratingModel) async {
     try {
       // Get Product Rating
-      final productSnapshot = await _db.collection('Products').doc(productID).get();
+      final productSnapshot = await _db.collection('Products').doc(productID.toString()).get();
       final product = Product.fromSnapshot(productSnapshot);
 
       // Calculate New Rating
@@ -206,11 +209,11 @@ class ProductRepository {
       }
 
       // Add the new Review
-      await _db.collection('Products').doc(productID).collection('Reviews').doc().set(ratingModel.toJson());
+      await _db.collection('Products').doc(productID.toString()).collection('Reviews').doc().set(ratingModel.toJson());
 
       // Update Product Rating
-      await _db.collection('Products').doc(productID).update({'rating': newRating});
-      await _db.collection('Products').doc(productID).update({'intRating': newRating.toInt()});
+      await _db.collection('Products').doc(productID.toString()).update({'rating': newRating});
+      await _db.collection('Products').doc(productID.toString()).update({'intRating': newRating.toInt()});
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -278,7 +281,7 @@ class ProductRepository {
   }
 
   // Get Product remaining stock of a variant
-  Future<int> getProductStockFromVariant(String productID, String color, String size) async {
+  Future<int> getProductStockFromVariant(int productID, String color, String size) async {
     var product = await getProductByIDListenOff(productID);
     var variant = product.variants.firstWhere((element) => element.color == color);
     var stock = variant.size.firstWhere((element) => element.size == size).stock;
@@ -286,7 +289,7 @@ class ProductRepository {
   }
 
   // Get Product remaining stock of all variants
-  Future<int> getProductStock(String productID) async {
+  Future<int> getProductStock(int productID) async {
     var product = await getProductByIDListenOff(productID);
     return product.getStock;
   }
