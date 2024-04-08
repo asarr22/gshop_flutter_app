@@ -69,8 +69,11 @@ class TextValue {
   static const String favoriteTab = "Favori";
   static const String accountTab = "Profile";
   static const String categorieTab = "Categorie";
+  static const String productsTab = "Produits";
 
 // General
+  static const String product = "Produit";
+  static const String products = "Produits";
   static const String myAddresses = "Mes Adresses";
   static const String tContinue = "Continuer";
   static const String submit = "Soumettre";
@@ -100,24 +103,35 @@ class TextValue {
   static const String options = "Options";
   static const String seeDetails = "Voir les details";
   static const String edit = "Modifier";
+  static const String note = "Note";
   static const String newArrival = "Nouveaux Arrivages";
   static const String description = "Description";
   static const String flashSale = "Vente Flash";
   static const String colors = "Couleurs";
+  static const String stock = "Stock";
+  static const String sizes = "Tailles";
+  static const String size = "Taille";
   static const String all = "Tout";
   static const String next = 'Suivant';
   static const String previous = 'Précédent';
   static const String confirm = 'Confirmer';
   static const String no = 'Non';
+  static const String id = "ID";
   static const String yes = 'Oui';
   static const String color = "Couleur";
+  static const String quantity = "Quantité";
+  static const String image = "Image";
   static const String specs = "Caractéristique";
+  static const String price = "Prix";
   static const String variant = "Variations";
   static const String quantitie = "Quantité";
   static const String capacity = "Capacité";
   static const String undefined = "undéfinie";
+  static const String client = "Client";
   static const String reviews = "Avis";
   static const String review = "Avis";
+  static const String details = "Détails";
+  static const String action = "Action";
   static const String rating = "Note";
   static const String ratings = "Notes";
   static const String star = "Etoile";
@@ -131,6 +145,7 @@ class TextValue {
   static const String itemRemovedfromCart = "Le produit a été retiré de votre panier";
   static const String itemRemovedfromFavorite = "Le produit a été retiré de vos favoris";
   static const String total = "Total";
+  static const String subtotal = "Sous-total";
   static const String inStock = "Produit en Stock";
   static const String outOfStock = "En rupture de stock";
   static const String lowStock = "Stock faible";
@@ -148,14 +163,23 @@ class TextValue {
   static const String item = "Element";
   static const String myAccount = "Mon Compte";
   static const String checkout = "Verifier";
+  static const String unconfirmed = "Non confirmé";
   static const String orderVerification = "Verification de la commande";
   static const String orderStatus = "Etat de la commande";
+  static const String status = "Etat";
   static const String orderPlacedSuccessfly = "Command effectué avec succés";
   static const String orderInfo = "Informations sur la commande";
   static const String order = "Commande";
+  static const String orderID = "ID du Commande";
+  static const String orders = "Commandes";
+  static const String date = "Date";
+  static const String time = "Heure";
+  static const String user = "Utilisat eur";
+  static const String users = "Utilisateurs";
   static const String purchase = "Achat";
   static const String shippingFee = "Frais de Livraison";
   static const String shipping = "Livraison";
+  static const String toShip = "A expédier";
   static const String shippingInfo = "Informations de livraison";
   static const String payment = "Payment";
   static const String paymentMethod = "Mode de paiement";
@@ -189,6 +213,10 @@ class TextValue {
   static const String selectedVariantIsNotAvailable = "La variante sélectionnée n'est pas disponible";
   static const String selectedItemIsNotAvailable = 'L\'option choisie n\'est pas disponible ';
   static const String maxCartItemLimit10Message = "Vous ne pouvez pas avoir plus de 10 element dans votre panier";
+  static const String lessThan1LimitMessage = "Vous ne pouvez pas avoir moins de 1 element dans votre panier";
+  static const String quantityCannotBeZero = "La quantité ne peut pas être zéro";
+  static const String changingOrderStausToPreviousWaring =
+      "Êtes-vous sûr(e) de votre choix ? Vous avez choisi un status inférieur.";
 
   // Category List
   static const String accessories = "Accessoires";
@@ -256,7 +284,9 @@ class TextValue {
   static const String orderDelivering = 'Commande en expédition';
   static const String orderDeliveringDescription = 'Votre commande est en cours d\'expedition.';
   static const String orderCompleted = 'Commande terminée';
-  static const String orderDelivered = "Commande livrée";
+  static const String orderUnknown = "Inconnu";
+  static const String orderUnknownDescription = "Nous n'avons pas d'information sur la commande";
+  static const String orderDelivered = "Livrée";
   static const String orderDeliveredDescription = 'Votre commande a été livrée.';
   static const String orderCancelled = "Commande annulée";
   static const String orderDetails = 'Details de la commande';
@@ -294,4 +324,33 @@ class TextValue {
   // Global Products Page
   static String allProducts = "Tout les Produits";
   static String endWithin = 'Se termine dans';
+  static String productsPageTitle = "Les Produits";
+
+  // Order Page
+  static String orderPageTitle = "Les Commandes";
+  static String changeOrderStatus = "Changer le Statut";
+  static String changeOrderStatusSuccessMessage = "Le statut de la commande a été changé avec succès.";
+  static String changeOrderStatusFailedMessage = "Le statut de la commande n'a pas pu être changé.";
+  static String cancelOrderMessage = "Voulez-vous vraiment annuler cette commande ?";
+  static String cancelOrderSuccessMessage = "La commande a été annulée avec succès.";
+  static String cancelOrderFailedMessage = "La commande n'a pas pu être annulée.";
+
+  // Add New Product Page
+  static String addNewProduct = "Ajouter un nouveau produit";
+  static String productDetails = "Détails du produit";
+  static String editProduct = "Modifier le produit";
+  static String productName = "Nom du produit";
+  static String deleteProduct = " Supprimer le Produit";
+  static String deleteProductMessage = "Voulez-vous vraiment supprimer ce produit ?";
+  static String productID = "ID du Produit";
+  static String sellerID = "ID du Vendeur";
+  static String tags = "Tags";
+  static String productDescription = "Description du produit";
+  static String productCategory = "Catégorie du produit";
+  static String productSubCategory = "Sous-Catégorie du produit";
+  static String productBrand = "Marque du produit";
+  static String productDiscount = "Valeur de réduction";
+  static String creationDate = "Date de création";
+  static String productImages = "Images du produit";
+  static String fillAllFields = "Veillez ramplir tout les champs";
 }
