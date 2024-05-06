@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/features/authentication/controllers/onboarding_controller/onboarding_controller.dart';
+import 'package:gshopp_flutter/features/onboarding/controller/onboarding_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

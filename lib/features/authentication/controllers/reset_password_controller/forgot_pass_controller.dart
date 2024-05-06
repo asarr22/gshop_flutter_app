@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/reset_password.dart';
+import 'package:gshopp_flutter/features/authentication/screens/forgot_password/reset_password.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';

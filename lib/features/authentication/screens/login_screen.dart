@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.widget/login_form.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.widget/login_header_footer.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login.widget/login_form.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login.widget/login_header_footer.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 

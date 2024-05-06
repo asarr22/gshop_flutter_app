@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/common/models/app/event_model.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/features/authentication/screens/onboarding_screen.dart';
+import 'package:gshopp_flutter/features/onboarding/onboarding_screen.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/state/global_product_order.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';

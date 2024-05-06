@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
-import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
+import 'package:gshopp_flutter/common/models/user/user_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';

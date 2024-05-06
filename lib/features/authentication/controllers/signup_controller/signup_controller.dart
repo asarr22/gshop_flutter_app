@@ -6,8 +6,8 @@ import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_info.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/common/repositories/user_repository.dart';
-import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
+import 'package:gshopp_flutter/common/models/user/user_model.dart';
+import 'package:gshopp_flutter/features/authentication/screens/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 
