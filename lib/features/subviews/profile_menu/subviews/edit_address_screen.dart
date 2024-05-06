@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
-import 'package:gshopp_flutter/utils/styles/texts/text_field_borderless.dart';
+import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_address_controller.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/widgets/addresses_city_zone_popup.dart';

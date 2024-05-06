@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
+import 'package:gshopp_flutter/utils/widgets/section_header.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_controller.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/variant_controller.dart';
@@ -17,7 +17,7 @@ import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/custom_widget/expendable_text.dart';
+import 'package:gshopp_flutter/utils/widgets/expendable_text.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 

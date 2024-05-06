@@ -62,6 +62,22 @@ class TextValue {
   static const String passwordResetSubtitle =
       "La sécurité de votre compte est notre priorité. Nous vous avons envoyé un lien sécurisé pour modifier facilement et en toute sécurité votre mot de passe et protéger votre compte.";
 
+  // Validator Text
+  static const String invalidEmail = "Le format d'e-mail n'est pas valide";
+  static const String isRequiredField = "Ce champ est requis";
+  static const String emailIsRequired = "L'adresse e-mail est requise";
+  static const String phoneNoIsRequired = "Le numéro de téléphone est requis";
+  static const String passwordIsRequired = "Le mot de passe est requis";
+  static const String phoneNumberIsRequired = "Le numéro de téléphone est requis";
+  static const String invalidPhoneNumber = "Le numéro de téléphone n'est pas valide";
+  static const String passwordMorethan6 = "Le mot de passe doit contenir au moins 6 caractères";
+  static const String passwordNotMatch = "Les mots de passe ne correspondent pas";
+  static const String passwordMustContainOneUppercase = "Le mot de passe doit contenir au moins une majuscule";
+  static const String passwordMustContainOneLowercase = "Le mot de passe doit contenir au moins une minuscule";
+  static const String passwordMustContainOneNumber = "Le mot de passe doit contenir au moins un chiffre";
+  static const String passwordMustContainOneSpecialCharacter =
+      "Le mot de passe doit contenir au moins un caractère spécial";
+
 // Navigation Tab
 
   static const String homeTab = "Acceuil";
@@ -353,4 +369,88 @@ class TextValue {
   static String creationDate = "Date de création";
   static String productImages = "Images du produit";
   static String fillAllFields = "Veillez ramplir tout les champs";
+
+  // Exception Message
+  // Firebase Authentication Error Messages
+  static const String wrongPassword = "Le mot de passe que vous avez entré est incorrect. Veuillez réessayer.";
+  static const String userNotFound = "L'utilisateur n'a pas été trouvé";
+  static const String emailAlreadyExists = "L'adresse e-mail est déjà utilisée par un autre compte.";
+  static const String weakPassword = "Le mot de passe est trop faible. Veuillez choisir un mot de passe plus robuste.";
+  static const String userDisabled =
+      "Ce compte utilisateur a été désactivé. Veuillez contacter le support pour assistance.";
+  static const String invalidVerificationCode =
+      "Le code de vérification fourni est invalide. Veuillez entrer un code valide.";
+  static const String invalidVerificationId =
+      "L'ID de vérification est invalide. Veuillez demander un nouveau code de vérification.";
+  static const String quotaExceeded = "Le quota a été dépassé. Veuillez réessayer plus tard.";
+  static const String providerAlreadyLinked = "Le compte est déjà lié à un autre fournisseur.";
+  static const String requiresRecentLogin =
+      "Cette opération est sensible et nécessite une authentification récente. Veuillez vous reconnecter.";
+  static const String credentialAlreadyInUse = "Cet identifiant est déjà utilisé par un autre compte utilisateur.";
+  static const String userMismatch =
+      "Les informations d'identification fournies ne correspondent pas à l'utilisateur précédemment connecté.";
+  static const String accountExistsWithDifferentCredential =
+      "Un compte existe déjà avec le même e-mail mais des moyens de connexion différents.";
+  static const String operationNotAllowed =
+      "Cette opération n'est pas autorisée. Contactez le support pour assistance.";
+  static const String expiredActionCode = "Le code d'action a expiré. Veuillez demander un nouveau code.";
+  static const String invalidActionCode = "Le code d'action est invalide. Veuillez vérifier le code et réessayer.";
+  static const String missingActionCode = "Le code d'action est manquant. Veuillez fournir un code valide.";
+  static const String userTokenExpired =
+      "Le token de l'utilisateur a expiré et une authentification est nécessaire. Veuillez vous reconnecter.";
+  static const String invalidCredential = "Les informations d'identification fournies sont malformées ou ont expiré.";
+  static const String userTokenRevoked = "Le token de l'utilisateur a été révoqué. Veuillez vous reconnecter.";
+  static const String invalidMessagePayload = "Le payload du modèle de vérification par e-mail est invalide.";
+  static const String invalidSender =
+      "L'expéditeur du modèle de vérification par e-mail est invalide. Veuillez vérifier l'e-mail de l'expéditeur.";
+  static const String invalidRecipientEmail =
+      "L'adresse e-mail du destinataire est invalide. Veuillez fournir une adresse e-mail valide du destinataire.";
+  static const String authDomainConfigRequired =
+      "La configuration authDomain est requise pour le lien de vérification du code d'action.";
+  static const String missingAppCredential =
+      "Les informations d'identification de l'application sont manquantes. Veuillez fournir des informations d'identification valides de l'application.";
+  static const String invalidAppCredential =
+      "Les informations d'identification de l'application sont invalides. Veuillez fournir des informations d'identification valides de l'application.";
+  static const String sessionCookieExpired = "Le cookie de session Firebase a expiré. Veuillez vous reconnecter.";
+  static const String uidAlreadyExists = "L'ID utilisateur fourni est déjà utilisé par un autre utilisateur.";
+  static const String appDeleted = "Cette instance de FirebaseApp a été supprimée.";
+  static const String keychainError =
+      "Une erreur de trousseau s'est produite. Veuillez vérifier le trousseau et réessayer.";
+  static const String internalError =
+      "Une erreur interne d'authentification s'est produite. Veuillez réessayer plus tard.";
+  static const String webStorageUnsupported = "Le stockage web n'est pas supporté ou est désactivé.";
+  static const String appNotAuthorized =
+      "L'application n'est pas autorisée à utiliser l'authentification Firebase avec la clé API fournie.";
+  static const String missingIframeStart = "Le modèle d'e-mail manque la balise de début iframe.";
+  static const String missingIframeEnd = "Le modèle d'e-mail manque la balise de fin iframe.";
+  static const String missingIframeSrc = "Le modèle d'e-mail manque l'attribut src dans l'iframe.";
+  static const String invalidCordovaConfiguration = "La configuration de Cordova fournie est invalide.";
+  static const String userTokenMismatch =
+      "Le token de l'utilisateur fourni ne correspond pas à l'identifiant de l'utilisateur authentifié.";
+  static const String invalidLoginCredentials = "Les identifiants de connexion sont invalides.";
+  static const String unexpectedAuthenticationError =
+      "Une erreur d'authentification inattendue s'est produite. Veuillez réessayer.";
+  static const String unknownError = "Une erreur Firebase inconnue s'est produite. Veuillez réessayer.";
+  static const String invalidCustomToken =
+      "Le format du jeton personnalisé est incorrect. Veuillez vérifier votre jeton.";
+  static const String customTokenMismatch = "Le jeton personnalisé correspond à un autre public.";
+  static const String emailAlreadyInUse = "L'adresse e-mail est déjà enregistrée. Veuillez utiliser un autre e-mail.";
+  static const String captchaCheckFailed = "La réponse reCAPTCHA est invalide. Veuillez réessayer.";
+  static const String unexpectedFirebaseError = "Une erreur Firebase inattendue s'est produite. Veuillez réessayer.";
+  static const String tooManyRequests = "Trop de demandes. Veuillez réessayer plus tard.";
+  static const String invalidArgument = "Argument invalide fourni à la méthode d'authentification.";
+  static const String invalidPassword = "Mot de passe invalide. Veuillez réessayer.";
+  static const String signInFailed = "La connexion a échoué. Veuillez réessayer.";
+  static const String networkRequestFailed = "La demande réseau a échoué. Veuillez vérifier votre connexion internet.";
+  static const String invalidEmailFormat = "The email address format is invalid. Please enter a valid email.";
+  static const String invalidPhoneNumberFormat =
+      "The provided phone number format is invalid. Please enter a valid number.";
+  static const String invalidDateFormat = "The date format is invalid. Please enter a valid date.";
+  static const String invalidUrlFormat = "The URL format is invalid. Please enter a valid URL.";
+  static const String invalidCreditCardFormat =
+      "The credit card format is invalid. Please enter a valid credit card number.";
+  static const String invalidNumericFormat = "The input should be a valid numeric format.";
+  static const String unexpectedFormatError = "An unexpected format error occurred. Please try again.";
+  static const String incorrectPassword = "Incorrect password. Please try again.";
+  static const String unexpectedPlatformError = "An unexpected platform error occurred. Please try again.";
 }

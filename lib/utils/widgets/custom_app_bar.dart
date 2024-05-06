@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/utils/styles/circular_icon.dart';
+import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -49,8 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               )
             : leadingIcon != null
-                ? IconButton(
-                    onPressed: leadingOnPressed, icon: Icon(leadingIcon))
+                ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon))
                 : null,
         title: title,
         actions: actions,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/common/models/category/category_model.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
-import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
+import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 
 class HorizontalCategoryCard extends StatelessWidget {
   const HorizontalCategoryCard({

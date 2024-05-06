@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
+import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -35,9 +35,7 @@ class AddressTile extends StatelessWidget {
         padding: const EdgeInsets.all(SizesValue.md),
         height: 160,
         borderColor: ColorPalette.grey,
-        backgroundColor: selectedAddress
-            ? ColorPalette.secondary.withOpacity(0.3)
-            : Colors.transparent,
+        backgroundColor: selectedAddress ? ColorPalette.secondary.withOpacity(0.3) : Colors.transparent,
         width: double.infinity,
         showBorder: true,
         child: Column(
@@ -46,21 +44,18 @@ class AddressTile extends StatelessWidget {
             Stack(children: [
               SizedBox(
                 width: double.infinity,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        fullName,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      const SizedBox(height: SizesValue.sm / 2),
-                      Text(phoneNumber,
-                          maxLines: 1, overflow: TextOverflow.ellipsis),
-                      const SizedBox(height: SizesValue.sm / 2),
-                      Text(details, softWrap: true),
-                    ]),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    fullName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  const SizedBox(height: SizesValue.sm / 2),
+                  Text(phoneNumber, maxLines: 1, overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: SizesValue.sm / 2),
+                  Text(details, softWrap: true),
+                ]),
               ),
               Positioned(
                 right: 5,

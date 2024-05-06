@@ -10,8 +10,8 @@ import 'package:gshopp_flutter/features/subviews/product_details/product_detail_
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
-import 'package:gshopp_flutter/utils/styles/circular_icon.dart';
-import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
+import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
+import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 import 'package:gshopp_flutter/utils/styles/shadow.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';

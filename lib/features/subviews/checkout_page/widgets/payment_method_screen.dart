@@ -7,7 +7,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/styles/texts/text_field_borderless.dart';
+import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 

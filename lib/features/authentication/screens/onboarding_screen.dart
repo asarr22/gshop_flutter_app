@@ -6,8 +6,7 @@ import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-final pageIndexProvider = StateNotifierProvider<OnBoardingController, int>(
-    (ref) => OnBoardingController());
+final pageIndexProvider = StateNotifierProvider<OnBoardingController, int>((ref) => OnBoardingController());
 
 class OnBoardingPage extends ConsumerWidget {
   const OnBoardingPage({super.key});
@@ -22,9 +21,7 @@ class OnBoardingPage extends ConsumerWidget {
         body: Stack(
           children: [
             PageView(
-              onPageChanged: (value) => ref
-                  .read(pageIndexProvider.notifier)
-                  .updatePageIndicator(value),
+              onPageChanged: (value) => ref.read(pageIndexProvider.notifier).updatePageIndicator(value),
               controller: pageController,
               children: const [
                 OnBoardHelper(
@@ -62,10 +59,7 @@ class OnBoardingPage extends ConsumerWidget {
                       const Text(
                         '/3',
                         style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                            color: Colors.grey),
+                            fontFamily: 'Roboto', fontWeight: FontWeight.w700, fontSize: 20, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -75,8 +69,7 @@ class OnBoardingPage extends ConsumerWidget {
                       },
                       child: Text(
                         'Passer',
-                        style: TextStyle(
-                            color: isDarkMode ? Colors.white : Colors.black),
+                        style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                       )),
                 ],
               ),
@@ -89,14 +82,10 @@ class OnBoardingPage extends ConsumerWidget {
               alignment: Alignment.center,
               child: SmoothPageIndicator(
                 controller: pageController,
-                onDotClicked: (index) => ref
-                    .read(pageIndexProvider.notifier)
-                    .dotNavigationClick(index),
+                onDotClicked: (index) => ref.read(pageIndexProvider.notifier).dotNavigationClick(index),
                 count: 3,
                 effect: ExpandingDotsEffect(
-                    activeDotColor: isDarkMode
-                        ? ColorPalette.onPrimaryDark
-                        : ColorPalette.onPrimaryLight,
+                    activeDotColor: isDarkMode ? ColorPalette.onPrimaryDark : ColorPalette.onPrimaryLight,
                     dotHeight: 6),
               )),
         ),
@@ -131,8 +120,7 @@ class OnBoardHelper extends ConsumerWidget {
         Expanded(
             flex: 2,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+              padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
               child: Column(
                 children: [
                   Text(
@@ -156,8 +144,7 @@ class OnBoardHelper extends ConsumerWidget {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+                padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
                 child: SizedBox(
                   height: 60,
                   width: double.infinity,

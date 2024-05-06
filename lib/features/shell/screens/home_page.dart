@@ -15,7 +15,7 @@ import 'package:gshopp_flutter/features/subviews/global_products/widgets/timer_w
 import 'package:gshopp_flutter/features/subviews/search_page/search_page.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
-import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
+import 'package:gshopp_flutter/utils/widgets/section_header.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/user_greetings_banner.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/shell/widgets/search_container.dart';
@@ -25,7 +25,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/styles/rounded_container.dart';
+import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 

@@ -1,37 +1,38 @@
+import '../constants/text_values.dart';
+
 /// Custom exception class to handle various format-related errors.
-class TFormatException implements Exception {
+class GFormatException implements Exception {
   /// The associated error message.
   final String message;
 
   /// Default constructor with a generic error message.
-  const TFormatException([this.message = 'An unexpected format error occurred. Please check your input.']);
+  const GFormatException([this.message = 'An unexpected format error occurred. Please check your input.']);
 
   /// Create a format exception from a specific error message.
-  factory TFormatException.fromMessage(String message) {
-    return TFormatException(message);
+  factory GFormatException.fromMessage(String message) {
+    return GFormatException(message);
   }
 
   /// Get the corresponding error message.
   String get formattedMessage => message;
 
   /// Create a format exception from a specific error code.
-  factory TFormatException.fromCode(String code) {
+  factory GFormatException.fromCode(String code) {
     switch (code) {
       case 'invalid-email-format':
-        return const TFormatException('The email address format is invalid. Please enter a valid email.');
+        return const GFormatException(TextValue.invalidEmailFormat);
       case 'invalid-phone-number-format':
-        return const TFormatException('The provided phone number format is invalid. Please enter a valid number.');
+        return const GFormatException(TextValue.invalidPhoneNumberFormat);
       case 'invalid-date-format':
-        return const TFormatException('The date format is invalid. Please enter a valid date.');
+        return const GFormatException(TextValue.invalidDateFormat);
       case 'invalid-url-format':
-        return const TFormatException('The URL format is invalid. Please enter a valid URL.');
+        return const GFormatException(TextValue.invalidUrlFormat);
       case 'invalid-credit-card-format':
-        return const TFormatException('The credit card format is invalid. Please enter a valid credit card number.');
+        return const GFormatException(TextValue.invalidCreditCardFormat);
       case 'invalid-numeric-format':
-        return const TFormatException('The input should be a valid numeric format.');
-    // Add more cases as needed...
+        return const GFormatException(TextValue.invalidNumericFormat);
       default:
-        return const TFormatException();
+        return const GFormatException();
     }
   }
 }

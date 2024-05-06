@@ -1,42 +1,43 @@
+import '../constants/text_values.dart';
+
 /// Exception class for handling various platform-related errors.
-class TPlatformException implements Exception {
+class GPlatformException implements Exception {
   final String code;
 
-  TPlatformException(this.code);
+  GPlatformException(this.code);
 
   String get message {
     switch (code) {
       case 'INVALID_LOGIN_CREDENTIALS':
-        return 'Invalid login credentials. Please double-check your information.';
+        return TextValue.invalidLoginCredentials;
       case 'too-many-requests':
-        return 'Too many requests. Please try again later.';
+        return TextValue.tooManyRequests;
       case 'invalid-argument':
-        return 'Invalid argument provided to the authentication method.';
+        return TextValue.invalidArgument;
       case 'invalid-password':
-        return 'Incorrect password. Please try again.';
+        return TextValue.incorrectPassword;
       case 'invalid-phone-number':
-        return 'The provided phone number is invalid.';
+        return TextValue.invalidPhoneNumber;
       case 'operation-not-allowed':
-        return 'The sign-in provider is disabled for your Firebase project.';
+        return TextValue.operationNotAllowed;
       case 'session-cookie-expired':
-        return 'The Firebase session cookie has expired. Please sign in again.';
+        return TextValue.sessionCookieExpired;
       case 'uid-already-exists':
-        return 'The provided user ID is already in use by another user.';
+        return TextValue.uidAlreadyExists;
       case 'sign_in_failed':
-        return 'Sign-in failed. Please try again.';
+        return TextValue.signInFailed;
       case 'network-request-failed':
-        return 'Network request failed. Please check your internet connection.';
+        return TextValue.networkRequestFailed;
       case 'internal-error':
-        return 'Internal error. Please try again later.';
+        return TextValue.internalError;
       case 'invalid-verification-code':
-        return 'Invalid verification code. Please enter a valid code.';
+        return TextValue.invalidVerificationCode;
       case 'invalid-verification-id':
-        return 'Invalid verification ID. Please request a new verification code.';
+        return TextValue.invalidVerificationId;
       case 'quota-exceeded':
-        return 'Quota exceeded. Please try again later.';
-    // Add more cases as needed...
+        return TextValue.quotaExceeded;
       default:
-        return 'An unexpected platform error occurred. Please try again.';
+        return TextValue.unexpectedPlatformError;
     }
   }
 }

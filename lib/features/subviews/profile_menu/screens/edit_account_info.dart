@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/utils/styles/texts/section_header.dart';
+import 'package:gshopp_flutter/utils/widgets/section_header.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_birthday_date.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_password.dart';
@@ -63,15 +63,15 @@ class EditAccountPage extends ConsumerWidget {
                         userController.uploadProfileImage(ref);
                       },
                       child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration:
-                              BoxDecoration(color: ColorPalette.primary, borderRadius: BorderRadius.circular(20)),
-                          child: const Icon(
-                            Icons.edit,
-                            size: 18,
-                            color: Colors.white,
-                          )),
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(color: ColorPalette.primary, borderRadius: BorderRadius.circular(20)),
+                        child: const Icon(
+                          Icons.edit,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   )
                 ],

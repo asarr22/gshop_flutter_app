@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gshopp_flutter/utils/custom_widget/custom_curved_edge.dart';
+import 'package:gshopp_flutter/utils/widgets/custom_curved_edge.dart';
 
 class CurvedEdgesWidget extends StatelessWidget {
   const CurvedEdgesWidget({

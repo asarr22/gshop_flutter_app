@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/utils/styles/texts/text_field_borderless.dart';
+import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_phone_number_controller.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

@@ -1,46 +1,48 @@
+import 'package:gshopp_flutter/utils/constants/text_values.dart';
+
 class PValidator {
   ///EmptyValidator
   static String? validateEmptyText(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return '$fieldName is required.';
+      return TextValue.isRequiredField;
     }
     return null;
   }
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required. ';
+      return TextValue.emailIsRequired;
     }
 // Regular expression for email validation
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return 'Invalid email address.';
+      return TextValue.invalidEmail;
     }
     return null;
   }
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password is required. ';
+      return TextValue.passwordIsRequired;
     }
 
     // Check for minimum password length
     if (value.length < 6) {
-      return 'Password must be at Least 6 characters long.';
+      return TextValue.passwordMorethan6;
     }
     // Check for uppercase letters
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter.';
+      return TextValue.passwordMustContainOneUppercase;
     }
 
     // Check for numbers
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Le mot de passe doit contenir au moins un chiffre.';
+      return TextValue.passwordMustContainOneNumber;
     }
     // Check for special characters
     if (!value.contains(RegExp(r'[!@#$%^&*(), .? ":{}|<>]'))) {
-      return 'Le mot de passe doit contenir au moins une symbole.';
+      return TextValue.passwordMustContainOneSpecialCharacter;
     }
 
     return null;
@@ -48,14 +50,14 @@ class PValidator {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Le numéro de téléphone est nessesaire.';
+      return TextValue.phoneNumberIsRequired;
     }
 
     // Regular expression for phone number validation (assuming a 10-digit US phone number format)
     final phoneRegExp = RegExp(r'^\d{9}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Nombre Invalide.';
+      return TextValue.invalidPhoneNumber;
     }
     return null;
   }
