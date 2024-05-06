@@ -4,7 +4,7 @@ import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class UserAddressState {
@@ -50,12 +50,12 @@ class UserAddressNotifier extends StateNotifier<UserAddressState> {
   Future<void> updateUserAddress() async {
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -72,13 +72,13 @@ class UserAddressNotifier extends StateNotifier<UserAddressState> {
         address: userAddresses,
       );
       // Remove Loader
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.defaultAddressSetSuccessMessage, duration: 4);
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 }

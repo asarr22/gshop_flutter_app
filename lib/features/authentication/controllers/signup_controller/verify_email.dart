@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';

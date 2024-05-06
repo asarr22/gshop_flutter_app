@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_info.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
-import 'package:gshopp_flutter/common/firebase_services/user_repository.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/user_repository.dart';
 import 'package:gshopp_flutter/features/authentication/models/user_model.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 
 class SignUpFormControllers extends StateNotifier<Map<String, TextEditingController>> {
   SignUpFormControllers()
@@ -45,17 +45,17 @@ class SignUpController extends StateNotifier<SignUpInfo> {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
       //Start Loading
-      PFullScreenLoader.openLoadingDialog(context);
+      GLoadingScreen.openLoadingDialog(context);
 
       //Return if no Network
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
       //Check if user has properly entered information
       if (!signInfo.signupKey.currentState!.validate()) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -85,7 +85,7 @@ class SignUpController extends StateNotifier<SignUpInfo> {
       clearTextFields(controllers);
 
       //
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
       Get.to(() => VerifyEmailPage(
             email: signInfo.email.trim(),
           ));

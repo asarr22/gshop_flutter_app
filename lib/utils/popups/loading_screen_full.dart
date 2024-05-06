@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
-class PFullScreenLoader {
+class GLoadingScreen {
   static void openLoadingDialog(context) {
     final spinkit = SpinKitFadingCube(
       itemBuilder: (BuildContext context, int index) {

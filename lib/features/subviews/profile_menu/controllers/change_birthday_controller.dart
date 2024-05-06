@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ChangeBirthdayController extends StateNotifier<String> {
@@ -17,12 +17,12 @@ class ChangeBirthdayController extends StateNotifier<String> {
   Future<void> updateDate(WidgetRef ref) async {
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -36,7 +36,7 @@ class ChangeBirthdayController extends StateNotifier<String> {
       // Update the Provider User Value
       userController.updateUserInfo(birthday: state.trim());
       // Remove Loader
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.operationSuccess, duration: 4);
@@ -45,7 +45,7 @@ class ChangeBirthdayController extends StateNotifier<String> {
       Get.back();
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/firebase_services/order_repository.dart';
+import 'package:gshopp_flutter/common/repositories/order_repository.dart';
 import 'package:gshopp_flutter/common/models/order/order_model.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/state/checkout_page_controller.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/success_order_page.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
@@ -40,12 +40,12 @@ class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
 
   Future<void> setOrder(OrderModel order, BuildContext context) async {
     // Start Loading
-    PFullScreenLoader.openLoadingDialog(context);
+    GLoadingScreen.openLoadingDialog(context);
 
     //Check Internet Connectivity
     final isConnected = await NetworkManager.instance.isConnected();
     if (!isConnected) {
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
       return;
     }
 
@@ -55,7 +55,7 @@ class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
     for (var item in order.orderItems) {
       var stock = await productRepository.getProductStockFromVariant(int.parse(item.iD), item.color, item.size);
       if (item.quantity > stock) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         SnackBarPop.showErrorPopup("${TextValue.itemOutOfStockErrorMessage} : ${item.name}", duration: 4);
         ref.read(localPaymentControllerProvider.notifier).dispose();
         ref.read(creditCardControllerProvider.notifier).dispose();
@@ -106,12 +106,12 @@ class OrderController extends StateNotifier<Map<String, List<OrderModel>>> {
     await _repository.addOrder(order);
 
     // Stop Loading
-    PFullScreenLoader.stopLoading();
+    GLoadingScreen.stopLoading();
 
     // Navigate to Success Order Page
     Get.off(() => const SuccessOrderPage());
     try {} catch (e) {
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
       SnackBarPop.showErrorPopup(e.toString(), duration: 3);
     }
   }

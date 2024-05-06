@@ -5,7 +5,7 @@ import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 final addressFieldControllerProvider =
@@ -63,18 +63,18 @@ class AddAddressController extends StateNotifier<Map<String, dynamic>> {
   Future<void> addNewAddress(GlobalKey<FormState> nameKey, WidgetRef ref) async {
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
       // Form Validation
       if (!nameKey.currentState!.validate()) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -110,7 +110,7 @@ class AddAddressController extends StateNotifier<Map<String, dynamic>> {
         address: userAddresses,
       );
       // Remove Loader
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.operationSuccess, duration: 4);
@@ -119,25 +119,25 @@ class AddAddressController extends StateNotifier<Map<String, dynamic>> {
       Get.back();
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 
   Future<void> updateAddress(GlobalKey<FormState> nameKey, WidgetRef ref, String oldId) async {
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
       // Form Validation
       if (!nameKey.currentState!.validate()) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -173,7 +173,7 @@ class AddAddressController extends StateNotifier<Map<String, dynamic>> {
         address: userAddresses,
       );
       // Remove Loader
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.operationSuccess, duration: 4);
@@ -182,7 +182,7 @@ class AddAddressController extends StateNotifier<Map<String, dynamic>> {
       Get.back();
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 }

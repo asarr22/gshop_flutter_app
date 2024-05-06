@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/utils/constants/global_value.dart';
 

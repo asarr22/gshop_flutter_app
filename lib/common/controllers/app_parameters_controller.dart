@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/firebase_services/app_parameters_repository.dart';
+import 'package:gshopp_flutter/common/repositories/app_parameters_repository.dart';
 
 class AppController extends StateNotifier<Map<String, dynamic>> {
   final AppRepository _repository;

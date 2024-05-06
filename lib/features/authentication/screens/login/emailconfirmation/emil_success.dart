@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

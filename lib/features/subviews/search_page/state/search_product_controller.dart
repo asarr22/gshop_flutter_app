@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 
 class SearchProductsController extends StateNotifier<Map<String, dynamic>> {
   final ProductRepository productRepository;

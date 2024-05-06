@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/common/firebase_services/product_repository.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 
 class ProductDetailsController extends StateNotifier<Product> {

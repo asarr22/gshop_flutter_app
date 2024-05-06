@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ChangePhoneNumberController extends StateNotifier<TextEditingController> {
@@ -23,18 +23,18 @@ class ChangePhoneNumberController extends StateNotifier<TextEditingController> {
   Future<void> updatePhoneNumber(GlobalKey<FormState> key, WidgetRef ref) async {
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
       // Form Validation
       if (!key.currentState!.validate()) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -48,7 +48,7 @@ class ChangePhoneNumberController extends StateNotifier<TextEditingController> {
       // Update the Provider User Value
       userController.updateUserInfo(phoneNumber: state.text.trim());
       // Remove Loader
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.operationSuccess, duration: 4);
@@ -57,7 +57,7 @@ class ChangePhoneNumberController extends StateNotifier<TextEditingController> {
       Get.back();
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 }

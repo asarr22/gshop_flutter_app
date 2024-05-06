@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
-import 'package:gshopp_flutter/utils/popups/full_screen_loader.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditingController>> {
@@ -29,18 +29,18 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
     final authService = ref.watch(firebaseAuthServiceProvider);
     try {
       // Start Loading
-      PFullScreenLoader.openLoadingDialog(Get.context!);
+      GLoadingScreen.openLoadingDialog(Get.context!);
 
       // Check Internet Connection
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
       // Form Validation
       if (!nameKey.currentState!.validate()) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         return;
       }
 
@@ -48,14 +48,14 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
 
       bool areIdentical = state['newPassword']!.text.trim() == state['newPasswordConfirm']!.text.trim();
       if (!areIdentical) {
-        PFullScreenLoader.stopLoading();
+        GLoadingScreen.stopLoading();
         SnackBarPop.showErrorPopup(TextValue.passAndConfirmPassMismatch);
         return;
       }
 
       // Change Password
       await authService.changePassword(state['oldPassword']!.text.trim(), state['newPassword']!.text.trim());
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
 
       // Show Success Message
       SnackBarPop.showSucessPopup(TextValue.passwordChangeSuccessMessage, duration: 4);
@@ -64,7 +64,7 @@ class ChangePasswordFieldController extends StateNotifier<Map<String, TextEditin
       Get.back();
     } catch (e) {
       SnackBarPop.showErrorPopup(e.toString(), duration: 4);
-      PFullScreenLoader.stopLoading();
+      GLoadingScreen.stopLoading();
     }
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {

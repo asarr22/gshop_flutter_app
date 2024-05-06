@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
 import 'package:gshopp_flutter/features/shell/screens/profile.widgets/button_card.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
