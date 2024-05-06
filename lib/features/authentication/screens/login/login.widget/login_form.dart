@@ -4,14 +4,15 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/login_controller/login_controller.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/login_controller/login_form_controller.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/login_controller/login_info.dart';
-import 'package:gshopp_flutter/features/authentication/controllers/login_controller/password_visiblity.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/forget_password.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/signup.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/signup_screen.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
+import 'package:iconsax/iconsax.dart';
 
 final loginFormControllerProvider =
     StateNotifierProvider.autoDispose<LoginFormControllers, Map<String, TextEditingController>>(
@@ -19,8 +20,7 @@ final loginFormControllerProvider =
 
 final signInProvider = StateNotifierProvider.autoDispose<LoginController, LoginInfo>((ref) => LoginController(ref));
 
-final passwordVisibilityProvider =
-    StateNotifierProvider.autoDispose<LoginPasswordVisibility, bool>((ref) => LoginPasswordVisibility());
+final passwordVisibilityProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -46,7 +46,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             isForm: true,
             textEditingController: controller[emailKey],
             validator: (value) => PValidator.validateEmail(value),
-            prefixIcon: const Icon(Icons.email_outlined),
+            prefixIcon: const Icon(Iconsax.sms),
             hint: TextValue.email,
           ),
 
@@ -57,17 +57,16 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             isForm: true,
             textEditingController: controller[passwordKey],
             hint: TextValue.password,
-            validator: (value) => PValidator.validatePassword(value),
-            obscureText: isPasswordVisible,
+            obscureText: !isPasswordVisible,
             isPassword: true,
-            prefixIcon: const Icon(Icons.password_outlined),
+            prefixIcon: const Icon(Iconsax.password_check),
             suffixIcon: IconButton(
-              icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
-              onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
+              icon: Icon(!isPasswordVisible ? Iconsax.eye_slash : Iconsax.eye),
+              onPressed: () => ref.read(passwordVisibilityProvider.notifier).state = !isPasswordVisible,
             ),
           ),
 
-          /// Remember Me & Forget Password
+          // Forget Password
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -76,18 +75,16 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               },
               child: const Text(
                 TextValue.forgetPassword,
-                style: TextStyle(
-                  color: ColorPalette.primary,
-                  fontFamily: 'Roboto',
-                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: SizesValue.spaceBtwItems),
 
           /// Sign In
           SizedBox(
-            width: double.infinity,
+            width: GHelper.screenWidth(context) > 380 ? 270 : double.infinity,
             height: 60,
             child: ElevatedButton(
                 child: const Text(
@@ -104,7 +101,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             height: 20,
           ),
           SizedBox(
-            width: double.infinity,
+            width: GHelper.screenWidth(context) > 380 ? 270 : double.infinity,
             height: 60,
             child: OutlinedButton(
                 child: const Text(

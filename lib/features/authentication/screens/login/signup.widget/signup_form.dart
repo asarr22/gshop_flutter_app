@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/password_visiblity.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/privacy_policy.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_controller.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_info.dart';
@@ -9,12 +8,13 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
+import 'package:iconsax/iconsax.dart';
 
 final formControllersProvider =
     StateNotifierProvider.autoDispose<SignUpFormControllers, Map<String, TextEditingController>>(
         (ref) => SignUpFormControllers());
-final passwordVisibilityProvider =
-    StateNotifierProvider.autoDispose<PasswordVisibility, bool>((ref) => PasswordVisibility());
+final passwordVisibilityProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 final privacyAndTermProvider =
     StateNotifierProvider.autoDispose<PrivacyPolicyAndTerm, bool>((ref) => PrivacyPolicyAndTerm());
@@ -40,55 +40,53 @@ class SignUpForm extends ConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: TextFormField(
+                child: GTextField(
+                  isForm: true,
                   validator: (value) => PValidator.validateEmptyText('First Name', value),
-                  controller: controllers['firstName'],
-                  expands: false,
-                  decoration:
-                      const InputDecoration(labelText: TextValue.firstName, prefixIcon: Icon(Icons.person_outlined)),
+                  textEditingController: controllers['firstName'],
+                  hint: TextValue.firstName,
+                  prefixIcon: const Icon(Iconsax.user),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: TextFormField(
-                  controller: controllers['lastName'],
+                child: GTextField(
+                  isForm: true,
+                  textEditingController: controllers['lastName'],
                   validator: (value) => PValidator.validateEmptyText('Last Name', value),
-                  expands: false,
-                  decoration:
-                      const InputDecoration(labelText: TextValue.lastName, prefixIcon: Icon(Icons.person_outlined)),
+                  hint: TextValue.lastName,
+                  prefixIcon: const Icon(Iconsax.user),
                 ),
               )
             ],
           ),
           const SizedBox(height: 10),
-          TextFormField(
-            controller: controllers['email'],
-            validator: (value) => PValidator.validateEmail(value),
-            expands: false,
-            decoration: const InputDecoration(labelText: TextValue.email, prefixIcon: Icon(Icons.email_outlined)),
-          ),
+          GTextField(
+              isForm: true,
+              textEditingController: controllers['email'],
+              validator: (value) => PValidator.validateEmail(value),
+              hint: TextValue.email,
+              keyboardType: TextInputType.emailAddress,
+              prefixIcon: const Icon(Iconsax.sms)),
           const SizedBox(height: 10),
-          TextFormField(
-            expands: false,
-            controller: controllers['phoneNumber'],
+          GTextField(
+            isForm: true,
+            textEditingController: controllers['phoneNumber'],
             validator: (value) => PValidator.validatePhoneNumber(value),
-            decoration: const InputDecoration(labelText: TextValue.phoneNo, prefixIcon: Icon(Icons.call_outlined)),
+            hint: TextValue.phoneNo,
+            prefixIcon: const Icon(Iconsax.call),
           ),
           const SizedBox(height: 10),
-          TextFormField(
-            controller: controllers['password'],
-            expands: false,
+          GTextField(
+            isForm: true,
+            textEditingController: controllers['password'],
             validator: (value) => PValidator.validatePassword(value),
-            obscureText: isPasswordVisible,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: InputDecoration(
-              labelText: TextValue.password,
-              prefixIcon: const Icon(Icons.password_outlined),
-              suffixIcon: IconButton(
-                icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
-                onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
-              ),
+            obscureText: !isPasswordVisible,
+            hint: TextValue.password,
+            prefixIcon: const Icon(Iconsax.password_check),
+            suffixIcon: IconButton(
+              icon: Icon(!isPasswordVisible ? Iconsax.eye_slash : Iconsax.eye),
+              onPressed: () => ref.read(passwordVisibilityProvider.notifier).state = !isPasswordVisible,
             ),
           ),
 

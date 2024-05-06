@@ -84,10 +84,13 @@ class _GTextFieldState extends State<GTextField> {
       focusNode: _focusNode,
       maxLines: widget.maxLines,
       controller: widget.textEditingController,
+      obscureText: widget.obscureText,
       cursorColor: ColorPalette.primary,
       style: Theme.of(context).textTheme.bodyLarge,
       decoration: _inputDecoration(isDarkMode),
       keyboardType: widget.keyboardType,
+      onChanged: widget.onChanged,
+      enabled: widget.isEnabled,
     );
   }
 
@@ -96,11 +99,14 @@ class _GTextFieldState extends State<GTextField> {
       focusNode: _focusNode,
       maxLines: widget.maxLines,
       validator: widget.validator,
+      obscureText: widget.obscureText,
       controller: widget.textEditingController,
       cursorColor: ColorPalette.primary,
       style: Theme.of(context).textTheme.bodyMedium,
       decoration: _inputDecoration(isDarkMode),
       keyboardType: widget.keyboardType,
+      onChanged: widget.onChanged,
+      enabled: widget.isEnabled,
     );
   }
 

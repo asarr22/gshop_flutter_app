@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/forget_password.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/login_screen.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';

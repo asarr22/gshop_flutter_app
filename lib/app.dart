@@ -15,8 +15,8 @@ import 'package:gshopp_flutter/features/authentication/screens/login/emailconfir
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/forget_password.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/forgot_password/reset_password.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/signup.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/login_screen.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/signup_screen.dart';
 import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/features/shell/appshell.dart';
 import 'package:gshopp_flutter/utils/theme/theme.dart';

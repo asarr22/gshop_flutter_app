@@ -8,7 +8,7 @@ import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login/emailconfirmation/verify_email_page.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/login_screen.dart';
 import 'package:gshopp_flutter/features/authentication/screens/onboarding_screen.dart';
 import 'package:gshopp_flutter/features/shell/appshell.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

@@ -4,7 +4,7 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
-import 'package:gshopp_flutter/features/authentication/screens/login/login.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login/login_screen.dart';
 import 'package:gshopp_flutter/features/shell/screens/profile.widgets/button_card.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/order_page/order_page.dart';
