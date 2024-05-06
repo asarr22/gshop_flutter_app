@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class PFullScreenLoader {
   static void openLoadingDialog(context) {
@@ -19,7 +19,7 @@ class PFullScreenLoader {
       builder: (_) => PopScope(
         canPop: false,
         child: Container(
-          color: HelperFunctions.isDarkMode(context) ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
+          color: GHelper.isDarkMode(context) ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
           width: double.infinity,
           height: double.infinity,
           child: Center(

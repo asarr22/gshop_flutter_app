@@ -14,7 +14,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/global_value.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 /// Loads multiple products based on a provided query or filter.
@@ -83,16 +83,16 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
   void setQueryOrder(ProductOrder queryOrder) {
     final isThereFilter = ref.read(productOrderFilterCheckerProvider);
 
-    if (isThereFilter && HelperFunctions.filterQueryHandler != null) {
+    if (isThereFilter && GHelper.filterQueryHandler != null) {
       switch (queryOrder) {
         case ProductOrder.default_:
-          query = HelperFunctions.filterQueryHandler!.orderBy('id', descending: true);
+          query = GHelper.filterQueryHandler!.orderBy('id', descending: true);
           break;
         case ProductOrder.priceAsc:
-          query = HelperFunctions.filterQueryHandler!.orderBy('price', descending: false);
+          query = GHelper.filterQueryHandler!.orderBy('price', descending: false);
           break;
         case ProductOrder.priceDesc:
-          query = HelperFunctions.filterQueryHandler!.orderBy('price', descending: true);
+          query = GHelper.filterQueryHandler!.orderBy('price', descending: true);
           break;
       }
     } else {
@@ -120,8 +120,8 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
 
       /// Fetch more products
       /// Check if there is a filter query
-      if (HelperFunctions.filterQueryHandler != null) {
-        notifier.fetchProductWithCustomQuery(GlobalValue.scrollingQueryLimit, HelperFunctions.filterQueryHandler!);
+      if (GHelper.filterQueryHandler != null) {
+        notifier.fetchProductWithCustomQuery(GlobalValue.scrollingQueryLimit, GHelper.filterQueryHandler!);
       } else {
         notifier.fetchProductWithCustomQuery(GlobalValue.scrollingQueryLimit, query!);
       }
@@ -133,8 +133,8 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
     final queryOrder = ref.read(globalProductOrderProvider);
     final isScrollLoading = ref.watch(productControllerProvider)['isRegularScrollLoading'] as bool;
     final event = widget.isFlashSale ? ref.watch(promoEventControllerProvider).firstWhere((e) => e.id == '0') : null;
-    HelperFunctions.mainQueryHandler = widget.initialQuery!;
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    GHelper.mainQueryHandler = widget.initialQuery!;
+    bool isDarkMode = GHelper.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         title: Align(
@@ -149,7 +149,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
         leading: IconButton(
           icon: const Icon(Iconsax.arrow_left_24),
           onPressed: () {
-            HelperFunctions.filterQueryHandler = null;
+            GHelper.filterQueryHandler = null;
 
             // Forcre disposing some item to avoid null error when returning to this page
             Get.back();
@@ -240,7 +240,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
               ),
               const SizedBox(width: 5),
               Text(
-                HelperFunctions.getNameFromProductOrder(queryOrder),
+                GHelper.getNameFromProductOrder(queryOrder),
                 style: Theme.of(context).textTheme.labelLarge!.apply(color: Colors.white),
               ),
             ],
@@ -252,7 +252,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
   }
 
   void _showPicker(BuildContext context) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -279,7 +279,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
 
                         return Center(
                           child: Text(
-                            HelperFunctions.getNameFromProductOrder(item),
+                            GHelper.getNameFromProductOrder(item),
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         );

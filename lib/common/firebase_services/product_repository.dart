@@ -16,11 +16,11 @@ class ProductRepository {
       final snapshot = await _db.collection('Products').where('isPopular', isEqualTo: true).limit(limit).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     }
   }
 
@@ -30,11 +30,11 @@ class ProductRepository {
       final snapshot = await _db.collection('Products').where('isNew', isEqualTo: true).limit(limit).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     }
   }
 
@@ -45,11 +45,11 @@ class ProductRepository {
           await _db.collection('Products').where(filter.keys.first, isEqualTo: filter.values.first).limit(limit).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     }
   }
 
@@ -81,11 +81,11 @@ class ProductRepository {
           await _db.collection('Products').where(filter.keys.first, isEqualTo: filter.values.first).limit(limit).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -99,11 +99,11 @@ class ProductRepository {
           .snapshots()
           .map((snapshot) => Product.fromSnapshot(snapshot as DocumentSnapshot<Map<String, dynamic>>));
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -115,11 +115,11 @@ class ProductRepository {
       final product = _db.collection('Products').doc(productId.toString()).get();
       return product.then((snapshot) => Product.fromSnapshot(snapshot));
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -150,11 +150,11 @@ class ProductRepository {
 
       return products;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error: ${e.toString()}';
     }
@@ -182,11 +182,11 @@ class ProductRepository {
       }
       return data;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -215,11 +215,11 @@ class ProductRepository {
       await _db.collection('Products').doc(productID.toString()).update({'rating': newRating});
       await _db.collection('Products').doc(productID.toString()).update({'intRating': newRating.toInt()});
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -232,11 +232,11 @@ class ProductRepository {
       final snapshot = await _db.collection('Users').doc(userID).get();
       return snapshot.get('ProfilePicture');
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -247,11 +247,11 @@ class ProductRepository {
       final snapshot = await _db.collection('Products').where('isPopular', isEqualTo: true).get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }
@@ -270,11 +270,11 @@ class ProductRepository {
           .get();
       return snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Error : ${e.toString()}';
     }

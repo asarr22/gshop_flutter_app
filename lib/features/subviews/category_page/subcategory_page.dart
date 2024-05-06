@@ -14,7 +14,7 @@ class SubcategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    // final bool isDarkMode = GHelper.isDarkMode(context);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(

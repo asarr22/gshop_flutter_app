@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 import 'package:gshopp_flutter/utils/styles/shadow.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ButtonCardTile extends StatelessWidget {
@@ -21,7 +21,7 @@ class ButtonCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final bool isDarkMode = GHelper.isDarkMode(context);
     return RoundedContainer(
       height: 70,
       width: double.infinity,

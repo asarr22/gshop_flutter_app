@@ -17,7 +17,7 @@ import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final firebaseAuthServiceProvider = Provider<FirebaseAuthService>((ref) {
@@ -50,7 +50,7 @@ class FirebaseAuthService {
             print('Error: $e, App Will try to set manual route');
           }
         } finally {
-          HelperFunctions.initialRoute = () => const AppShell();
+          GHelper.initialRoute = () => const AppShell();
         }
       } else {
         Get.offAll(() => VerifyEmailPage(
@@ -63,7 +63,7 @@ class FirebaseAuthService {
           'IsFirstTime', prefs.getBool('IsFirstTime') ?? true); // Check if it's the first time Launching the app
       (prefs.getBool('IsFirstTime') != true)
           ? Get.offAll(() => const LoginPage())
-          : HelperFunctions.initialRoute = () => const OnBoardingPage();
+          : GHelper.initialRoute = () => const OnBoardingPage();
     }
   }
 
@@ -73,13 +73,13 @@ class FirebaseAuthService {
     try {
       return await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -90,13 +90,13 @@ class FirebaseAuthService {
     try {
       return await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -107,13 +107,13 @@ class FirebaseAuthService {
     try {
       await _auth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -124,13 +124,13 @@ class FirebaseAuthService {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -150,13 +150,13 @@ class FirebaseAuthService {
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginPage());
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -178,13 +178,13 @@ class FirebaseAuthService {
       } else if (e.code == 'wrong-password') {
         SnackBarPop.showErrorPopup(TextValue.oldPassMismatch);
       }
-      throw TFirebaseAuthException(e.code).message;
+      throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }

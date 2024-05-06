@@ -18,7 +18,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/widgets/expendable_text.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 final quantityProvider = StateNotifierProvider.autoDispose<SelectedQuantity, int>((ref) => SelectedQuantity());
@@ -53,9 +53,9 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
 
     final reviews = ref.watch(globalRatingProvider);
 
-    final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final bool isDarkMode = GHelper.isDarkMode(context);
 
-    final bool isTherePromoDiscount = HelperFunctions.isTherePromoDiscount(product, promoEventList);
+    final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
     String stockStateLogger() {
       if (product.getStock == 0) {

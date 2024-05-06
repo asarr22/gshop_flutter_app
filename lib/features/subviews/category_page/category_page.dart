@@ -5,7 +5,7 @@ import 'package:gshopp_flutter/features/subviews/category_page/subcategory_page.
 import 'package:gshopp_flutter/features/subviews/category_page/widget/horizontal_card.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -15,7 +15,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(

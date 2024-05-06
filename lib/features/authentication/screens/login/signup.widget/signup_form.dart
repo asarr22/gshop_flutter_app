@@ -6,7 +6,7 @@ import 'package:gshopp_flutter/features/authentication/controllers/signup_contro
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_info.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 
@@ -27,7 +27,7 @@ class SignUpForm extends ConsumerWidget {
   final BuildContext mainContext;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final bool isDarkMode = GHelper.isDarkMode(context);
     GlobalKey<FormState> signupKey = GlobalKey<FormState>();
     final isPasswordVisible = ref.watch(passwordVisibilityProvider);
     final isPrivacyAccepted = ref.watch(privacyAndTermProvider);

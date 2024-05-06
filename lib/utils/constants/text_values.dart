@@ -77,6 +77,12 @@ class TextValue {
   static const String passwordMustContainOneNumber = "Le mot de passe doit contenir au moins un chiffre";
   static const String passwordMustContainOneSpecialCharacter =
       "Le mot de passe doit contenir au moins un caractère spécial";
+  static const String invalideCardNumber = "Le numéro de carte de crédit n'est pas valide";
+  static const String cardNumberRequired = "Numéro de carte de crédit est nessesaire.";
+  static const String cvvRequired = "Code de sécurité est requis.";
+  static const String cvvInValide = "Le code de sécurité n'est pas valide";
+  static const String expiryDateRequired = "Date d'expiration est requise.";
+  static const String expiryDateInValide = "La date d'expiration n'est pas valide";
 
 // Navigation Tab
 

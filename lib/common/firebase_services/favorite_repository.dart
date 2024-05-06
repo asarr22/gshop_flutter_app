@@ -16,11 +16,11 @@ class FavoriteRepository {
       final json = userCartItemModel.toJson();
       await _db.collection("Users").doc(user?.uid).collection('Favorite').doc().set(json);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -33,11 +33,11 @@ class FavoriteRepository {
         return snapshot.docs.map((doc) => FavoriteItemModel.fromSnapshot(doc)).toList();
       });
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -52,11 +52,11 @@ class FavoriteRepository {
         }
       });
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -73,11 +73,11 @@ class FavoriteRepository {
         }
       }
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }

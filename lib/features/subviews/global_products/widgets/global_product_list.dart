@@ -7,7 +7,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/shimmer/product_card_shimmer.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class GlobalProductList extends ConsumerStatefulWidget {
@@ -30,7 +30,7 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
       padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
       child: productList != null && productList.isEmpty
           ? SizedBox(
-              height: HelperFunctions.screenHeight(context) - 100,
+              height: GHelper.screenHeight(context) - 100,
               width: double.infinity,
               child: Center(
                   child: Column(
@@ -75,7 +75,7 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
   @override
   void dispose() {
     _scrollController.dispose();
-    HelperFunctions.filterQueryHandler = null;
+    GHelper.filterQueryHandler = null;
     super.dispose();
   }
 }

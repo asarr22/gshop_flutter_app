@@ -5,7 +5,7 @@ import 'package:gshopp_flutter/common/firebase_services/cart_repository.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class UserCartController extends StateNotifier<List<UserCartItemModel>> {
   UserCartRepository userCartRepository;
@@ -33,7 +33,7 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
         for (var item in items) {
           final product = productMap[int.parse(item.productId)];
           if (product != null) {
-            int discountValue = HelperFunctions.isTherePromoDiscount(product, promoEventList)
+            int discountValue = GHelper.isTherePromoDiscount(product, promoEventList)
                 ? product.promoDiscountValue ?? 0
                 : product.discountValue > 0
                     ? product.discountValue

@@ -8,7 +8,7 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class VariantSelection extends StatelessWidget {
@@ -29,7 +29,7 @@ class VariantSelection extends StatelessWidget {
     final selectedSize = ref.watch(selectedSizeProvider);
 
     // Dark/Light Mode
-    final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final bool isDarkMode = GHelper.isDarkMode(context);
     return Column(
       children: [
         // Color Variant

@@ -12,7 +12,7 @@ import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/widgets/custom_app_bar.dart';
 import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
 import 'package:gshopp_flutter/utils/widgets/curved_edge_widget.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,7 +28,7 @@ class ProductDetailImage extends ConsumerStatefulWidget {
 class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final selectedImage = ref.watch(productDetailImageControllerProvider);
     final favoriteList = ref.watch(favoriteControllerProvider);
     bool isAmoungFavorite = favoriteList.any((element) => element.id == widget.product.id.toString());

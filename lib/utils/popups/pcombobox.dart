@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PComboBox extends StatelessWidget {
@@ -15,7 +15,7 @@ class PComboBox extends StatelessWidget {
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
 
     return RoundedContainer(
       width: double.infinity,

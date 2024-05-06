@@ -7,12 +7,12 @@ import 'package:gshopp_flutter/common/models/address/shipping_model.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_address_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class CityZoneSelectionPopup {
   static void showPicker(BuildContext context, WidgetRef ref,
       {bool isCity = false, bool isZone = true, String userCity = ''}) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final appController = ref.watch(appControllerProvider);
 
     List<dynamic> cities = appController['shippingFee'];

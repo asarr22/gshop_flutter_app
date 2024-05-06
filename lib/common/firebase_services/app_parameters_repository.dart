@@ -22,13 +22,13 @@ class AppRepository {
       return snapshot.docs.map((doc) => City.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
       if (kDebugMode) {
-        print('FirebaseException: ${TFirebaseException(e.code).message}');
+        print('FirebaseException: ${GFirebaseException(e.code).message}');
       }
       return [];
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     }
   }
 }

@@ -10,7 +10,7 @@ import 'package:gshopp_flutter/utils/constants/global_value.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 final selectedDiscountProvider = StateProvider.autoDispose<int?>((ref) => null);
@@ -207,7 +207,7 @@ class _ProductFilterPageState extends ConsumerState<ProductFilterPage> {
 
   Query<Map<String, dynamic>> buildFilteredQuery(WidgetRef ref) {
     // Start with the base query
-    Query<Map<String, dynamic>>? query = HelperFunctions.mainQueryHandler;
+    Query<Map<String, dynamic>>? query = GHelper.mainQueryHandler;
     final priceRange = ref.read(filterPriceRangeProvider);
     final num? selectedDiscount = ref.read(selectedDiscountProvider.notifier).state;
     final num? selectedRating = ref.read(selectedRatingProvider.notifier).state;
@@ -228,7 +228,7 @@ class _ProductFilterPageState extends ConsumerState<ProductFilterPage> {
     if (selectedRating != null) {
       query = query.where('intRating', isEqualTo: selectedRating);
     }
-    HelperFunctions.filterQueryHandler = query;
+    GHelper.filterQueryHandler = query;
     return query;
   }
 }

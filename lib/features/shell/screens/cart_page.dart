@@ -11,8 +11,8 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CartPage extends ConsumerWidget {
@@ -23,7 +23,7 @@ class CartPage extends ConsumerWidget {
     final cartItems = ref.watch(userCartControllerProvider);
     double totalBrute =
         cartItems.isEmpty ? 0 : cartItems.map((e) => e.productPrice * e.quantity).reduce((a, b) => a + b).toDouble();
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final user = ref.watch(userControllerProvider);
     final appParameter = ref.watch(appControllerProvider);
 
@@ -107,7 +107,7 @@ class CartPage extends ConsumerWidget {
                       )
                     : SizedBox(
                         width: double.infinity,
-                        height: HelperFunctions.screenHeight(context) - 100,
+                        height: GHelper.screenHeight(context) - 100,
                         child: Center(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

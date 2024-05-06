@@ -10,7 +10,7 @@ import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavoriteItemCard extends ConsumerWidget {
@@ -20,7 +20,7 @@ class FavoriteItemCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isDarkMode = HelperFunctions.isDarkMode(context);
+    final bool isDarkMode = GHelper.isDarkMode(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SizesValue.padding / 2, horizontal: 2),

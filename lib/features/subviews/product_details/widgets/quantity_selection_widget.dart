@@ -5,7 +5,7 @@ import 'package:gshopp_flutter/features/subviews/product_details/product_detail_
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class QuantitySelectionWidget extends ConsumerWidget {
   const QuantitySelectionWidget({
@@ -64,7 +64,7 @@ class QuantitySelectionWidget extends ConsumerWidget {
                   onPressed: () {
                     if (selectedSize?.size != null) {
                       // Get the available stock of selection before incrementing
-                      int availableStock = HelperFunctions.getStockWithSizeAndColor(
+                      int availableStock = GHelper.getStockWithSizeAndColor(
                           product.variants, selectedVariant!.color, selectedSize!.size);
                       if (availableStock < 1) {
                         SnackBarPop.showErrorPopup(TextValue.insufficentStockMessage, duration: 3);

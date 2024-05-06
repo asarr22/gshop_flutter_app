@@ -28,11 +28,11 @@ class UserRepository {
     try {
       await _db.collection("Users").doc(user.id).set(user.toJson());
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -48,11 +48,11 @@ class UserRepository {
         return UserModel.empty();
       }
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw TextValue.somethingWentWrongMessage;
     }
@@ -62,11 +62,11 @@ class UserRepository {
     try {
       await _db.collection("Users").doc(updatedUser.id).update(updatedUser.toJson());
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -76,11 +76,11 @@ class UserRepository {
     try {
       await _db.collection("Users").doc(_authService.authUser?.uid).update(json);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -90,11 +90,11 @@ class UserRepository {
     try {
       await _db.collection("Users").doc(_authService.authUser?.uid).set(json);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }
@@ -104,11 +104,11 @@ class UserRepository {
     try {
       await _db.collection("Users").doc(userID).delete();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }

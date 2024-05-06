@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class CircularIcon extends StatelessWidget {
   /// A custom Circular Icon widget with a background color.
@@ -36,15 +36,14 @@ class CircularIcon extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor != null
             ? backgroundColor!
-            : HelperFunctions.isDarkMode(context)
+            : GHelper.isDarkMode(context)
                 ? ColorPalette.black.withOpacity(0.8)
                 : ColorPalette.white.withOpacity(0.8),
         borderRadius: BorderRadius.circular(100),
         boxShadow: boxShadow,
       ),
       child: Center(
-        child: IconButton(
-            onPressed: onPressed, icon: Icon(icon, color: color, size: size)),
+        child: IconButton(onPressed: onPressed, icon: Icon(icon, color: color, size: size)),
       ),
     );
   }

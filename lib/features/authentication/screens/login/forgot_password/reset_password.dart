@@ -7,7 +7,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import '../../../../../utils/helpers/helper_fuctions.dart';
 
 class ResetPasswordScreen extends ConsumerWidget {
   const ResetPasswordScreen({super.key});
@@ -36,16 +36,14 @@ class ResetPasswordScreen extends ConsumerWidget {
               // Image
               Image(
                 image: const AssetImage(ImagesValue.emailSent),
-                width: HelperFunctions.screenWidth(context) * 0.8,
+                width: GHelper.screenWidth(context) * 0.8,
               ),
               //Title Subtitle
               Text(TextValue.passwordResetTitle,
-                  style: Theme.of(context).textTheme.displayLarge,
-                  textAlign: TextAlign.center),
+                  style: Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Text(TextValue.passwordResetSubtitle,
-                  style: Theme.of(context).textTheme.labelMedium,
-                  textAlign: TextAlign.center),
+                  style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
               const SizedBox(height: 30),
 
               /// Buttons
@@ -65,9 +63,7 @@ class ResetPasswordScreen extends ConsumerWidget {
                   height: 60,
                   child: TextButton(
                       onPressed: () {
-                        ref
-                            .read(emailFieldProvider.notifier)
-                            .resendPasswordResetLink(context);
+                        ref.read(emailFieldProvider.notifier).resendPasswordResetLink(context);
                       },
                       child: const Text(
                         TextValue.resendEmail,

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/state/subcategories_menu_state.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:dotted_line/dotted_line.dart';
 
 class SubcategoriesMenu extends ConsumerWidget {
   const SubcategoriesMenu({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
 
     final subcategoryState = ref.watch(subcategoryProvider);
     final subcategories = subcategoryState.subcategories;

@@ -4,7 +4,7 @@ import 'package:gshopp_flutter/common/firebase_services/auth_services.dart';
 import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
 class EmailSuccessScreen extends ConsumerWidget {
   const EmailSuccessScreen({super.key});
@@ -24,7 +24,7 @@ class EmailSuccessScreen extends ConsumerWidget {
               // Image
               Image(
                 image: const AssetImage(ImagesValue.emailVerified),
-                width: HelperFunctions.screenWidth(context) * 0.8,
+                width: GHelper.screenWidth(context) * 0.8,
               ),
               //Title Subtitle
               Text(TextValue.accountCreatedTitle,

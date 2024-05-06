@@ -6,14 +6,14 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_gender_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/app.dart';
 
 final genderProvider = StateNotifierProvider<ChangeGenderController, String>((ref) => ChangeGenderController());
 
 class GenderSelect {
   static void showPicker(BuildContext context, WidgetRef ref) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final user = ref.watch(userControllerProvider);
 
     // Check if there is a saved value in DataBase and set it

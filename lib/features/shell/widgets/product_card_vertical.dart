@@ -13,7 +13,7 @@ import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
 import 'package:gshopp_flutter/utils/styles/shadow.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardVertical extends ConsumerWidget {
@@ -26,11 +26,11 @@ class ProductCardVertical extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final favoriteList = ref.watch(favoriteControllerProvider);
     bool isAmoungFavorite = favoriteList.any((element) => element.id == product.id.toString());
     final promoEventList = ref.watch(promoEventControllerProvider);
-    final bool isTherePromoDiscount = HelperFunctions.isTherePromoDiscount(product, promoEventList);
+    final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
     getColorsWidgets() {
       List<Widget> widgets = [];

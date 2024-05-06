@@ -21,7 +21,7 @@ import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/features/shell/appshell.dart';
 import 'package:gshopp_flutter/utils/theme/theme.dart';
 import 'package:gshopp_flutter/utils/theme/theme_mode.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
@@ -85,7 +85,7 @@ class App extends ConsumerWidget {
       darkTheme: TAppTheme.darkTheme,
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => HelperFunctions.initialRoute()),
+        GetPage(name: '/', page: () => GHelper.initialRoute()),
         GetPage(name: '/login', page: () => const LoginPage()),
         GetPage(name: '/signup', page: () => const SignUpPage()),
         GetPage(name: '/appshell', page: () => const AppShell()),

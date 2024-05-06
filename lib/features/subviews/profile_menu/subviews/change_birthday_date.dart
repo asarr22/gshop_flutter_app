@@ -6,7 +6,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_birthday_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:intl/intl.dart';
 
 final birthdaychangeProvider =
@@ -14,7 +14,7 @@ final birthdaychangeProvider =
 
 class BirthDateSelection {
   static void showPicker(BuildContext context, WidgetRef ref) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {

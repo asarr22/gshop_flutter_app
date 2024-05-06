@@ -26,7 +26,7 @@ import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/widgets/rounded_container.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -47,7 +47,7 @@ final isFlashSaleEndedProvider = StateProvider<bool>((ref) {
 class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = HelperFunctions.isDarkMode(context);
+    bool isDarkMode = GHelper.isDarkMode(context);
     final cartCount = ref.watch(userCartControllerProvider).length;
     final event = ref.watch(promoEventControllerProvider).firstWhere(
           (e) => e.id == '0',

@@ -65,12 +65,12 @@ class PValidator {
   // Validate VISACard
   static String? validateVisaCard(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Numéro de carte de crédit est nessesaire.';
+      return TextValue.cardNumberRequired;
     }
 
     RegExp visaRegex = RegExp(r'^4[0-9]{12}(?:[0-9]{3})?$');
     if (!visaRegex.hasMatch(value)) {
-      return "Invalid Visa card number";
+      return TextValue.invalideCardNumber;
     }
     int sum = 0;
     for (int i = 0; i < value.length; i++) {
@@ -84,7 +84,7 @@ class PValidator {
       sum += digit;
     }
     if (sum % 10 != 0) {
-      return "Invalid Visa card number";
+      return TextValue.cardNumberRequired;
     }
 
     return null;
@@ -93,12 +93,12 @@ class PValidator {
   // Validate CVV
   static validateCVV(String? value) {
     if (value == null || value.isEmpty) {
-      return 'CVV est nessesaire.';
+      return TextValue.cvvRequired;
     }
 
     RegExp visaRegex = RegExp(r'^[0-9]{3,4}$');
     if (!visaRegex.hasMatch(value)) {
-      return "Invalid CVV";
+      return TextValue.cvvInValide;
     }
 
     return null;
@@ -107,12 +107,12 @@ class PValidator {
   // Validate Expiry Date in form of MM/YY
   static validateCardExpiryDate(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Date d\'expiration est nessesaire.';
+      return TextValue.expiryDateRequired;
     }
 
     RegExp visaRegex = RegExp(r'^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$');
     if (!visaRegex.hasMatch(value)) {
-      return "Invalid Expiry Date";
+      return TextValue.expiryDateInValide;
     }
 
     return null;

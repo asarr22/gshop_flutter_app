@@ -17,11 +17,11 @@ class UserCartRepository {
       final json = userCartItemModel.toJson();
       await _db.collection("Users").doc(user?.uid).collection('Cart').doc().set(json);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -34,11 +34,11 @@ class UserCartRepository {
         return snapshot.docs.map((doc) => UserCartItemModel.fromSnapshot(doc)).toList();
       });
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -53,11 +53,11 @@ class UserCartRepository {
         }
       });
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -76,11 +76,11 @@ class UserCartRepository {
         }
       }
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }
@@ -111,11 +111,11 @@ class UserCartRepository {
         }
       }
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
+      throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const GFormatException();
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code).message;
+      throw GPlatformException(e.code).message;
     } catch (e) {
       throw e.toString();
     }

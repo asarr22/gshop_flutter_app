@@ -7,8 +7,8 @@ import 'package:gshopp_flutter/features/subviews/global_products/state/global_pr
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 
-class HelperFunctions {
-  HelperFunctions._();
+class GHelper {
+  GHelper._();
 
   static double screenWidth(context) {
     return MediaQuery.of(context).size.width;

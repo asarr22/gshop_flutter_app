@@ -12,7 +12,7 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
-import 'package:gshopp_flutter/utils/tools/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductDetailBottomBar extends ConsumerWidget {
@@ -35,7 +35,7 @@ class ProductDetailBottomBar extends ConsumerWidget {
     bool isLoading = ref.watch(addToCartButtonStateProvider);
     final bool isSelectedVariantAvailable = selectedSize != null && selectedSize.stock > 0;
     final promoEventList = ref.watch(promoEventControllerProvider);
-    final bool isTherePromoDiscount = HelperFunctions.isTherePromoDiscount(product, promoEventList);
+    final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
     Future<void> buildAndSendCartItem() async {
       ref.read(addToCartButtonStateProvider.notifier).toggle();
