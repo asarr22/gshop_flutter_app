@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/styles/borderless_text_field_decoration.dart';
-import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 
-class PTextField extends StatelessWidget {
-  const PTextField({
+class GTextField extends StatefulWidget {
+  const GTextField({
     super.key,
     this.title,
     this.textEditingController,
@@ -12,60 +10,124 @@ class PTextField extends StatelessWidget {
     this.validator,
     this.isPassword = false,
     this.obscureText = false,
-    this.suffixicon,
+    this.suffixIcon,
+    this.prefixIcon,
     this.maxLines = 1,
     this.isEnabled = true,
-    this.onShowPassword,
+    this.onChanged,
+    this.labelText,
     this.keyboardType,
+    this.hint,
   });
 
   final String? title;
+  final String? hint;
+  final String? labelText;
   final TextEditingController? textEditingController;
   final bool isForm;
   final String? Function(String?)? validator;
   final bool isPassword;
   final bool obscureText;
-  final Widget? suffixicon;
-  final VoidCallback? onShowPassword;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final int maxLines;
   final bool isEnabled;
   final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+
+  @override
+  State<GTextField> createState() => _GTextFieldState();
+}
+
+class _GTextFieldState extends State<GTextField> {
+  final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _focusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    setState(() {
+      _isFocused = _focusNode.hasFocus;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = GHelper.isDarkMode(context);
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null)
-          Text(
-            title!,
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
+        if (widget.title != null) Text(widget.title!, style: Theme.of(context).textTheme.displaySmall),
         const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: isForm
-              ? TextFormField(
-                  maxLines: maxLines,
-                  validator: validator,
-                  controller: textEditingController,
-                  cursorColor: ColorPalette.primary,
-                  obscureText: obscureText,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: TextFieldStyles.borderless(isDarkMode),
-                  keyboardType: keyboardType,
-                )
-              : TextField(
-                  maxLines: maxLines,
-                  controller: textEditingController,
-                  cursorColor: ColorPalette.primary,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  decoration: TextFieldStyles.borderless(isDarkMode),
-                  keyboardType: keyboardType,
-                ),
+          child: widget.isForm ? _buildTextFormField(isDarkMode) : _buildTextField(isDarkMode),
         ),
       ],
+    );
+  }
+
+  Widget _buildTextField(bool isDarkMode) {
+    return TextField(
+      focusNode: _focusNode,
+      maxLines: widget.maxLines,
+      controller: widget.textEditingController,
+      cursorColor: ColorPalette.primary,
+      style: Theme.of(context).textTheme.bodyLarge,
+      decoration: _inputDecoration(isDarkMode),
+      keyboardType: widget.keyboardType,
+    );
+  }
+
+  Widget _buildTextFormField(bool isDarkMode) {
+    return TextFormField(
+      focusNode: _focusNode,
+      maxLines: widget.maxLines,
+      validator: widget.validator,
+      controller: widget.textEditingController,
+      cursorColor: ColorPalette.primary,
+      style: Theme.of(context).textTheme.bodyMedium,
+      decoration: _inputDecoration(isDarkMode),
+      keyboardType: widget.keyboardType,
+    );
+  }
+
+  InputDecoration _inputDecoration(bool isDarkMode) {
+    return InputDecoration(
+      labelText: _isFocused ? null : widget.labelText,
+      fillColor: isDarkMode ? ColorPalette.darkGrey : ColorPalette.extraLightGray,
+      filled: true,
+      enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: ColorPalette.darkGrey, width: 0.0001),
+          borderRadius: BorderRadius.circular(15)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: ColorPalette.darkGrey, width: 0.0001),
+          borderRadius: BorderRadius.circular(15)),
+      errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.redAccent, width: 1), borderRadius: BorderRadius.circular(15)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.redAccent, width: 2), borderRadius: BorderRadius.circular(15)),
+      contentPadding: const EdgeInsets.all(15.0),
+      hintText: widget.hint,
+      errorStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.redAccent),
+      hintStyle: Theme.of(context)
+          .textTheme
+          .labelLarge!
+          .copyWith(color: isDarkMode ? ColorPalette.extraLightGray : ColorPalette.darkGrey),
+      suffixIcon: widget.suffixIcon,
+      prefixIcon: widget.prefixIcon,
     );
   }
 }

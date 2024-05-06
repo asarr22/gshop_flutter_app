@@ -25,6 +25,7 @@ class TextValue {
   static const String email = "Adresse e-mail";
   static const String password = "Mot de passe";
   static const String newPassword = "Nouveau mot de passe";
+  static const String confirmPassword = "Confirmer mot de passe";
   static const String oldPassword = "Ancien Mot de passe";
   static const String username = "Nom d'utilisateur";
   static const String phoneNo = "Numéro de téléphone";

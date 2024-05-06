@@ -54,38 +54,38 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
           key: nameKey,
           child: Column(
             children: [
-              PTextField(
+              GTextField(
                 title: TextValue.oldPassword,
                 textEditingController: controller[oldPasswordKey],
                 validator: (value) => PValidator.validatePassword(value),
                 isForm: true,
                 isPassword: true,
                 obscureText: isPasswordVisible[oldPasswordKey]!,
-                suffixicon: IconButton(
+                suffixIcon: IconButton(
                     onPressed: () => ref.read(changePasswordVisiblityProvider.notifier).toggle(oldPasswordKey),
                     icon: Icon(isPasswordVisible[oldPasswordKey]! ? Iconsax.eye_slash : Iconsax.eye_slash4)),
               ),
               const SizedBox(height: 10),
-              PTextField(
+              GTextField(
                 isForm: true,
                 title: TextValue.newPassword,
                 textEditingController: controller[newPasswordKey],
                 validator: (value) => PValidator.validatePassword(value),
                 isPassword: true,
                 obscureText: isPasswordVisible[newPasswordKey]!,
-                suffixicon: IconButton(
+                suffixIcon: IconButton(
                     onPressed: () => ref.read(changePasswordVisiblityProvider.notifier).toggle(newPasswordKey),
                     icon: Icon(isPasswordVisible[newPasswordKey]! ? Iconsax.eye_slash : Iconsax.eye_slash4)),
               ),
               const SizedBox(height: 10),
-              PTextField(
+              GTextField(
                 isForm: true,
-                title: '${TextValue.newPassword} (Confirmation)',
+                title: TextValue.confirmPassword,
                 textEditingController: controller[newPasswordConfirmKey],
                 validator: (value) => PValidator.validatePassword(value),
                 isPassword: true,
                 obscureText: isPasswordVisible[newPasswordConfirmKey]!,
-                suffixicon: IconButton(
+                suffixIcon: IconButton(
                     onPressed: () => ref.read(changePasswordVisiblityProvider.notifier).toggle(newPasswordConfirmKey),
                     icon: Icon(isPasswordVisible[newPasswordConfirmKey]! ? Iconsax.eye_slash : Iconsax.eye_slash4)),
               ),

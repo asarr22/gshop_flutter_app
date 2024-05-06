@@ -11,6 +11,7 @@ import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/validators/validation.dart';
+import 'package:gshopp_flutter/utils/widgets/text_field_borderless.dart';
 
 final loginFormControllerProvider =
     StateNotifierProvider.autoDispose<LoginFormControllers, Map<String, TextEditingController>>(
@@ -41,31 +42,28 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       child: Column(
         children: [
           /// Email
-          TextFormField(
-            controller: controller[emailKey],
+          GTextField(
+            isForm: true,
+            textEditingController: controller[emailKey],
             validator: (value) => PValidator.validateEmail(value),
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.email_outlined),
-              labelText: TextValue.email,
-            ),
+            prefixIcon: const Icon(Icons.email_outlined),
+            hint: TextValue.email,
           ),
 
-          const SizedBox(height: SizesValue.spaceBtwInputFields),
+          const SizedBox(height: SizesValue.sm),
 
           /// Password
-          TextFormField(
-            controller: controller[passwordKey],
+          GTextField(
+            isForm: true,
+            textEditingController: controller[passwordKey],
+            hint: TextValue.password,
             validator: (value) => PValidator.validatePassword(value),
             obscureText: isPasswordVisible,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.password_outlined),
-              labelText: TextValue.password,
-              suffixIcon: IconButton(
-                icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
-                onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
-              ),
+            isPassword: true,
+            prefixIcon: const Icon(Icons.password_outlined),
+            suffixIcon: IconButton(
+              icon: Icon(isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+              onPressed: () => ref.read(passwordVisibilityProvider.notifier).toggle(),
             ),
           ),
 

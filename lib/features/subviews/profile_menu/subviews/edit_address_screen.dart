@@ -53,7 +53,7 @@ class _EditdAddressScreenState extends ConsumerState<EditdAddressScreen> {
               key: nameKey,
               child: Column(
                 children: [
-                  PTextField(
+                  GTextField(
                     title: TextValue.name,
                     textEditingController: controller['fullName'],
                     validator: (value) => PValidator.validateEmptyText('Full Name', value),
@@ -62,7 +62,7 @@ class _EditdAddressScreenState extends ConsumerState<EditdAddressScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: PTextField(
+                        child: GTextField(
                           isEnabled: false,
                           title: TextValue.country,
                           textEditingController: controller['country'],
@@ -114,13 +114,13 @@ class _EditdAddressScreenState extends ConsumerState<EditdAddressScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
+                  GTextField(
                     title: TextValue.phoneNo,
                     textEditingController: controller['phoneNumber'],
                     validator: (value) => PValidator.validatePhoneNumber(value),
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
+                  GTextField(
                     title: TextValue.address,
                     textEditingController: controller['address'],
                     validator: (value) => PValidator.validateEmptyText('Address', value),

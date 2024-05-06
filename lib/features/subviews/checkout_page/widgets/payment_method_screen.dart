@@ -218,14 +218,14 @@ class CreditCardFields extends ConsumerWidget {
       key: controller['formKey'],
       child: Column(children: [
         const SizedBox(height: 24),
-        PTextField(
+        GTextField(
           title: TextValue.cardOwner,
           isForm: true,
           validator: (value) => PValidator.validateEmptyText(TextValue.name, value),
           textEditingController: controller['name'],
         ),
         const SizedBox(height: SizesValue.spaceBtwItems),
-        PTextField(
+        GTextField(
           title: TextValue.cardNumber,
           isForm: true,
           validator: (value) => PValidator.validateEmail(value),
@@ -236,7 +236,7 @@ class CreditCardFields extends ConsumerWidget {
         Row(
           children: [
             Expanded(
-              child: PTextField(
+              child: GTextField(
                 title: TextValue.expiryDate,
                 isForm: true,
                 validator: (value) => PValidator.validateCardExpiryDate(value),
@@ -246,7 +246,7 @@ class CreditCardFields extends ConsumerWidget {
             ),
             const SizedBox(width: SizesValue.spaceBtwItems),
             Expanded(
-              child: PTextField(
+              child: GTextField(
                 title: TextValue.cvv,
                 isForm: true,
                 validator: (value) => PValidator.validateCVV(value),
@@ -274,14 +274,14 @@ class LocalPaymentFields extends ConsumerWidget {
       key: controller['formKey'],
       child: Column(children: [
         const SizedBox(height: 24),
-        PTextField(
+        GTextField(
           title: TextValue.name,
           isForm: true,
           validator: (value) => PValidator.validateEmptyText(TextValue.name, value),
           textEditingController: controller['name'],
         ),
         const SizedBox(height: SizesValue.spaceBtwItems),
-        PTextField(
+        GTextField(
           title: TextValue.phoneNo,
           isForm: true,
           validator: (value) => PValidator.validatePhoneNumber(value),

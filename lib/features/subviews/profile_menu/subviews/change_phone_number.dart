@@ -41,7 +41,7 @@ class ChangePhoneNumberScreen extends ConsumerWidget {
             key: nameKey,
             child: Column(
               children: [
-                PTextField(
+                GTextField(
                   title: TextValue.firstName,
                   textEditingController: controller,
                   validator: (value) => PValidator.validatePhoneNumber(value),

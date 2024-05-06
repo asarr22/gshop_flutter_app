@@ -42,13 +42,13 @@ class EditNameScreen extends ConsumerWidget {
             key: nameKey,
             child: Column(
               children: [
-                PTextField(
+                GTextField(
                   title: TextValue.firstName,
                   textEditingController: controller['firstName'],
                   validator: (value) => PValidator.validateEmptyText('First name', value),
                 ),
                 const SizedBox(height: 10),
-                PTextField(
+                GTextField(
                   title: TextValue.lastName,
                   textEditingController: controller['lastName'],
                   validator: (value) => PValidator.validateEmptyText('Last name', value),

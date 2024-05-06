@@ -45,7 +45,7 @@ class AddNewAddressScreen extends ConsumerWidget {
               key: nameKey,
               child: Column(
                 children: [
-                  PTextField(
+                  GTextField(
                     title: TextValue.name,
                     textEditingController: controller['fullName'],
                     validator: (value) => PValidator.validateEmptyText('Full Name', value),
@@ -54,7 +54,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: PTextField(
+                        child: GTextField(
                           title: TextValue.country,
                           textEditingController: controller['country'],
                           validator: (value) => PValidator.validateEmptyText('Country', value),
@@ -107,13 +107,13 @@ class AddNewAddressScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
+                  GTextField(
                     title: TextValue.phoneNo,
                     textEditingController: controller['phoneNumber'],
                     validator: (value) => PValidator.validatePhoneNumber(value),
                   ),
                   const SizedBox(height: 10),
-                  PTextField(
+                  GTextField(
                     title: TextValue.address,
                     textEditingController: controller['address'],
                     validator: (value) => PValidator.validateEmptyText('Address', value),
