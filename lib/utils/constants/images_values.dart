@@ -8,6 +8,11 @@ class ImagesValue {
   static const String visaLogo = "assets/logos/visa.png";
   static const String facebookLogo = "assets/logos/facebook.png";
 
+  // On Boarding
+  static const String onBoarding1 = "assets/images/onboarding/ob1.png";
+  static const String onBoarding2 = "assets/images/onboarding/ob2.png";
+  static const String onBoarding3 = "assets/images/onboarding/ob3.png";
+
   //StorySet
   static const String emailSent = "assets/images/authentication/email_verificatio.png";
   static const String emailVerified = "assets/images/authentication/email_success.png";

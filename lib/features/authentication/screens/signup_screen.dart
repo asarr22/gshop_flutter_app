@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/features/authentication/screens/signup.widget/signup_form.dart';
-import 'package:gshopp_flutter/features/authentication/screens/signup.widget/signup_heder_footer.dart';
+import 'package:gshopp_flutter/features/authentication/screens/signup/signup_form.dart';
+import 'package:gshopp_flutter/features/authentication/screens/signup/signup_heder_footer.dart';
 
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:iconsax/iconsax.dart';
