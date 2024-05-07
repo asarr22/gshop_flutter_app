@@ -62,7 +62,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -76,7 +76,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -90,7 +90,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
@@ -104,7 +104,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
