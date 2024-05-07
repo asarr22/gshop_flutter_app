@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/features/shell/controllers/appshell_controllers.dart';
 import 'package:gshopp_flutter/features/shell/screens/favori_page.dart';
@@ -43,8 +44,8 @@ class AppShell extends ConsumerWidget {
           color: isDarkMode ? ColorPalette.navBarDark : ColorPalette.navBarLight,
           child: Container(
             constraints: const BoxConstraints(
-              minWidth: 200,
-              maxWidth: 350,
+              minWidth: 250,
+              maxWidth: 340,
             ),
             height: 70,
             decoration: BoxDecoration(
@@ -58,7 +59,10 @@ class AppShell extends ConsumerWidget {
                 children: List.generate(
                   shellPages.length,
                   (index) => GestureDetector(
-                    onTap: () => ref.read(pageIndexProvider.notifier).sendToIndex(index),
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      ref.read(pageIndexProvider.notifier).sendToIndex(index);
+                    },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
@@ -74,7 +78,11 @@ class AppShell extends ConsumerWidget {
                         children: [
                           Icon(
                             shellPagesIcon[index],
-                            color: pageIndex == index ? Colors.orange : Colors.black,
+                            color: pageIndex == index
+                                ? Colors.orange
+                                : isDarkMode
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                           if (pageIndex == index) ...{
                             const SizedBox(height: 2),

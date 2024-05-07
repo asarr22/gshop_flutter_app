@@ -7,7 +7,6 @@ import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_image_controller.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/widgets/custom_app_bar.dart';
 import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
@@ -43,32 +42,20 @@ class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
               child: Padding(
                 padding: const EdgeInsets.all(SizesValue.productImageRadius * 2),
                 child: Center(
-                  child: widget.product.imageUrl.isEmpty
-                      ? Shimmer.fromColors(
-                          baseColor: ColorPalette.lightGrey,
-                          highlightColor: ColorPalette.extraLightGray,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
-                          ),
-                        )
-                      : Image.network(
-                          widget.product.imageUrl[selectedImage].isEmpty
-                              ? ImagesValue.monitorIcon
-                              : widget.product.imageUrl[selectedImage],
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: ColorPalette.primary,
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                        ),
-                ),
+                    child: widget.product.imageUrl.isEmpty
+                        ? Shimmer.fromColors(
+                            baseColor: ColorPalette.lightGrey,
+                            highlightColor: ColorPalette.extraLightGray,
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                            ),
+                          )
+                        : RoundedImage(
+                            backgroundColor: Colors.transparent,
+                            imgUrl: widget.product.imageUrl[selectedImage],
+                            isNetworkImage: true,
+                          )),
               ),
             ),
             Positioned(
