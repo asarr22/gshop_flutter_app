@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:gshopp_flutter/features/shell/controllers/appshell_controllers.dart';
 import 'package:gshopp_flutter/features/shell/screens/favori_page.dart';
 import 'package:gshopp_flutter/features/shell/screens/home_page.dart';
 import 'package:gshopp_flutter/features/shell/screens/profile_page.dart';
 import 'package:gshopp_flutter/features/subviews/category_page/category_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:iconsax/iconsax.dart';
 
 final pageIndexProvider = StateNotifierProvider<AppShellController, int>((ref) => AppShellController());
@@ -27,50 +25,75 @@ class AppShell extends ConsumerWidget {
       const FavoritePage(),
       const ProfilePage(),
     ];
+    final List<IconData> shellPagesIcon = [
+      Iconsax.home,
+      Iconsax.category,
+      Iconsax.heart,
+      Iconsax.user,
+    ];
 
     //The widget
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minWidth: 200, // minimum width
-          maxWidth: 350, // maximum width
-        ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         child: Material(
-          elevation: 20,
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(100),
+          elevation: 12,
+          color: isDarkMode ? ColorPalette.navBarDark : ColorPalette.navBarLight,
           child: Container(
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: isDarkMode ? const Color.fromARGB(255, 111, 96, 72) : const Color(0xFFFFF6E7),
+            constraints: const BoxConstraints(
+              minWidth: 200,
+              maxWidth: 350,
             ),
-            child: GNav(
-                tabMargin: const EdgeInsets.symmetric(vertical: 0),
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                mainAxisAlignment: MainAxisAlignment.center,
-                color: isDarkMode ? ColorPalette.onPrimaryDark : ColorPalette.onPrimaryLight,
-                activeColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                tabBackgroundColor: Colors.orange.withOpacity(0.1),
-                onTabChange: (value) => ref.read(pageIndexProvider.notifier).sendToIndex(value),
-                tabs: const [
-                  GButton(
-                    icon: Iconsax.home,
-                    text: TextValue.homeTab,
+            height: 70,
+            decoration: BoxDecoration(
+              color: isDarkMode ? ColorPalette.navBarDark : ColorPalette.navBarLight,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List.generate(
+                  shellPages.length,
+                  (index) => GestureDetector(
+                    onTap: () => ref.read(pageIndexProvider.notifier).sendToIndex(index),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.orange.withOpacity(0.1),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            shellPagesIcon[index],
+                            color: pageIndex == index ? Colors.orange : Colors.black,
+                          ),
+                          if (pageIndex == index) ...{
+                            const SizedBox(height: 2),
+                            Container(
+                              height: 4,
+                              width: 4,
+                              decoration: BoxDecoration(
+                                color: Colors.orange,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            )
+                          },
+                        ],
+                      ),
+                    ),
                   ),
-                  GButton(
-                    icon: Iconsax.category,
-                    text: TextValue.categorieTab,
-                  ),
-                  GButton(
-                    icon: Iconsax.heart,
-                    text: TextValue.favoriteTab,
-                  ),
-                  GButton(
-                    icon: Iconsax.user,
-                    text: TextValue.accountTab,
-                  ),
-                ]),
+                ),
+              ),
+            ),
           ),
         ),
       ),
