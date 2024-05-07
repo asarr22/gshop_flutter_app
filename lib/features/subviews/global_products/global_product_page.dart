@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/filter/filter_page.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/state/global_product_order.dart';

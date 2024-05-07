@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/state/checkout_page_controller.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';

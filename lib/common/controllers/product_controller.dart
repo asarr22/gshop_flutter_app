@@ -98,3 +98,7 @@ class QueryResult {
 
   QueryResult(this.products, this.lastDocument, this.hasMore);
 }
+
+final productControllerProvider = StateNotifierProvider<ProductController, Map<String, dynamic>>((ref) {
+  return ProductController(ref.watch(productRepositoryProvider));
+});

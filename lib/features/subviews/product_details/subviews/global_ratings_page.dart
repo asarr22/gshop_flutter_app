@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/subviews/add_review_page.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/subviews/model/ratings_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/subviews/state/product_rating_controller.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/product_card_vertical.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';

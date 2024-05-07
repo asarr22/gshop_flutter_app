@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/repositories/favorite_repository.dart';
 import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

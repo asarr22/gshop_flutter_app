@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/controllers/change_gender_controller.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
-import 'package:gshopp_flutter/app.dart';
 
 final genderProvider = StateNotifierProvider<ChangeGenderController, String>((ref) => ChangeGenderController());
 

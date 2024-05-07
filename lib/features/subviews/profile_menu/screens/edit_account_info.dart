@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/utils/widgets/section_header.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_birthday_date.dart';

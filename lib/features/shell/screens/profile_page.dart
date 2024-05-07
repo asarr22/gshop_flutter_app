@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login_screen.dart';
 import 'package:gshopp_flutter/features/shell/screens/profile.widgets/button_card.dart';

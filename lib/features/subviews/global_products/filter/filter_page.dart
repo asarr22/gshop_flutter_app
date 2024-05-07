@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/app.dart';
+import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/filter/widgets/price_range_slider.dart';
 import 'package:gshopp_flutter/features/subviews/global_products/state/global_product_order.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';

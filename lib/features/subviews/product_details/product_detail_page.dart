@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/utils/widgets/section_header.dart';
@@ -20,6 +19,8 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/widgets/expendable_text.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
+
+import '../../../common/repositories/product_repository.dart';
 
 final quantityProvider = StateNotifierProvider.autoDispose<SelectedQuantity, int>((ref) => SelectedQuantity());
 final selectedVariantProvider =

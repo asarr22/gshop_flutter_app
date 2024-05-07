@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/repositories/user_repository.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/common/models/user/user_model.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,3 +98,7 @@ class UserController extends StateNotifier<UserModel> {
     }
   }
 }
+
+final userControllerProvider = StateNotifierProvider<UserController, UserModel>((ref) {
+  return UserController(ref.watch(userRepositoryProvider));
+});

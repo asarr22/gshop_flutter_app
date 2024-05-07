@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 
 class SearchProductsController extends StateNotifier<Map<String, dynamic>> {

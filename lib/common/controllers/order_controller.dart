@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/repositories/order_repository.dart';
 import 'package:gshopp_flutter/common/models/order/order_model.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/state/checkout_page_controller.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/success_order_page.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';

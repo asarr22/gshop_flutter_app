@@ -2,59 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:gshopp_flutter/common/controllers/user_controller.dart';
-import 'package:gshopp_flutter/common/repositories/auth_services.dart';
-import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
-import 'package:gshopp_flutter/common/repositories/favorite_repository.dart';
-import 'package:gshopp_flutter/common/repositories/order_repository.dart';
-import 'package:gshopp_flutter/common/repositories/product_repository.dart';
-import 'package:gshopp_flutter/common/repositories/user_repository.dart';
-//import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/common/models/user/user_model.dart';
 import 'package:gshopp_flutter/features/authentication/screens/emailconfirmation/emil_success.dart';
 import 'package:gshopp_flutter/features/authentication/screens/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/features/authentication/screens/forgot_password/forget_password.dart';
 import 'package:gshopp_flutter/features/authentication/screens/forgot_password/reset_password.dart';
 import 'package:gshopp_flutter/features/authentication/screens/login_screen.dart';
 import 'package:gshopp_flutter/features/authentication/screens/signup_screen.dart';
-import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/features/shell/appshell.dart';
 import 'package:gshopp_flutter/utils/theme/theme.dart';
 import 'package:gshopp_flutter/utils/theme/theme_mode.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-final userRepositoryProvider = Provider<UserRepository>((ref) {
-  // Obtain the FirebaseAuthService instance from the provider
-  final authService = ref.watch(firebaseAuthServiceProvider);
-
-  // Pass the FirebaseAuthService instance to UserRepository
-  return UserRepository(authService);
-});
-
-final userControllerProvider = StateNotifierProvider<UserController, UserModel>((ref) {
-  return UserController(ref.watch(userRepositoryProvider));
-});
-
-final productRepositoryProvider = Provider<ProductRepository>((ref) {
-  return ProductRepository();
-});
-
-final cartRepositoryProvider = Provider<UserCartRepository>((ref) {
-  return UserCartRepository();
-});
-
-final orderRepositoryProvider = Provider<OrderRepository>((ref) {
-  return OrderRepository(ref);
-});
-
-final favoriteRepositoryProvider = Provider<FavoriteRepository>((ref) {
-  return FavoriteRepository();
-});
-
-final productControllerProvider = StateNotifierProvider<ProductController, Map<String, dynamic>>((ref) {
-  return ProductController(ref.watch(productRepositoryProvider));
-});
 
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError(); // This will be overridden

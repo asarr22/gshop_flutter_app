@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/models/order/order_model.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
 import 'package:gshopp_flutter/utils/exceptions/firebase_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
+import '../controllers/user_controller.dart';
+import 'product_repository.dart';
 
 final orderRepositoryProvider = Provider<OrderRepository>((ref) {
   return OrderRepository(ref);

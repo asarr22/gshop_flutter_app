@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/cart_item_card.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/purchase_info.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
+import 'package:gshopp_flutter/common/repositories/product_repository.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';

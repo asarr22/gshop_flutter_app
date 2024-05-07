@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/subviews/model/ratings_model.dart';
@@ -294,3 +295,7 @@ class ProductRepository {
     return product.getStock;
   }
 }
+
+final productRepositoryProvider = Provider<ProductRepository>((ref) {
+  return ProductRepository();
+});

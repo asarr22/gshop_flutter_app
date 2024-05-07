@@ -12,12 +12,6 @@ import 'package:gshopp_flutter/utils/exceptions/format_exceptions.dart';
 import 'package:gshopp_flutter/utils/exceptions/platform_exceptions.dart';
 import 'package:image_picker/image_picker.dart';
 
-final userRepositoryProvider = Provider<UserRepository>((ref) {
-  // Here, we get the FirebaseAuthService from the ref
-  final authService = ref.watch(firebaseAuthServiceProvider);
-  return UserRepository(authService);
-});
-
 class UserRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuthService _authService;
@@ -124,3 +118,11 @@ class UserRepository {
     return url;
   }
 }
+
+final userRepositoryProvider = Provider<UserRepository>((ref) {
+  // Obtain the FirebaseAuthService instance from the provider
+  final authService = ref.watch(firebaseAuthServiceProvider);
+
+  // Pass the FirebaseAuthService instance to UserRepository
+  return UserRepository(authService);
+});

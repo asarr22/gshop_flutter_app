@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gshopp_flutter/app.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
+import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/add_to_cart_state.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
