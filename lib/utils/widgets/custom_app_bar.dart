@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/widgets/circular_icon.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
+import 'package:iconsax/iconsax.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -25,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bool isDarkMode = GHelper.isDarkMode(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding / 2),
       child: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -44,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                   height: 40,
                   width: 40,
-                  icon: Icons.west,
+                  icon: Iconsax.arrow_left_24,
                   color: isDarkMode ? Colors.white : Colors.black,
                 ),
               )

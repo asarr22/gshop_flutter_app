@@ -26,7 +26,7 @@ final quantityProvider = StateNotifierProvider.autoDispose<SelectedQuantity, int
 final selectedVariantProvider =
     StateNotifierProvider.autoDispose<SelectedVariant, Variant?>((ref) => SelectedVariant());
 final selectedSizeProvider = StateNotifierProvider.autoDispose<SelectedSize, Size?>((ref) => SelectedSize());
-final productDetailsControllerProvider = StateNotifierProvider<ProductDetailsController, Product>(
+final productDetailsControllerProvider = StateNotifierProvider.autoDispose<ProductDetailsController, Product>(
     (ref) => ProductDetailsController(ref.read(productRepositoryProvider)));
 
 class ProductDetailPage extends ConsumerStatefulWidget {

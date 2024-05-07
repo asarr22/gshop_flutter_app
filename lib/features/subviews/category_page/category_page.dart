@@ -16,8 +16,7 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = GHelper.isDarkMode(context);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           TextValue.categories,
@@ -57,6 +56,6 @@ class CategoryPage extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }

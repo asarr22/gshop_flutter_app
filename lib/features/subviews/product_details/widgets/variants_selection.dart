@@ -76,12 +76,12 @@ class VariantSelection extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(
-                                child: Text(TextValue.select,
+                                child: Text(TextValue.choose,
                                     style:
-                                        Theme.of(context).textTheme.labelLarge!.apply(color: ColorPalette.secondary2)),
+                                        Theme.of(context).textTheme.labelLarge!.copyWith(color: ColorPalette.primary)),
                               ),
                               const SizedBox(width: 5),
-                              const Icon(Iconsax.arrow_down_1, size: 20, color: ColorPalette.secondary2),
+                              const Icon(Iconsax.arrow_down_1, size: 20, color: ColorPalette.primary),
                             ],
                           ),
                         ),
@@ -226,7 +226,7 @@ class VariantSelection extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  TextValue.specs,
+                  TextValue.options,
                   style: Theme.of(context).textTheme.displayMedium!.apply(color: Colors.black),
                 ),
               ),
@@ -298,8 +298,7 @@ class VariantSelection extends StatelessWidget {
                               return Container(
                                 decoration: BoxDecoration(
                                   color: isDarkMode ? ColorPalette.backgroundDark : ColorPalette.backgroundLight,
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(20)), // Rounded corners at the top
+                                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(SizesValue.padding),

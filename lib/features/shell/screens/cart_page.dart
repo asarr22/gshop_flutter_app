@@ -39,144 +39,145 @@ class CartPage extends ConsumerWidget {
       }
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Iconsax.arrow_left_24),
-            onPressed: () => Get.back(),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Iconsax.arrow_left_24),
+          onPressed: () => Get.back(),
+        ),
+        title: Align(
+          alignment: Alignment.center,
+          child: Text(
+            TextValue.cart,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
-          title: Align(
-            alignment: Alignment.center,
-            child: Text(
-              TextValue.cart,
-              style: Theme.of(context).textTheme.displayLarge,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: RoundedContainer(
+              height: 30,
+              width: 30,
+              radius: 100,
+              backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+              child: Center(
+                child: Text(
+                  cartItems.length.toString(),
+                  style: Theme.of(context).textTheme.bodySmall!.apply(color: Colors.white),
+                ),
+              ),
             ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: RoundedContainer(
-                height: 30,
-                width: 30,
-                radius: 100,
-                backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                child: Center(
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: () {
+                    ref.read(userCartControllerProvider.notifier).clearAll();
+                  },
                   child: Text(
-                    cartItems.length.toString(),
-                    style: Theme.of(context).textTheme.bodySmall!.apply(color: Colors.white),
+                    TextValue.clearAll,
+                    style:
+                        Theme.of(context).textTheme.bodySmall!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
                   ),
                 ),
               ),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: () {
-                      ref.read(userCartControllerProvider.notifier).clearAll();
-                    },
-                    child: Text(
-                      TextValue.clearAll,
-                      style:
-                          Theme.of(context).textTheme.bodySmall!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
-                    ),
-                  ),
-                ),
 
-                cartItems.isNotEmpty
-                    ? Container(
-                        constraints: const BoxConstraints(minHeight: 300),
-                        width: double.infinity,
-                        child: ListView.builder(
-                            itemCount: cartItems.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (_, index) {
-                              final item = cartItems[index];
-                              return CartItemCard(
-                                cartItem: item,
-                              );
-                            }),
-                      )
-                    : SizedBox(
-                        width: double.infinity,
-                        height: GHelper.screenHeight(context) - 100,
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Iconsax.document, size: 100, color: isDarkMode ? Colors.white : Colors.black),
-                              const SizedBox(height: SizesValue.spaceBtwItems),
-                              Text(
-                                TextValue.noItem,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              )
-                            ],
-                          ),
-                        )),
-                const SizedBox(height: 10),
-
-                // Footer
-
-                Visibility(
-                  visible: cartItems.isEmpty ? false : true,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
+              cartItems.isNotEmpty
+                  ? Container(
+                      constraints: const BoxConstraints(minHeight: 300),
+                      width: double.infinity,
+                      child: ListView.builder(
+                          itemCount: cartItems.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (_, index) {
+                            final item = cartItems[index];
+                            return CartItemCard(
+                              cartItem: item,
+                            );
+                          }),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      height: GHelper.screenHeight(context) - 100,
+                      child: Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Icon(Iconsax.document, size: 100, color: isDarkMode ? Colors.white : Colors.black),
+                            const SizedBox(height: SizesValue.spaceBtwItems),
                             Text(
-                              TextValue.orderInfo,
-                              style: Theme.of(context).textTheme.bodyLarge!.apply(fontSizeDelta: 2, fontWeightDelta: 2),
-                            ),
-                            const SizedBox(height: 10),
-                            InfoDetailWidget(title: TextValue.purchase, info: Formatter.formatPrice(totalBrute)),
-                            const SizedBox(height: 5),
-                            InfoDetailWidget(
-                                title: TextValue.shippingFee, info: Formatter.formatPrice(userShippingFee())),
-                            const SizedBox(height: 5),
-                            InfoDetailWidget(
-                                title: TextValue.total, info: Formatter.formatPrice(totalBrute + userShippingFee())),
-                            const SizedBox(height: 10),
-                            couponCodeContainer(isDarkMode),
+                              TextValue.noItem,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            )
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        height: 60,
-                        width: double.infinity,
-                        child: Material(
-                          elevation: 7,
-                          borderRadius: BorderRadius.circular(100),
-                          shadowColor: ColorPalette.primary,
-                          child: ElevatedButton(
-                            style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                                  elevation: MaterialStateProperty.all(0),
-                                ),
-                            onPressed: () {
-                              Get.to(() => const CheckoutPage());
-                            },
-                            child: const Text(TextValue.checkout),
+                      )),
+              const SizedBox(height: 10),
+
+              // Footer
+
+              Visibility(
+                visible: cartItems.isEmpty ? false : true,
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            TextValue.orderInfo,
+                            style: Theme.of(context).textTheme.bodyLarge!.apply(fontSizeDelta: 2, fontWeightDelta: 2),
                           ),
+                          const SizedBox(height: 10),
+                          InfoDetailWidget(title: TextValue.purchase, info: Formatter.formatPrice(totalBrute)),
+                          const SizedBox(height: 5),
+                          InfoDetailWidget(
+                              title: TextValue.shippingFee, info: Formatter.formatPrice(userShippingFee())),
+                          const SizedBox(height: 5),
+                          InfoDetailWidget(
+                              title: TextValue.total, info: Formatter.formatPrice(totalBrute + userShippingFee())),
+                          const SizedBox(height: 10),
+                          couponCodeContainer(isDarkMode),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      height: 60,
+                      width: double.infinity,
+                      child: Material(
+                        elevation: 7,
+                        borderRadius: BorderRadius.circular(100),
+                        shadowColor: ColorPalette.primary,
+                        child: ElevatedButton(
+                          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                                elevation: MaterialStateProperty.all(0),
+                              ),
+                          onPressed: () {
+                            Get.to(() => const CheckoutPage());
+                          },
+                          child: const Text(TextValue.checkout),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: SizesValue.spaceBtwSections * 2,
+              )
+            ],
           ),
         ),
       ),

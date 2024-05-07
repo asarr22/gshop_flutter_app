@@ -28,4 +28,6 @@ class ColorPalette {
   static const Color tertiary = Color(0xFFFCC8A8);
   static const Color tertiary2 = Color(0xFFE7F9FE);
   static const Color tertiaryAzure = Color(0xFFF4F1FE);
+  static const Color navBarLight = Color(0xFFFFF6E7);
+  static const Color navBarDark = Color.fromARGB(255, 111, 96, 72);
 }

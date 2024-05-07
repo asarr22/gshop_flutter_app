@@ -47,6 +47,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             textEditingController: controller[emailKey],
             validator: (value) => PValidator.validateEmail(value),
             prefixIcon: const Icon(Iconsax.sms),
+            keyboardType: TextInputType.emailAddress,
             hint: TextValue.email,
           ),
 
@@ -58,6 +59,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             textEditingController: controller[passwordKey],
             hint: TextValue.password,
             obscureText: !isPasswordVisible,
+            keyboardType: TextInputType.visiblePassword,
             isPassword: true,
             prefixIcon: const Icon(Iconsax.password_check),
             suffixIcon: IconButton(

@@ -128,10 +128,8 @@ class _GTextFieldState extends State<GTextField> {
       contentPadding: const EdgeInsets.all(15.0),
       hintText: widget.hint,
       errorStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.redAccent),
-      hintStyle: Theme.of(context)
-          .textTheme
-          .labelLarge!
-          .copyWith(color: isDarkMode ? ColorPalette.extraLightGray : ColorPalette.darkGrey),
+      hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: isDarkMode ? ColorPalette.extraLightGray.withOpacity(0.9) : ColorPalette.darkGrey.withOpacity(0.9)),
       suffixIcon: widget.suffixIcon,
       prefixIcon: widget.prefixIcon,
     );
