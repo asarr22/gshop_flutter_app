@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
 import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
+import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
@@ -40,31 +40,21 @@ class FavoriteItemCard extends ConsumerWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 80,
-                child: favoriteItem.image.isEmpty
-                    ? Shimmer.fromColors(
-                        baseColor: ColorPalette.lightGrey,
-                        highlightColor: ColorPalette.extraLightGray,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
-                        ),
-                      )
-                    : Image.network(
-                        favoriteItem.image.isEmpty ? ImagesValue.monitorIcon : favoriteItem.image,
-                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: ColorPalette.primary,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
-              ),
+                  width: 80,
+                  child: favoriteItem.image.isEmpty
+                      ? Shimmer.fromColors(
+                          baseColor: ColorPalette.lightGrey,
+                          highlightColor: ColorPalette.extraLightGray,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                          ),
+                        )
+                      : RoundedImage(
+                          imgUrl: favoriteItem.image,
+                          backgroundColor: Colors.transparent,
+                          isNetworkImage: true,
+                        )),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart.widgets/quantity_widget.dart';
+import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
@@ -41,31 +41,21 @@ class CartItemCard extends ConsumerWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 65,
-                child: cartItem.productImage.isEmpty
-                    ? Shimmer.fromColors(
-                        baseColor: ColorPalette.lightGrey,
-                        highlightColor: ColorPalette.extraLightGray,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
-                        ),
-                      )
-                    : Image.network(
-                        cartItem.productImage.isEmpty ? ImagesValue.monitorIcon : cartItem.productImage,
-                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: ColorPalette.primary,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
-              ),
+                  width: 65,
+                  child: cartItem.productImage.isEmpty
+                      ? Shimmer.fromColors(
+                          baseColor: ColorPalette.lightGrey,
+                          highlightColor: ColorPalette.extraLightGray,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                          ),
+                        )
+                      : RoundedImage(
+                          imgUrl: cartItem.productImage,
+                          isNetworkImage: true,
+                          backgroundColor: Colors.transparent,
+                        )),
               const SizedBox(
                 width: 5,
               ),

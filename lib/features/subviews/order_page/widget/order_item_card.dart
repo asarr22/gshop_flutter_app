@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/models/order/order_model.dart';
+import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
-import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/formatters/value_formater.dart';
@@ -38,32 +38,22 @@ class OrderItemCard extends ConsumerWidget {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 60,
-                        child: orderItem.image.isEmpty
-                            ? Shimmer.fromColors(
-                                baseColor: ColorPalette.lightGrey,
-                                highlightColor: ColorPalette.extraLightGray,
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration:
-                                      BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
-                                ),
-                              )
-                            : Image.network(
-                                orderItem.image.isEmpty ? ImagesValue.monitorIcon : orderItem.image,
-                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      color: ColorPalette.primary,
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              ),
-                      ),
+                          width: 60,
+                          child: orderItem.image.isEmpty
+                              ? Shimmer.fromColors(
+                                  baseColor: ColorPalette.lightGrey,
+                                  highlightColor: ColorPalette.extraLightGray,
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                                  ),
+                                )
+                              : RoundedImage(
+                                  imgUrl: orderItem.image,
+                                  isNetworkImage: true,
+                                  backgroundColor: Colors.transparent,
+                                )),
                       Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
