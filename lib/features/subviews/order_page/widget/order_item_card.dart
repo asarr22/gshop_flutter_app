@@ -49,10 +49,15 @@ class OrderItemCard extends ConsumerWidget {
                                         BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
                                   ),
                                 )
-                              : RoundedImage(
-                                  imgUrl: orderItem.image,
-                                  isNetworkImage: true,
-                                  backgroundColor: Colors.transparent,
+                              : Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: RoundedImage(
+                                    imgUrl: orderItem.image,
+                                    isNetworkImage: true,
+                                    backgroundColor: Colors.transparent,
+                                    borderRadius: 0,
+                                    fit: BoxFit.contain,
+                                  ),
                                 )),
                       Flexible(
                         child: Column(

@@ -69,6 +69,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     }
 
     return Scaffold(
+      appBar: AppBar(toolbarHeight: 0),
       body: SingleChildScrollView(
         child: Column(
           children: [

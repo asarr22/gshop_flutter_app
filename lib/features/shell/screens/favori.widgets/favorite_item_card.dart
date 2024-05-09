@@ -50,10 +50,15 @@ class FavoriteItemCard extends ConsumerWidget {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
                           ),
                         )
-                      : RoundedImage(
-                          imgUrl: favoriteItem.image,
-                          backgroundColor: Colors.transparent,
-                          isNetworkImage: true,
+                      : Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: RoundedImage(
+                            imgUrl: favoriteItem.image,
+                            backgroundColor: Colors.transparent,
+                            isNetworkImage: true,
+                            borderRadius: 0,
+                            fit: BoxFit.contain,
+                          ),
                         )),
               Expanded(
                 child: Column(
@@ -74,7 +79,9 @@ class FavoriteItemCard extends ConsumerWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              ref.read(favoriteControllerProvider.notifier).deleteSingleItem(favoriteItem.id);
+                              ref
+                                  .read(favoriteControllerProvider.notifier)
+                                  .deleteSingleItem(int.parse(favoriteItem.id));
                             },
                             child: Icon(
                               Icons.delete_outline_rounded,

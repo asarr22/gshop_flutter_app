@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/state/product_details_image_controller.dart';
 import 'package:gshopp_flutter/utils/animations/custom_fade_animation.dart';
@@ -30,7 +29,7 @@ class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
     bool isDarkMode = GHelper.isDarkMode(context);
     final selectedImage = ref.watch(productDetailImageControllerProvider);
     final favoriteList = ref.watch(favoriteControllerProvider);
-    bool isAmoungFavorite = favoriteList.any((element) => element.id == widget.product.id.toString());
+    bool isAmoungFavorite = favoriteList!.any((element) => element.id == widget.product.id);
 
     return CurvedEdgesWidget(
       child: Container(
@@ -111,15 +110,10 @@ class _ProductDetailImageState extends ConsumerState<ProductDetailImage> {
                 IconButton(
                   onPressed: () {
                     if (isAmoungFavorite) {
-                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(widget.product.id.toString());
+                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(widget.product.id);
                       return;
                     }
-                    final item = FavoriteItemModel(
-                        id: widget.product.id.toString(),
-                        title: widget.product.title,
-                        image: widget.product.imageUrl[selectedImage],
-                        price: widget.product.variants[0].size[0].price.toDouble());
-                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(item);
+                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(widget.product.id);
                   },
                   icon: CircularIcon(
                     boxShadow: [

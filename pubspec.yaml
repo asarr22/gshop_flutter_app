@@ -70,6 +70,7 @@ flutter:
     - assets/storyset/
     - assets/images/animations/
     - assets/icons/categories/
+    - assets/icons/ui/
   fonts:
     - family: Freight
       fonts:

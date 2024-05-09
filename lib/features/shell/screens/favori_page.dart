@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
-import 'package:gshopp_flutter/features/shell/screens/favori.widgets/favorite_item_card.dart';
+import 'package:gshopp_flutter/common/models/product/product_model.dart';
+import 'package:gshopp_flutter/features/shell/widgets/product_card_vertical.dart';
+import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
+import 'package:gshopp_flutter/utils/shimmer/product_card_shimmer.dart';
 
 class FavoritePage extends ConsumerWidget {
   const FavoritePage({super.key});
@@ -12,6 +17,8 @@ class FavoritePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteList = ref.watch(favoriteControllerProvider);
+    final isLoading = ref.watch(favoriteLoadingProvider);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,53 +37,65 @@ class FavoritePage extends ConsumerWidget {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: InkWell(
-                  onTap: () {
-                    ref.read(favoriteControllerProvider.notifier).clearAll();
-                  },
-                  child: Text(
-                    TextValue.clearAll,
-                    style:
-                        Theme.of(context).textTheme.bodySmall!.apply(color: ColorPalette.primary, fontWeightDelta: 2),
+                child: SizedBox(
+                  height: 30,
+                  width: 100,
+                  child: InkWell(
+                    onTap: () {
+                      ref.read(favoriteControllerProvider.notifier).clearAll();
+                    },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        TextValue.clearAll,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .apply(color: ColorPalette.primary, fontWeightDelta: 2),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              favoriteList.isEmpty
-                  ? const Center(
-                      child: Text(TextValue.noItem),
+              favoriteList!.isEmpty && !isLoading
+                  ? SizedBox(
+                      height: GHelper.screenHeight(context) - 200,
+                      width: GHelper.screenWidth(context) - 40,
+                      child: const Center(
+                        child: RoundedImage(
+                          imgUrl: ImagesValue.empty,
+                          height: 100,
+                          width: 100,
+                          borderRadius: 0,
+                          backgroundColor: Colors.transparent,
+                        ),
+                      ),
                     )
-                  : SizedBox(
-                      width: double.infinity,
-                      child: ListView.builder(
-                          itemCount: favoriteList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (_, index) {
-                            final product = favoriteList[index];
-                            return FavoriteItemCard(
-                              favoriteItem: product,
-                            );
-                          }),
-                    ),
+                  : GridView.builder(
+                      itemCount: isLoading ? 4 : favoriteList.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        mainAxisExtent: 220,
+                      ),
+                      itemBuilder: (_, index) {
+                        if (isLoading) {
+                          return const ProductCardShimmer();
+                        } else {
+                          Product product = favoriteList[index];
+                          return ProductCardVertical(
+                            product: product,
+                          );
+                        }
+                      },
+                    )
             ],
           ),
         ),
       ),
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsets.all(SizesValue.padding),
-      //   child: Container(
-      //     margin: const EdgeInsets.only(bottom: 100),
-      //     height: 60,
-      //     width: double.infinity,
-      //     child: OutlinedButton(
-      //       onPressed: () {},
-      //       child: Text(
-      //         TextValue.addToCard,
-      //         style: Theme.of(context).textTheme.labelLarge!.apply(color: ColorPalette.primary),
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

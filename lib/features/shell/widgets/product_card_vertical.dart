@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/favorite_controller.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
-import 'package:gshopp_flutter/common/models/user/favorite_item_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
@@ -28,7 +27,7 @@ class ProductCardVertical extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = GHelper.isDarkMode(context);
     final favoriteList = ref.watch(favoriteControllerProvider);
-    bool isAmoungFavorite = favoriteList.any((element) => element.id == product.id.toString());
+    bool isAmoungFavorite = favoriteList!.any((element) => element.id == product.id);
     final promoEventList = ref.watch(promoEventControllerProvider);
     final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
@@ -111,15 +110,10 @@ class ProductCardVertical extends ConsumerWidget {
                 child: InkWell(
                   onTap: () {
                     if (isAmoungFavorite) {
-                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(product.id.toString());
+                      ref.read(favoriteControllerProvider.notifier).deleteSingleItem(product.id);
                       return;
                     }
-                    final item = FavoriteItemModel(
-                        id: product.id.toString(),
-                        title: product.title,
-                        image: product.imageUrl[0],
-                        price: product.variants[0].size[0].price.toDouble());
-                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(item);
+                    ref.read(favoriteControllerProvider.notifier).addItemToFavorite(product.id);
                   },
                   child: CircularIcon(
                     icon: isAmoungFavorite ? Iconsax.heart5 : Iconsax.heart,

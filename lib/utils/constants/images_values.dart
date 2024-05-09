@@ -45,4 +45,7 @@ class ImagesValue {
   static const String softwareIcon = "assets/icons/categories/software.png";
   static const String gadgetIcon = "assets/icons/categories/gadget.png";
   static const String officeIcon = "assets/icons/categories/office.png";
+
+  // UI Icons
+  static const String empty = "assets/icons/ui/empty.png";
 }

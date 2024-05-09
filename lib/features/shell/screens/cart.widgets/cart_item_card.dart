@@ -51,10 +51,15 @@ class CartItemCard extends ConsumerWidget {
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey),
                           ),
                         )
-                      : RoundedImage(
-                          imgUrl: cartItem.productImage,
-                          isNetworkImage: true,
-                          backgroundColor: Colors.transparent,
+                      : Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: RoundedImage(
+                            imgUrl: cartItem.productImage,
+                            isNetworkImage: true,
+                            backgroundColor: Colors.transparent,
+                            borderRadius: 0,
+                            fit: BoxFit.contain,
+                          ),
                         )),
               const SizedBox(
                 width: 5,
