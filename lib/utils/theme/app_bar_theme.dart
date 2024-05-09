@@ -7,7 +7,7 @@ class TAppBarTheme {
     color: Color(0xFFFFFBFF),
     centerTitle: false,
     scrolledUnderElevation: 0,
-    toolbarHeight: 80,
+    toolbarHeight: 60,
     iconTheme: IconThemeData(
       size: 24,
       color: Colors.black,
@@ -18,7 +18,7 @@ class TAppBarTheme {
     ),
     titleTextStyle: TextStyle(
       fontFamily: 'Freight',
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: Color(0xFFEBE1D9),
     ),
@@ -28,7 +28,7 @@ class TAppBarTheme {
     color: Color(0xFF1F1B16),
     centerTitle: false,
     scrolledUnderElevation: 0,
-    toolbarHeight: 80,
+    toolbarHeight: 60,
     iconTheme: IconThemeData(
       size: 24,
       color: Colors.white,
@@ -39,7 +39,7 @@ class TAppBarTheme {
     ),
     titleTextStyle: TextStyle(
       fontFamily: 'Freight',
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: Color(0xFF1F1B16),
     ),

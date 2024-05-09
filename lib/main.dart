@@ -4,16 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/app.dart';
-import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError(); // This will be overridden in main
-});
-
-final firebaseAuthServiceProvider = Provider<FirebaseAuthService>((ref) {
-  final SharedPreferences prefs = ref.watch(sharedPreferencesProvider);
-  return FirebaseAuthService(prefs); // Assuming FirebaseAuthService needs SharedPreferences
 });
 
 Future main() async {

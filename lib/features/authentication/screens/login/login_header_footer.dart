@@ -5,19 +5,17 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 class LoginPageHeader extends StatelessWidget {
   const LoginPageHeader({
     super.key,
-    required this.isDarkMode,
   });
-
-  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image(
-          image: AssetImage(
-              isDarkMode ? ImagesValue.appLogoDark : ImagesValue.appLogoLight),
+          image: AssetImage(isDarkMode ? ImagesValue.appLogoDark : ImagesValue.appLogoLight),
           height: 120,
         ),
         Text(

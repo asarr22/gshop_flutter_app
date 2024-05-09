@@ -41,7 +41,25 @@ class FirebaseAuthService {
 
   screenRedirect() async {
     final user = _auth.currentUser;
+    if ((prefs.getBool('hasSkippedLogin') ?? false) == true) {
+      try {
+        Get.offAll(const AppShell());
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error: $e, App Will try to set manual route');
+        }
+      } finally {
+        GHelper.initialRoute = () => const AppShell();
+      }
+
+      return;
+    }
+
     if (user != null) {
+      // Save login status
+      prefs.setBool('hasSkippedLogin', true);
+      prefs.setBool('hasLogin', true);
+
       if (user.emailVerified) {
         try {
           Get.offAll(const AppShell());
@@ -148,7 +166,8 @@ class FirebaseAuthService {
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.offAll(() => const LoginPage());
+      // Save login status
+      prefs.setBool('hasLogin', false);
     } on FirebaseAuthException catch (e) {
       throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

@@ -104,6 +104,7 @@ class TextValue {
   static const String confirmation = "Confirmation";
   static const String saveChanges = "Sauvegarder les modifications";
   static const String add = "Ajouter";
+  static const String skip = "Passer";
   static const String apply = "Appliquer";
   static const String clear = "Effacer";
   static const String remove = "Supprimer";

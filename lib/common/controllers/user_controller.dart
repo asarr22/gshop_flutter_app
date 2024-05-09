@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/common/repositories/user_repository.dart';
 import 'package:gshopp_flutter/common/models/address/address_model.dart';
 import 'package:gshopp_flutter/common/models/user/user_model.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
+import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -74,6 +77,17 @@ class UserController extends StateNotifier<UserModel> {
     } catch (e) {
       SnackBarPop.showErrorPopup(TextValue.errorSavingProfileInfoMessage);
     }
+  }
+
+  void logoutUser(WidgetRef ref) async {
+    ref.read(firebaseAuthServiceProvider).logout();
+
+    GLoadingScreen.openLoadingDialog(Get.context!);
+    // Wait for 1 seconds to simulate a loading screen
+    await Future.delayed(const Duration(seconds: 2));
+    GLoadingScreen.stopLoading();
+
+    state = UserModel.empty();
   }
 
   // Upload user Image

@@ -11,6 +11,7 @@ import 'package:gshopp_flutter/features/subviews/order_page/order_page.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/address_list.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/edit_account_info.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/setting_page.dart';
+import 'package:gshopp_flutter/main.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
@@ -23,6 +24,7 @@ class ProfilePage extends ConsumerWidget {
     final user = ref.watch(userControllerProvider);
     final authService = ref.watch(firebaseAuthServiceProvider);
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final pref = ref.read(sharedPreferencesProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -112,9 +114,10 @@ class ProfilePage extends ConsumerWidget {
                     title: authService.authUser == null ? TextValue.signin : TextValue.signout,
                     onTap: () {
                       if (authService.authUser != null) {
-                        authService.logout();
+                        ref.read(userControllerProvider.notifier).logoutUser(ref);
+                        pref.setBool('comeFromProfile', true);
                       } else {
-                        Get.to(() => const LoginPage());
+                        Get.to(() => const LoginPage(), transition: Transition.downToUp);
                       }
                     },
                   ),
