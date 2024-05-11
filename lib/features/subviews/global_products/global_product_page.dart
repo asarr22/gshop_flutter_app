@@ -53,16 +53,21 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
   @override
   void initState() {
     super.initState();
+
     query = widget.initialQuery;
     ref.read(productControllerProvider.notifier).dispose();
     final queryOrder = ref.read(globalProductOrderProvider);
     setQueryOrder(queryOrder);
+    Future.microtask(() => ref.read(globalLoadingProvider.notifier).state = true);
     final notifier = ref.read(productControllerProvider.notifier);
     notifier.fetchProductWithCustomQuery(GlobalValue.defautQueryLimit, query!);
     _scrollController.addListener(_onScroll);
+    ref.read(globalLoadingProvider.notifier).state = false;
   }
 
   void reinitializePage() {
+    Future.microtask(() => ref.read(globalLoadingProvider.notifier).state = true);
+
     _scrollController.dispose();
     _scrollController = ScrollController();
     query = widget.initialQuery;
@@ -72,6 +77,7 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
     final notifier = ref.read(productControllerProvider.notifier);
     notifier.fetchProductWithCustomQuery(GlobalValue.defautQueryLimit, query!);
     _scrollController.addListener(_onScroll);
+    ref.read(globalLoadingProvider.notifier).state = false;
   }
 
   @override

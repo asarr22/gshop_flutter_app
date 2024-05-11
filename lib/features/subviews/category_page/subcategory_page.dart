@@ -15,8 +15,7 @@ class SubcategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final bool isDarkMode = GHelper.isDarkMode(context);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -71,6 +70,6 @@ class SubcategoryPage extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }

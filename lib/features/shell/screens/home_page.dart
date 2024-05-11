@@ -54,232 +54,230 @@ class _HomePageState extends ConsumerState<HomePage> {
           orElse: () => PromoEventModel.empty(), // Handle the case where no event matches.
         );
     final hasFlashEventEnded = ref.watch(isFlashSaleEndedProvider);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 80,
-          title: Text(TextValue.appName,
-              style: TextStyle(
-                  color: isDarkMode ? Colors.white : Colors.black,
-                  fontFamily: 'Freight',
-                  fontSize: 30,
-                  fontWeight: FontWeight.w900)),
-          actions: [
-            Stack(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Container(
-                      height: 35,
-                      width: 35,
-                      decoration: BoxDecoration(
-                        color: ColorPalette.primary.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(
-                        Iconsax.notification,
-                        color: isDarkMode ? Colors.white : Colors.black,
-                      )),
-                  color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                  iconSize: 25,
-                ),
-                Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: RoundedContainer(
-                      height: 20,
-                      width: 20,
-                      radius: 100,
-                      backgroundColor: ColorPalette.primary,
-                      child: Center(
-                        child: Text(
-                          cartCount.toString(),
-                          style: const TextStyle(color: Colors.white, fontSize: 10),
-                        ),
-                      ),
-                    ))
-              ],
-            ),
-            Stack(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Get.to(() => const CartPage(), transition: Transition.downToUp);
-                  },
-                  icon: Container(
-                      height: 35,
-                      width: 35,
-                      decoration: BoxDecoration(
-                        color: ColorPalette.primary.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(
-                        Iconsax.shopping_cart,
-                        color: isDarkMode ? Colors.white : Colors.black,
-                      )),
-                  color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                  iconSize: 25,
-                ),
-                cartCount < 1
-                    ? const SizedBox()
-                    : Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: RoundedContainer(
-                          height: 20,
-                          width: 20,
-                          radius: 100,
-                          backgroundColor: ColorPalette.primary,
-                          child: Center(
-                            child: Text(
-                              cartCount.toString(),
-                              style: const TextStyle(color: Colors.white, fontSize: 10),
-                            ),
-                          ),
-                        ))
-              ],
-            ),
-            const SizedBox(width: 10),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        title: Text(TextValue.appName,
+            style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+                fontFamily: 'Freight',
+                fontSize: 30,
+                fontWeight: FontWeight.w900)),
+        actions: [
+          Stack(
             children: [
-              // Greeting Banner
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
-                child: FadeTranslateAnimation(
-                  delay: 100,
-                  child: UserGreetingsBanner(),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Search Bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-                child: FadeTranslateAnimation(
-                  delay: 200,
-                  child: SearchContainer(
-                    onTap: () {
-                      Get.to(() => const SearchPage());
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: SizesValue.spaceBtwSections * 1.5),
-
-              // Banners
-              const FadeTranslateAnimation(
-                delay: 300,
-                child: PromoCarousel(),
-              ),
-              const SizedBox(height: SizesValue.spaceBtwSections * 1.5),
-
-              // Categories
-              SectionHeader(
-                title: TextValue.categories,
-                onTap: () => Get.to(() => const CategoryPage(
-                      automaticallyImplyLeading: true,
+              IconButton(
+                onPressed: () {},
+                icon: Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      color: ColorPalette.primary.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Icon(
+                      Iconsax.notification,
+                      color: isDarkMode ? Colors.white : Colors.black,
                     )),
+                color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                iconSize: 25,
               ),
-              const SizedBox(height: SizesValue.spaceBtwItems),
-              const FadeTranslateAnimation(
-                delay: 400,
-                child: HomeCategoryList(),
-              ),
-              const SizedBox(height: SizesValue.spaceBtwSections),
-
-              // Flash Sale
-              Visibility(
-                visible: !hasFlashEventEnded,
-                child: Column(
-                  children: [
-                    SectionHeader(
-                      height: 40,
-                      title: TextValue.flashSale,
-                      action: Row(
-                        children: [
-                          Hero(
-                            tag: 'countdown',
-                            child: ClipRRect(
-                              child: CountdownWidget(
-                                dateString: event.endDate,
-                                goBackWhenEventEnd: false,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Iconsax.arrow_right_3,
-                            size: 15,
-                            color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
-                          )
-                        ],
-                      ),
-                      onTap: () => Get.to(
-                        () => GlobalProductPage(
-                          pageTitle: TextValue.flashSale,
-                          isFlashSale: true,
-                          initialQuery: FirebaseFirestore.instance
-                              .collection('Products')
-                              .where('promoCode', isEqualTo: '0')
-                              .limit(2),
-                        ),
+              Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: RoundedContainer(
+                    height: 20,
+                    width: 20,
+                    radius: 100,
+                    backgroundColor: ColorPalette.primary,
+                    child: Center(
+                      child: Text(
+                        cartCount.toString(),
+                        style: const TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     ),
-                    const SizedBox(height: SizesValue.spaceBtwItems),
-                    const FlashSaleItemSection(),
-                    const SizedBox(height: SizesValue.spaceBtwSections),
-                  ],
-                ),
-              ),
-
-              //Popular Product
-              SectionHeader(
-                title: TextValue.popular,
-                onTap: () => Get.to(
-                  () => GlobalProductPage(
-                    pageTitle: TextValue.popular,
-                    initialQuery: FirebaseFirestore.instance.collection('Products').where('isPopular', isEqualTo: true),
-                  ),
-                ),
-              ),
-              const SizedBox(height: SizesValue.spaceBtwItems),
-
-              const PopularProductSection(),
-              const SizedBox(height: 20),
-
-              // Individual Promotion
-              const Visibility(
-                visible: false,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: RoundedImage(
-                    imgUrl: ImagesValue.promo4,
-                    width: double.infinity,
-                    height: 190,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              // New Arrival Section
-              SectionHeader(
-                title: TextValue.newArrival,
-                onTap: () => Get.to(
-                  () => GlobalProductPage(
-                    pageTitle: TextValue.newArrival,
-                    initialQuery: FirebaseFirestore.instance.collection('Products').where('isNew', isEqualTo: true),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              const NewArriavalProductSection(),
-
-              const SizedBox(height: 120),
+                  ))
             ],
           ),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.to(() => const CartPage(), transition: Transition.downToUp);
+                },
+                icon: Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      color: ColorPalette.primary.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Icon(
+                      Iconsax.shopping_cart,
+                      color: isDarkMode ? Colors.white : Colors.black,
+                    )),
+                color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                iconSize: 25,
+              ),
+              cartCount < 1
+                  ? const SizedBox()
+                  : Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: RoundedContainer(
+                        height: 20,
+                        width: 20,
+                        radius: 100,
+                        backgroundColor: ColorPalette.primary,
+                        child: Center(
+                          child: Text(
+                            cartCount.toString(),
+                            style: const TextStyle(color: Colors.white, fontSize: 10),
+                          ),
+                        ),
+                      ))
+            ],
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Greeting Banner
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
+              child: FadeTranslateAnimation(
+                delay: 100,
+                child: UserGreetingsBanner(),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Search Bar
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+              child: FadeTranslateAnimation(
+                delay: 200,
+                child: SearchContainer(
+                  onTap: () {
+                    Get.to(() => const SearchPage());
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: SizesValue.spaceBtwSections * 1.5),
+
+            // Promo Banners
+            const FadeTranslateAnimation(
+              delay: 300,
+              child: PromoCarousel(),
+            ),
+            const SizedBox(height: SizesValue.spaceBtwSections * 1.5),
+
+            // Categories
+            SectionHeader(
+              title: TextValue.categories,
+              onTap: () => Get.to(() => const CategoryPage(
+                    automaticallyImplyLeading: true,
+                  )),
+            ),
+            const SizedBox(height: SizesValue.spaceBtwItems),
+            const FadeTranslateAnimation(
+              delay: 400,
+              child: HomeCategoryList(),
+            ),
+            const SizedBox(height: SizesValue.spaceBtwSections),
+
+            // Flash Sale
+            Visibility(
+              visible: !hasFlashEventEnded,
+              child: Column(
+                children: [
+                  SectionHeader(
+                    height: 40,
+                    title: TextValue.flashSale,
+                    action: Row(
+                      children: [
+                        Hero(
+                          tag: 'countdown',
+                          child: ClipRRect(
+                            child: CountdownWidget(
+                              dateString: event.endDate,
+                              goBackWhenEventEnd: false,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Iconsax.arrow_right_3,
+                          size: 15,
+                          color: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primaryLight,
+                        )
+                      ],
+                    ),
+                    onTap: () => Get.to(
+                      () => GlobalProductPage(
+                        pageTitle: TextValue.flashSale,
+                        isFlashSale: true,
+                        initialQuery: FirebaseFirestore.instance
+                            .collection('Products')
+                            .where('promoCode', isEqualTo: '0')
+                            .limit(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: SizesValue.spaceBtwItems),
+                  const FlashSaleItemSection(),
+                  const SizedBox(height: SizesValue.spaceBtwSections),
+                ],
+              ),
+            ),
+
+            //Popular Product
+            SectionHeader(
+              title: TextValue.popular,
+              onTap: () => Get.to(
+                () => GlobalProductPage(
+                  pageTitle: TextValue.popular,
+                  initialQuery: FirebaseFirestore.instance.collection('Products').where('isPopular', isEqualTo: true),
+                ),
+              ),
+            ),
+            const SizedBox(height: SizesValue.spaceBtwItems),
+
+            const PopularProductSection(),
+            const SizedBox(height: 20),
+
+            // Individual Promotion
+            const Visibility(
+              visible: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: RoundedImage(
+                  imgUrl: ImagesValue.promo4,
+                  width: double.infinity,
+                  height: 190,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // New Arrival Section
+            SectionHeader(
+              title: TextValue.newArrival,
+              onTap: () => Get.to(
+                () => GlobalProductPage(
+                  pageTitle: TextValue.newArrival,
+                  initialQuery: FirebaseFirestore.instance.collection('Products').where('isNew', isEqualTo: true),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            const NewArriavalProductSection(),
+
+            const SizedBox(height: 120),
+          ],
         ),
       ),
     );

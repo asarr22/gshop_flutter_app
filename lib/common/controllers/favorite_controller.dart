@@ -15,11 +15,13 @@ class FavoriteController extends StateNotifier<List<Product>?> {
   }
 
   void fetchFavorite() {
-    ref.read(favoriteLoadingProvider.notifier).state = true;
+    // Schedule the state update after the current call stack
+    Future.microtask(() => ref.read(favoriteLoadingProvider.notifier).state = true);
+
     favoriteRepository.getUserFavoriteProductIds().listen((productIds) async {
       var products = await productRepository.getProductsByIds(productIds);
       state = products;
-      ref.read(favoriteLoadingProvider.notifier).state = false;
+      Future.microtask(() => ref.read(favoriteLoadingProvider.notifier).state = false);
     });
   }
 
@@ -46,4 +48,4 @@ final favoriteControllerProvider = StateNotifierProvider<FavoriteController, Lis
   },
 );
 
-final favoriteLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);
+final favoriteLoadingProvider = StateProvider<bool>((ref) => false);

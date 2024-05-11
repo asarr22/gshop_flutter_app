@@ -1,35 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/common/repositories/product_repository.dart';
-import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
+
+import '../../utils/constants/text_values.dart';
 
 class UserCartController extends StateNotifier<List<UserCartItemModel>> {
   UserCartRepository userCartRepository;
   final Ref ref;
+  StreamSubscription<List<UserCartItemModel>>? cartSubscription;
+
   UserCartController(this.userCartRepository, this.ref) : super(List<UserCartItemModel>.empty()) {
     fetchCart();
   }
 
   void fetchCart() async {
-    // Wait for sometime before starting
-    await Future.delayed(const Duration(seconds: 2));
     try {
-      // Get Promo Event List
-      final promoEventList = ref.watch(promoEventControllerProvider);
-
-      // Listen to Cart Changes
-      userCartRepository.getUserCartItems().listen((items) async {
+      final promoEventList = await Future.microtask(() => ref.watch(promoEventControllerProvider));
+      cartSubscription = userCartRepository.getUserCartItems().listen((items) async {
         final productIds = items.map((item) => int.parse(item.productId)).toList();
         final products = await ref.watch(productRepositoryProvider).getProductsByIds(productIds);
 
-        // Map products by ID for quick lookup
         final productMap = {for (var product in products) product.id: product};
-
-        // Apply Discount Value on Item in Live So we can Spot Changes
         for (var item in items) {
           final product = productMap[int.parse(item.productId)];
           if (product != null) {
@@ -41,13 +38,14 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
             item.applyDiscount(discountValue);
           }
         }
-        state = items;
+        if (!disposed) {
+          state = items;
+        }
       }, onError: (error) {
-        // Handle errors, possibly by logging them or setting an error state.
         SnackBarPop.showErrorPopup(error.toString(), duration: 3);
       });
     } catch (e) {
-      SnackBarPop.showErrorPopup(e.toString(), duration: 3);
+      throw e.toString();
     }
   }
 
@@ -82,6 +80,14 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
     } else {
       SnackBarPop.showInfoPopup(TextValue.quantityCannotBeZero, duration: 3);
     }
+  }
+
+  bool disposed = false;
+  @override
+  void dispose() {
+    disposed = true;
+    cartSubscription?.cancel();
+    super.dispose();
   }
 }
 

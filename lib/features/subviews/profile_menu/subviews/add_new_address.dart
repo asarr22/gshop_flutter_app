@@ -25,128 +25,126 @@ class AddNewAddressScreen extends ConsumerWidget {
     ref
         .read(addressFieldControllerProvider.notifier)
         .setNameAndPhoneNumber("${user.firstName} ${user.lastName}", user.phoneNumber.toString());
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(Iconsax.arrow_left_24),
-            onPressed: () => Get.back(),
-          ),
-          title: Text(
-            TextValue.editAddress,
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Iconsax.arrow_left_24),
+          onPressed: () => Get.back(),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-            child: Form(
-              key: nameKey,
-              child: Column(
-                children: [
-                  GTextField(
-                    title: TextValue.name,
-                    textEditingController: controller['fullName'],
-                    validator: (value) => PValidator.validateEmptyText('Full Name', value),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GTextField(
-                          title: TextValue.country,
-                          textEditingController: controller['country'],
-                          validator: (value) => PValidator.validateEmptyText('Country', value),
-                        ),
+        title: Text(
+          TextValue.editAddress,
+          style: Theme.of(context).textTheme.displayLarge,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
+          child: Form(
+            key: nameKey,
+            child: Column(
+              children: [
+                GTextField(
+                  title: TextValue.name,
+                  textEditingController: controller['fullName'],
+                  validator: (value) => PValidator.validateEmptyText('Full Name', value),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GTextField(
+                        title: TextValue.country,
+                        textEditingController: controller['country'],
+                        validator: (value) => PValidator.validateEmptyText('Country', value),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              TextValue.city,
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            const SizedBox(height: 10),
-                            PComboBox(
-                              tite: controller['city'],
-                              onTap: () {
-                                CityZoneSelectionPopup.showPicker(context, ref, isCity: true, isZone: false);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        TextValue.zone,
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                      const SizedBox(height: 10),
-                      PComboBox(
-                        tite: controller['zone'],
-                        onTap: () {
-                          CityZoneSelectionPopup.showPicker(
-                            context,
-                            ref,
-                            isCity: false,
-                            isZone: true,
-                            userCity: controller['city'],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  GTextField(
-                    title: TextValue.phoneNo,
-                    textEditingController: controller['phoneNumber'],
-                    validator: (value) => PValidator.validatePhoneNumber(value),
-                  ),
-                  const SizedBox(height: 10),
-                  GTextField(
-                    title: TextValue.address,
-                    textEditingController: controller['address'],
-                    validator: (value) => PValidator.validateEmptyText('Address', value),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: isDefaultToggle,
-                        onChanged: (bool? value) {
-                          ref.read(addressFieldControllerProvider.notifier).setDefaultToggle(value);
-                        },
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        TextValue.setAsDefault,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        ref.read(addressFieldControllerProvider.notifier).addNewAddress(nameKey, ref);
-                      },
-                      child: const Text(TextValue.add),
                     ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            TextValue.city,
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: 10),
+                          PComboBox(
+                            tite: controller['city'],
+                            onTap: () {
+                              CityZoneSelectionPopup.showPicker(context, ref, isCity: true, isZone: false);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      TextValue.zone,
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                    const SizedBox(height: 10),
+                    PComboBox(
+                      tite: controller['zone'],
+                      onTap: () {
+                        CityZoneSelectionPopup.showPicker(
+                          context,
+                          ref,
+                          isCity: false,
+                          isZone: true,
+                          userCity: controller['city'],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                GTextField(
+                  title: TextValue.phoneNo,
+                  textEditingController: controller['phoneNumber'],
+                  validator: (value) => PValidator.validatePhoneNumber(value),
+                ),
+                const SizedBox(height: 10),
+                GTextField(
+                  title: TextValue.address,
+                  textEditingController: controller['address'],
+                  validator: (value) => PValidator.validateEmptyText('Address', value),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: isDefaultToggle,
+                      onChanged: (bool? value) {
+                        ref.read(addressFieldControllerProvider.notifier).setDefaultToggle(value);
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      TextValue.setAsDefault,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ref.read(addressFieldControllerProvider.notifier).addNewAddress(nameKey, ref);
+                    },
+                    child: const Text(TextValue.add),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

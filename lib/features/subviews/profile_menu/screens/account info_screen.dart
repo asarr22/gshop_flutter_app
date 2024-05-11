@@ -17,8 +17,8 @@ import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:iconsax/iconsax.dart';
 
-class EditAccountPage extends ConsumerWidget {
-  const EditAccountPage({super.key});
+class AccountInfoPage extends ConsumerWidget {
+  const AccountInfoPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

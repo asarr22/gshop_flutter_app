@@ -3,12 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/product_controller.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
 import 'package:gshopp_flutter/features/shell/widgets/product_card_vertical.dart';
-import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
+import 'package:gshopp_flutter/utils/constants/images_values.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
-import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/shimmer/product_card_shimmer.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
-import 'package:iconsax/iconsax.dart';
 
 class GlobalProductList extends ConsumerStatefulWidget {
   const GlobalProductList({super.key});
@@ -23,31 +22,25 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
   @override
   Widget build(BuildContext context) {
     final productList = ref.watch(productControllerProvider)['regular'];
-    final isLoading = productList == null;
+    final isLoading = ref.watch(globalLoadingProvider);
 
     // Widget
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
-      child: productList != null && productList.isEmpty
+      child: productList != null && productList.isEmpty && !isLoading
           ? SizedBox(
-              height: GHelper.screenHeight(context) - 100,
-              width: double.infinity,
-              child: Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Iconsax.document,
-                    color: ColorPalette.lightGrey,
-                    size: 200,
-                  ),
-                  Text(
-                    TextValue.noItem,
-                    style: Theme.of(context).textTheme.bodyLarge!.apply(color: ColorPalette.lightGrey),
-                  ),
-                ],
-              )))
+              height: GHelper.screenHeight(context) - 200,
+              width: GHelper.screenWidth(context) - 40,
+              child: const Center(
+                child: RoundedImage(
+                  imgUrl: ImagesValue.empty,
+                  height: 100,
+                  width: 100,
+                  borderRadius: 0,
+                  backgroundColor: Colors.transparent,
+                ),
+              ),
+            )
           : GridView.builder(
               itemCount: isLoading ? 4 : productList.length,
               shrinkWrap: true,
