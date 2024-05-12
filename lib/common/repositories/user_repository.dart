@@ -19,7 +19,11 @@ class UserRepository {
 
   Future<void> saveUserRecord(UserModel user) async {
     try {
-      await _db.collection("Users").doc(user.id).set(user.toJson());
+      DocumentSnapshot userDoc = await _db.collection("Users").doc(user.id).get();
+
+      if (!userDoc.exists) {
+        await _db.collection("Users").doc(user.id).set(user.toJson());
+      }
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -27,7 +31,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw "${TextValue.somethingWentWrongMessage} error : $e";
     }
   }
 

@@ -84,7 +84,7 @@ class UserController extends StateNotifier<UserModel> {
 
     GLoadingScreen.openLoadingDialog(Get.context!);
     // Wait for 1 seconds to simulate a loading screen
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     GLoadingScreen.stopLoading();
 
     state = UserModel.empty();

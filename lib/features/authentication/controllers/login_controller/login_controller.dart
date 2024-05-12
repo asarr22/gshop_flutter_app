@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/app_parameters_controller.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/login_controller/login_info.dart';
+import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
@@ -51,9 +53,37 @@ class LoginController extends StateNotifier<LoginInfo> {
     }
   }
 
+  // Login with Google
+  void signInwithGoogle() async {
+    try {
+      // Check Internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        SnackBarPop.showErrorPopup(TextValue.checkYourNetwork, duration: 3);
+        return;
+      }
+
+      ref.read(googleLoginLoadingProvider.notifier).state = true;
+      final userCredential = await ref.read(firebaseAuthServiceProvider).signInWithGoogle();
+
+      // Save User Record
+      await ref.read(userControllerProvider.notifier).saveUserRecord(userCredential);
+      ref.read(googleLoginLoadingProvider.notifier).state = false;
+
+      // Go to Concerned Page
+      ref.read(firebaseAuthServiceProvider).screenRedirect();
+    } catch (e) {
+      ref.read(googleLoginLoadingProvider.notifier).state = false;
+      SnackBarPop.showErrorPopup(e.toString(), duration: 3);
+    }
+  }
+
   void clearTextFields(Map<String, TextEditingController> controllers) {
     controllers.forEach((key, controller) {
       controller.clear();
     });
   }
 }
+
+final googleLoginLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);
+final facebookLoginLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);

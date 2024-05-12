@@ -61,14 +61,14 @@ class LoginPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Flexible(
-                    child: Divider(color: Colors.grey),
+                    child: Divider(color: Colors.grey, endIndent: 10),
                   ),
                   Text(
                     TextValue.orSignInwith,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const Flexible(
-                    child: Divider(color: Colors.grey),
+                    child: Divider(color: Colors.grey, indent: 10),
                   ),
                 ],
               ),

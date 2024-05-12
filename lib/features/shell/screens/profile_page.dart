@@ -15,6 +15,7 @@ import 'package:gshopp_flutter/main.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
+import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -25,6 +26,7 @@ class ProfilePage extends ConsumerWidget {
     final authService = ref.watch(firebaseAuthServiceProvider);
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final pref = ref.read(sharedPreferencesProvider);
+    final bool isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +75,13 @@ class ProfilePage extends ConsumerWidget {
                 ButtonCardTile(
                   title: TextValue.personalInfo,
                   description: TextValue.personalInfoDescription,
-                  onTap: () => Get.to(() => const AccountInfoPage()),
+                  onTap: () {
+                    if (!isLoggedIn) {
+                      SnackBarPop.showInfoPopup(TextValue.youNeedToLogin, duration: 3);
+                      return;
+                    }
+                    Get.to(() => const AccountInfoPage());
+                  },
                 ),
                 const SizedBox(height: 10),
 
@@ -81,7 +89,14 @@ class ProfilePage extends ConsumerWidget {
                 ButtonCardTile(
                   title: TextValue.myOrders,
                   description: TextValue.myOrdersDescription,
-                  onTap: () => Get.to(() => const OrderPage()),
+                  onTap: () {
+                    if (!isLoggedIn) {
+                      SnackBarPop.showInfoPopup(TextValue.youNeedToLogin, duration: 3);
+                      return;
+                    }
+
+                    Get.to(() => const OrderPage());
+                  },
                 ),
                 const SizedBox(height: 10),
 
@@ -90,6 +105,11 @@ class ProfilePage extends ConsumerWidget {
                   title: TextValue.myAddresses,
                   description: TextValue.myOrdersDescription,
                   onTap: () {
+                    if (!isLoggedIn) {
+                      SnackBarPop.showInfoPopup(TextValue.youNeedToLogin, duration: 3);
+                      return;
+                    }
+
                     Get.to(() => const AddressesScreen());
                   },
                 ),
@@ -112,9 +132,10 @@ class ProfilePage extends ConsumerWidget {
                   implyDescription: false,
                   title: authService.authUser == null ? TextValue.signin : TextValue.signout,
                   onTap: () {
-                    if (authService.authUser != null) {
+                    if (isLoggedIn) {
                       ref.read(userControllerProvider.notifier).logoutUser(ref);
                       pref.setBool('comeFromProfile', true);
+                      SnackBarPop.showInfoPopup(TextValue.signoutSucess);
                     } else {
                       Get.to(() => const LoginPage(), transition: Transition.downToUp);
                     }

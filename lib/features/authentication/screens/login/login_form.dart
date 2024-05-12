@@ -57,6 +57,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
           GTextField(
             isForm: true,
             textEditingController: controller[passwordKey],
+            validator: (value) => PValidator.validateEmptyText(TextValue.password, value),
             hint: TextValue.password,
             obscureText: !isPasswordVisible,
             keyboardType: TextInputType.visiblePassword,
@@ -86,8 +87,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
           /// Sign In
           SizedBox(
-            width: GHelper.screenWidth(context) > 380 ? 270 : double.infinity,
-            height: 60,
+            width: GHelper.screenWidth(context) > 400 ? 370 : double.infinity,
+            height: 50,
             child: ElevatedButton(
                 child: const Text(
                   TextValue.signin,
@@ -103,8 +104,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             height: 20,
           ),
           SizedBox(
-            width: GHelper.screenWidth(context) > 380 ? 270 : double.infinity,
-            height: 60,
+            width: GHelper.screenWidth(context) > 400 ? 370 : double.infinity,
+            height: 50,
             child: OutlinedButton(
                 child: const Text(
                   TextValue.createAccount,
