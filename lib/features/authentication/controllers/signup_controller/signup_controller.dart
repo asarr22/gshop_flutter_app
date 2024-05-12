@@ -2,11 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:gshopp_flutter/common/models/address/address_model.dart';
+import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/features/authentication/controllers/signup_controller/signup_info.dart';
 import 'package:gshopp_flutter/common/repositories/auth_services.dart';
-import 'package:gshopp_flutter/common/repositories/user_repository.dart';
-import 'package:gshopp_flutter/common/models/user/user_model.dart';
 import 'package:gshopp_flutter/features/authentication/screens/emailconfirmation/verify_email_page.dart';
 import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/loading_screen_full.dart';
@@ -62,24 +60,7 @@ class SignUpController extends StateNotifier<SignUpInfo> {
       //Connexion to backend for SignUp
       final userCredential = await authService.registerWithEmailAndPassword(signInfo.email, signInfo.password);
 
-      final newUser = UserModel(
-        id: userCredential.user!.uid,
-        firstName: signInfo.firstName.trim(),
-        lastName: signInfo.lastName.trim(),
-        username: "",
-        email: signInfo.email.trim(),
-        phoneNumber: signInfo.phoneNumber.trim(),
-        profilePicture: '',
-        gender: '',
-        birthday: '',
-        address: [
-          UserAddress(
-              fullName: '', phoneNumber: '', country: '', city: '', zone: '', address: '', isDefault: false, id: ''),
-        ],
-      );
-
-      final userRepository = ref.watch(userRepositoryProvider);
-      userRepository.saveUserRecord(newUser);
+      await ref.read(userControllerProvider.notifier).saveUserRecord(userCredential);
 
       //Clear TextFields
       clearTextFields(controllers);
