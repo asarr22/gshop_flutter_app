@@ -243,15 +243,14 @@ class VariantSelection extends StatelessWidget {
                                   SizedBox(
                                     child: Text(
                                       selectedSize!.size,
-                                      style:
-                                          Theme.of(context).textTheme.labelLarge!.apply(color: ColorPalette.secondary2),
+                                      style: Theme.of(context).textTheme.labelLarge!.apply(color: ColorPalette.primary),
                                     ),
                                   ),
                                   const SizedBox(width: 5),
                                   const Icon(
                                     Iconsax.arrow_down_1,
                                     size: 20,
-                                    color: ColorPalette.secondary2,
+                                    color: ColorPalette.primary,
                                   ),
                                 ],
                               )
@@ -261,7 +260,7 @@ class VariantSelection extends StatelessWidget {
                                   children: [
                                     SizedBox(
                                       child: Text(
-                                        TextValue.select,
+                                        TextValue.choose,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!

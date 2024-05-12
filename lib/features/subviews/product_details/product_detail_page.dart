@@ -187,15 +187,23 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     delay: 600,
                     child: Row(
                       children: [
-                        Icon(Iconsax.info_circle, size: 15, color: product.getStock == 0 ? Colors.red : Colors.green),
+                        Icon(Iconsax.info_circle,
+                            size: 15,
+                            color: product.getStock == 0
+                                ? Colors.red
+                                : product.getStock < 2
+                                    ? Colors.amberAccent
+                                    : Colors.green),
                         const SizedBox(width: 5),
-                        Text(stockStateLogger(),
-                            style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                color: product.getStock == 0
-                                    ? Colors.red
-                                    : product.getStock < 5
-                                        ? Colors.orange
-                                        : Colors.green)),
+                        Text(
+                          stockStateLogger(),
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                              color: product.getStock == 0
+                                  ? Colors.red
+                                  : product.getStock < 2
+                                      ? Colors.amberAccent
+                                      : Colors.green),
+                        ),
                       ],
                     ),
                   ),

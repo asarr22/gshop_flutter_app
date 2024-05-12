@@ -42,6 +42,10 @@ class ProductDetailBottomBar extends ConsumerWidget {
     final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
     Future<void> buildAndSendCartItem() async {
+      // Check if there is an current process
+      if (isLoading) return;
+
+      // Set the loading state
       ref.read(addToCartButtonLoading.notifier).state = true;
 
       // Check if user is logged in
@@ -102,7 +106,6 @@ class ProductDetailBottomBar extends ConsumerWidget {
         } else {
           await cartRepository.addItemToCart(cartItemModel);
         }
-
         SnackBarPop.showSucessPopup(TextValue.itemAddedToCart);
         ref.read(addToCartButtonLoading.notifier).state = false;
       } else {

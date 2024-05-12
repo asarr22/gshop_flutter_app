@@ -21,7 +21,7 @@ class UserController extends StateNotifier<UserModel> {
       final user = await userRepository.fetchUserDetails();
       state = user;
     } catch (e) {
-      state = UserModel.empty();
+      SnackBarPop.showErrorPopup("${TextValue.userDataFetchingError}, error: $e");
     }
   }
 

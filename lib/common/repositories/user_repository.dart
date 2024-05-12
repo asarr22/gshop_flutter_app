@@ -51,7 +51,7 @@ class UserRepository {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw TextValue.somethingWentWrongMessage;
+      throw e.toString();
     }
   }
 
@@ -112,7 +112,6 @@ class UserRepository {
   }
 
   // Upload Image
-
   Future<String> uploadImage(String path, XFile image) async {
     final reference =
         FirebaseStorage.instanceFor(bucket: "gs://g-tech-app-466c4.appspot.com").ref(path).child(image.name);

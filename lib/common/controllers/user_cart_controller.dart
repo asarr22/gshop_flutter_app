@@ -27,7 +27,7 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
         return;
       }
 
-      final promoEventList = await Future.microtask(() => ref.watch(promoEventControllerProvider));
+      final promoEventList = ref.watch(promoEventControllerProvider);
       cartSubscription = userCartRepository.getUserCartItems().listen((items) async {
         final productIds = items.map((item) => int.parse(item.productId)).toList();
         final products = await ref.watch(productRepositoryProvider).getProductsByIds(productIds);
@@ -62,8 +62,12 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
 
   // Remove Single Item from Cart
   void deleteSingleItem(UserCartItemModel item) {
-    userCartRepository.removeSingleItemFromCart(item);
-    SnackBarPop.showInfoPopup(TextValue.itemRemovedfromCart, duration: 3);
+    try {
+      userCartRepository.removeSingleItemFromCart(item);
+      SnackBarPop.showInfoPopup(TextValue.itemRemovedfromCart, duration: 3);
+    } catch (e) {
+      SnackBarPop.showErrorPopup("${TextValue.somethingWentWrongMessage} error : $e", duration: 3);
+    }
   }
 
   // Increase Quantity

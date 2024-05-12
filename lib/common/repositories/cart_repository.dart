@@ -71,7 +71,12 @@ class UserCartRepository {
       var query = await _db.collection('Users').doc(user?.uid).collection('Cart').get();
 
       for (var doc in query.docs) {
-        Map<String, dynamic> docData = doc.data();
+        Map<String, dynamic>? docData = doc.data();
+        // Remove 'productPrice' from both maps first
+        jsonData.remove('productPrice');
+        docData.remove('productPrice');
+
+        // Now use mapEquals to compare the remaining parts of both maps
         if (mapEquals(jsonData, docData)) {
           await _db.collection('Users').doc(user?.uid).collection('Cart').doc(doc.id).delete();
         }

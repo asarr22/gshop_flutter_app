@@ -86,6 +86,8 @@ class TextValue {
   static const String cvvInValide = "Le code de sécurité n'est pas valide";
   static const String expiryDateRequired = "Date d'expiration est requise.";
   static const String expiryDateInValide = "La date d'expiration n'est pas valide";
+  static const String userDataFetchingError =
+      "Une erreur s'est produite lors de la tentative de récupération des données de l'utilisateur.";
 
 // Navigation Tab
 
@@ -106,7 +108,7 @@ class TextValue {
   static const String confirmation = "Confirmation";
   static const String saveChanges = "Sauvegarder les modifications";
   static const String add = "Ajouter";
-  static const String ItemAddToClipboard = "Element Ajouter au Presse-papiers";
+  static const String itemAddToClipboard = "Element Ajouter au Presse-papiers";
   static const String skip = "Passer";
   static const String apply = "Appliquer";
   static const String clear = "Effacer";
