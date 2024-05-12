@@ -12,7 +12,6 @@ class UserModel {
   String birthday;
   String gender;
   List<UserAddress> address;
-  List<String> favorites;
 
   /// Constructor for UserModel.
   UserModel({
@@ -26,7 +25,6 @@ class UserModel {
     required this.address,
     required this.birthday,
     required this.gender,
-    this.favorites = const [],
   });
 
   /// Helper function to get the full name.
@@ -56,7 +54,6 @@ class UserModel {
       profilePicture: '',
       address: [],
       birthday: '',
-      favorites: [],
       gender: '');
 
   Map<String, dynamic> toJson() {
@@ -73,7 +70,6 @@ class UserModel {
       'Gender': gender,
       'Address': nonEmptyAddresses,
       'Birthday': birthday,
-      'Favorites': favorites
     };
   }
 
@@ -84,10 +80,6 @@ class UserModel {
       List<UserAddress> addresses = [];
       if (data['Address'] != null) {
         addresses = List.from(data['Address']).map((addressMap) => UserAddress.fromJson(addressMap)).toList();
-      }
-      List<String> favorites = [];
-      if (data['Favorites'] != null) {
-        favorites = List.from(data['Favorites']);
       }
       return UserModel(
         id: document.id,
@@ -100,7 +92,6 @@ class UserModel {
         address: addresses,
         birthday: data['Birthday'] ?? '',
         gender: data['Gender'] ?? '',
-        favorites: data['Favorites'] ?? favorites,
       );
     }
     return empty();
