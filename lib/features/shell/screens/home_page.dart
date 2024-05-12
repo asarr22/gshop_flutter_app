@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/common/models/app/event_model.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/features/shell/screens/cart_page.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/category_menu.dart';
 import 'package:gshopp_flutter/features/shell/screens/home.widgets/flash_item_section.dart';
@@ -145,15 +146,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Column(
           children: [
             // Greeting Banner
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
-              child: FadeTranslateAnimation(
-                delay: 100,
-                child: UserGreetingsBanner(),
+            if (ref.watch(isLoggedInProvider)) ...[
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: SizesValue.padding),
+                child: FadeTranslateAnimation(
+                  delay: 100,
+                  child: UserGreetingsBanner(),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-
+              const SizedBox(height: 20),
+            ],
             // Search Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),

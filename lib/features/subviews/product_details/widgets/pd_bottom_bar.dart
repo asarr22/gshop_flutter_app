@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
 import 'package:gshopp_flutter/common/controllers/user_cart_controller.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
+import 'package:gshopp_flutter/features/authentication/screens/login_screen.dart';
 import 'package:gshopp_flutter/features/subviews/product_details/product_detail_page.dart';
-import 'package:gshopp_flutter/features/subviews/product_details/state/add_to_cart_state.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
@@ -14,6 +16,8 @@ import 'package:gshopp_flutter/utils/helpers/network_manager.dart';
 import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
+
+final addToCartButtonLoading = StateProvider.autoDispose<bool>((ref) => false);
 
 class ProductDetailBottomBar extends ConsumerWidget {
   const ProductDetailBottomBar({
@@ -32,14 +36,20 @@ class ProductDetailBottomBar extends ConsumerWidget {
     final selectedVariant = ref.watch(selectedVariantProvider);
     final cartRepository = ref.watch(cartRepositoryProvider);
     final cartItems = ref.watch(userCartControllerProvider);
-    bool isLoading = ref.watch(addToCartButtonStateProvider);
+    bool isLoading = ref.watch(addToCartButtonLoading);
     final bool isSelectedVariantAvailable = selectedSize != null && selectedSize.stock > 0;
     final promoEventList = ref.watch(promoEventControllerProvider);
     final bool isTherePromoDiscount = GHelper.isTherePromoDiscount(product, promoEventList);
 
     Future<void> buildAndSendCartItem() async {
-      ref.read(addToCartButtonStateProvider.notifier).toggle();
+      ref.read(addToCartButtonLoading.notifier).state = true;
 
+      // Check if user is logged in
+      if (!ref.watch(isLoggedInProvider)) {
+        Get.to(() => const LoginPage(), transition: Transition.rightToLeft);
+        ref.read(addToCartButtonLoading.notifier).state = false;
+        return;
+      }
       // Get the Current time
       final time = Formatter.getFormattedDateTime("yyyy-MM-dd HH:mm:ss");
 
@@ -94,15 +104,17 @@ class ProductDetailBottomBar extends ConsumerWidget {
         }
 
         SnackBarPop.showSucessPopup(TextValue.itemAddedToCart);
-        ref.read(addToCartButtonStateProvider.notifier).toggle();
+        ref.read(addToCartButtonLoading.notifier).state = false;
       } else {
         SnackBarPop.showInfoPopup(TextValue.selectedItemIsNotAvailable);
-        ref.read(addToCartButtonStateProvider.notifier).toggle();
+        ref.read(addToCartButtonLoading.notifier).state = false;
         return;
       }
     }
 
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(color: ColorPalette.grey.withOpacity(0.3), width: 1),

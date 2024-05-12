@@ -53,12 +53,12 @@ class _GlobalProductPageState extends ConsumerState<GlobalProductPage> {
   @override
   void initState() {
     super.initState();
+    Future.microtask(() => ref.read(globalLoadingProvider.notifier).state = true);
 
     query = widget.initialQuery;
     ref.read(productControllerProvider.notifier).dispose();
     final queryOrder = ref.read(globalProductOrderProvider);
     setQueryOrder(queryOrder);
-    Future.microtask(() => ref.read(globalLoadingProvider.notifier).state = true);
     final notifier = ref.read(productControllerProvider.notifier);
     notifier.fetchProductWithCustomQuery(GlobalValue.defautQueryLimit, query!);
     _scrollController.addListener(_onScroll);

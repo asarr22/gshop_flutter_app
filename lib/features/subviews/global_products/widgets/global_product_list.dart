@@ -42,7 +42,11 @@ class _GlobalProductListState extends ConsumerState<GlobalProductList> {
               ),
             )
           : GridView.builder(
-              itemCount: isLoading ? 4 : productList.length,
+              itemCount: isLoading
+                  ? 4
+                  : productList != null
+                      ? productList.length
+                      : 0,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

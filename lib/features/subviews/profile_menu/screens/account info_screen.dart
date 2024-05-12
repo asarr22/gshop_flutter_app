@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:gshopp_flutter/common/controllers/user_controller.dart';
+import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:gshopp_flutter/utils/widgets/section_header.dart';
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/change_birthday_date.dart';
@@ -14,7 +15,6 @@ import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/gender_se
 import 'package:gshopp_flutter/features/subviews/profile_menu/widgets/edit_profile_menu.dart';
 import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/popups/snackbar_popup.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AccountInfoPage extends ConsumerWidget {
@@ -85,42 +85,56 @@ class AccountInfoPage extends ConsumerWidget {
               title: TextValue.myAccount,
               showActionButton: false,
             ),
+
+            // Email
             PEditProfileMenu(
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: user.email));
-                SnackBarPop.showInfoPopup("Element copié");
               },
               title: TextValue.email,
               value: user.email,
               icon: Iconsax.copy,
             ),
-            PEditProfileMenu(
-                onPressed: () => Get.to(() => const ChangePasswordScreen()),
-                title: TextValue.password,
-                value: '●●●●●●●'),
+
+            if (!GHelper.isSignedUpWithGoogle())
+              // Password
+              PEditProfileMenu(
+                  onPressed: () => Get.to(() => const ChangePasswordScreen()),
+                  title: TextValue.password,
+                  value: '●●●●●●●'),
             const SizedBox(height: 20),
             const Divider(),
             const SizedBox(height: 20),
+
+            /// Personal Info
             const SectionHeader(
               padding: EdgeInsets.zero,
               title: TextValue.personalInfo,
               showActionButton: false,
             ),
             const SizedBox(height: 10),
+
+            // Full Name
             PEditProfileMenu(
                 onPressed: () => Get.to(() => const EditNameScreen()), title: TextValue.name, value: user.fullName),
+
+            // Phone Number
             PEditProfileMenu(
                 onPressed: () {
                   Get.to(() => const ChangePhoneNumberScreen());
                 },
                 title: TextValue.phoneNo,
                 value: user.phoneNumber),
+
+            // Gender
             PEditProfileMenu(
                 onPressed: () {
                   GenderSelect.showPicker(context, ref);
                 },
                 title: TextValue.gender,
                 value: user.gender.isEmpty ? TextValue.undefined : user.gender),
+
+            // Birthday
             PEditProfileMenu(
                 onPressed: () {
                   BirthDateSelection.showPicker(context, ref);

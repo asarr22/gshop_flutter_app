@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/promo_event_controller.dart';
+import 'package:gshopp_flutter/common/repositories/auth_services.dart';
 import 'package:gshopp_flutter/common/repositories/cart_repository.dart';
 import 'package:gshopp_flutter/common/models/user/user_cart_model.dart';
 import 'package:gshopp_flutter/common/repositories/product_repository.dart';
@@ -15,12 +16,17 @@ class UserCartController extends StateNotifier<List<UserCartItemModel>> {
   final Ref ref;
   StreamSubscription<List<UserCartItemModel>>? cartSubscription;
 
-  UserCartController(this.userCartRepository, this.ref) : super(List<UserCartItemModel>.empty()) {
+  UserCartController(this.userCartRepository, this.ref) : super([]) {
     fetchCart();
   }
 
   void fetchCart() async {
     try {
+      if (!ref.watch(isLoggedInProvider)) {
+        state = [];
+        return;
+      }
+
       final promoEventList = await Future.microtask(() => ref.watch(promoEventControllerProvider));
       cartSubscription = userCartRepository.getUserCartItems().listen((items) async {
         final productIds = items.map((item) => int.parse(item.productId)).toList();

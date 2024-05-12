@@ -106,17 +106,17 @@ class CartPage extends ConsumerWidget {
                     )
                   : SizedBox(
                       width: double.infinity,
-                      height: GHelper.screenHeight(context) - 100,
+                      height: GHelper.screenHeight(context) - 150,
                       child: Center(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Iconsax.document, size: 100, color: isDarkMode ? Colors.white : Colors.black),
+                            Icon(Iconsax.shopping_cart, size: 100, color: isDarkMode ? Colors.white : Colors.black),
                             const SizedBox(height: SizesValue.spaceBtwItems),
                             Text(
-                              TextValue.noItem,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              TextValue.yourCartIsEmpty,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             )
                           ],
                         ),

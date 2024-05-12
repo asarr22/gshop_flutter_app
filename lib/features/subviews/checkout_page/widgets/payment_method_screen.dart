@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gshopp_flutter/common/controllers/user_controller.dart';
 import 'package:gshopp_flutter/features/subviews/checkout_page/state/checkout_page_controller.dart';
@@ -289,24 +291,30 @@ class LocalPaymentFields extends ConsumerWidget {
           textEditingController: controller['phoneNumber'],
         ),
         const SizedBox(height: SizesValue.spaceBtwItems),
-        Row(
-          children: [
-            Checkbox(
-              value: controller['useAccountInfo'],
-              onChanged: (bool? value) {
-                ref
-                    .read(localPaymentControllerProvider.notifier)
-                    .toggleUseAccountInfo(value!, user.fullName, user.phoneNumber);
-              },
-            ),
-            const SizedBox(width: 10),
-            Text(
-              TextValue.useMyAddressInfo,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge,
-            )
-          ],
+        SizedBox(
+          width: double.infinity,
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Checkbox(
+                value: controller['useAccountInfo'],
+                onChanged: (bool? value) {
+                  ref
+                      .read(localPaymentControllerProvider.notifier)
+                      .toggleUseAccountInfo(value!, user.fullName, user.phoneNumber);
+                },
+              ),
+              Flexible(
+                child: Text(
+                  TextValue.useMyAddressInfo,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              )
+            ],
+          ),
         ),
         const SizedBox(height: SizesValue.spaceBtwItems),
       ]),

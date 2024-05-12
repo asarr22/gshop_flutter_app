@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gshopp_flutter/common/models/app/event_model.dart';
 import 'package:gshopp_flutter/common/models/product/product_model.dart';
@@ -89,5 +90,21 @@ class GHelper {
       case ProductOrder.priceDesc:
         return TextValue.higherPrice;
     }
+  }
+
+  static bool isSignedUpWithGoogle() {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Check if there is a current user logged in
+    if (user != null) {
+      // Loop through all the linked providers
+      for (UserInfo userInfo in user.providerData) {
+        // Check if the provider ID is Google's provider ID
+        if (userInfo.providerId == 'google.com') {
+          return true; // User is signed in with Google
+        }
+      }
+    }
+    return false; // User is not signed in with Google
   }
 }

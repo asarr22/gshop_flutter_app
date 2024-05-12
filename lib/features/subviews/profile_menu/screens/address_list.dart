@@ -5,10 +5,8 @@ import 'package:gshopp_flutter/features/subviews/profile_menu/states/address_sta
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/add_new_address.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/subviews/edit_address_screen.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/widgets/address_tile.dart';
-import 'package:gshopp_flutter/utils/constants/color_palette.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';
 import 'package:gshopp_flutter/utils/constants/text_values.dart';
-import 'package:gshopp_flutter/utils/helpers/helper_fuctions.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AddressesScreen extends ConsumerWidget {
@@ -16,8 +14,6 @@ class AddressesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isDarkMode = GHelper.isDarkMode(context);
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -36,22 +32,22 @@ class AddressesScreen extends ConsumerWidget {
           child: AddressListWidget(),
         ),
       ),
-      floatingActionButton: SizedBox(
-        height: 60,
-        width: 60,
-        child: IconButton(
-          style: IconButton.styleFrom(
-              backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primary, elevation: 5),
-          onPressed: () {
-            Get.to(() => const AddNewAddressScreen());
-          },
-          icon: const Icon(
-            Iconsax.add,
-            size: 30,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // floatingActionButton: SizedBox(
+      //   height: 60,
+      //   width: 60,
+      //   child: IconButton(
+      //     style: IconButton.styleFrom(
+      //         backgroundColor: isDarkMode ? ColorPalette.primaryDark : ColorPalette.primary, elevation: 5),
+      //     onPressed: () {
+      //       Get.to(() => const AddNewAddressScreen());
+      //     },
+      //     icon: const Icon(
+      //       Iconsax.add,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
@@ -70,9 +66,22 @@ class AddressListWidget extends ConsumerWidget {
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        itemCount: state.addresses.length,
+        itemCount: state.addresses.length + 1,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
+          if (index == state.addresses.length) {
+            return SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: OutlinedButton(
+                child: const Text(TextValue.add),
+                onPressed: () => Get.to(
+                  () => const AddNewAddressScreen(),
+                  transition: Transition.downToUp,
+                ),
+              ),
+            );
+          }
           final address = state.addresses[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),

@@ -20,7 +20,7 @@ class TAppBarTheme {
       fontFamily: 'Freight',
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      color: Color(0xFFEBE1D9),
+      color: Color(0xFF1F1B16),
     ),
   );
 
@@ -41,7 +41,7 @@ class TAppBarTheme {
       fontFamily: 'Freight',
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1F1B16),
+      color: Color(0xFFEBE1D9),
     ),
   );
 }

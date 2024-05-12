@@ -61,21 +61,23 @@ class CheckoutPage extends ConsumerWidget {
           icon: const Icon(Iconsax.arrow_left_24),
           onPressed: () => Get.back(),
         ),
-        title: Text(
+        title: const Text(
           TextValue.orderVerification,
-          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: Column(
         children: [
-          // Your steps indicators here
+          // Step Indicator Widget
           StepperIndicator(currentStep: currentStep),
+
+          // Page View Widget
           Expanded(
             child: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: pageController,
               onPageChanged: onPageChanged,
               children: [
+                // Address List Widget
                 Center(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding),
@@ -90,6 +92,8 @@ class CheckoutPage extends ConsumerWidget {
                     ],
                   )),
                 )),
+
+                // Payment Method Widget
                 const Center(
                   child: SizedBox(
                     child: Padding(
@@ -98,10 +102,13 @@ class CheckoutPage extends ConsumerWidget {
                     ),
                   ),
                 ),
+
+                // Order Review Widget
                 const OrderReviewScreen(),
               ],
             ),
           ),
+
           // Continue and Cancel buttons here
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: SizesValue.padding, vertical: SizesValue.padding),

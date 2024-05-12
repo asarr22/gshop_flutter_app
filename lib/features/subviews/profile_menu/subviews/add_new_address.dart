@@ -133,7 +133,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: SizesValue.spaceBtwSections * 1.5),
                 SizedBox(
                   width: double.infinity,
                   height: 60,
@@ -144,6 +144,7 @@ class AddNewAddressScreen extends ConsumerWidget {
                     child: const Text(TextValue.add),
                   ),
                 ),
+                const SizedBox(height: SizesValue.spaceBtwSections),
               ],
             ),
           ),

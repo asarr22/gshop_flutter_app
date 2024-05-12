@@ -35,6 +35,8 @@ class TextValue {
   static const String forgetPassword = "Mot de passe oublié ?";
   static const String signin = "Se connecter";
   static const String signout = "Se déconnecter";
+  static const String signoutSucess = "Vous vous êtes déconnecté(e) avec succès.";
+  static const String youNeedToLogin = "Connectez-vous pour effectuer cette action.";
   static const String createAccount = "Créer un compte";
   static const String orSignInwith = "Ou se connecter avec";
   static const String orSignUpWith = "Ou s'inscrire avec";
@@ -104,6 +106,7 @@ class TextValue {
   static const String confirmation = "Confirmation";
   static const String saveChanges = "Sauvegarder les modifications";
   static const String add = "Ajouter";
+  static const String ItemAddToClipboard = "Element Ajouter au Presse-papiers";
   static const String skip = "Passer";
   static const String apply = "Appliquer";
   static const String clear = "Effacer";
@@ -167,6 +170,7 @@ class TextValue {
   static const String itemAddedToCart = "Le produit a été ajouté dans votre panier";
   static const String itemAddedToFavorite = "Le produit a été ajouté dans votre favoris";
   static const String itemRemovedfromCart = "Le produit a été retiré de votre panier";
+  static const String yourCartIsEmpty = "Votre panier est vide";
   static const String itemRemovedfromFavorite = "Le produit a été retiré de vos favoris";
   static const String total = "Total";
   static const String subtotal = "Sous-total";
