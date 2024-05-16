@@ -138,9 +138,9 @@ class ProductDetailBottomBar extends ConsumerWidget {
                           await buildAndSendCartItem();
                         },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
+                    backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                      (Set<WidgetState> states) {
+                        if (states.contains(WidgetState.disabled)) {
                           return ColorPalette.lightGrey;
                         }
                         return ColorPalette.primary;

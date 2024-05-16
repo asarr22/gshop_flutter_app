@@ -9,7 +9,7 @@ import 'package:gshopp_flutter/features/shell/screens/profile.widgets/button_car
 import 'package:gshopp_flutter/features/shell/widgets/rounded_image.dart';
 import 'package:gshopp_flutter/features/subviews/order_page/order_page.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/address_list.dart';
-import 'package:gshopp_flutter/features/subviews/profile_menu/screens/account%20info_screen.dart';
+import 'package:gshopp_flutter/features/subviews/profile_menu/screens/account_info_screen.dart';
 import 'package:gshopp_flutter/features/subviews/profile_menu/screens/setting_page.dart';
 import 'package:gshopp_flutter/main.dart';
 import 'package:gshopp_flutter/utils/constants/sizes_values.dart';

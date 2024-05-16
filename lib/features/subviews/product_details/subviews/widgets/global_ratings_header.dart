@@ -65,8 +65,8 @@ class GlobalRatingHeader extends ConsumerWidget {
         ElevatedButton(
           onPressed: onPressed,
           style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-              elevation: const MaterialStatePropertyAll(0),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              elevation: const WidgetStatePropertyAll(0),
+              shape: WidgetStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ))),
           child: Row(

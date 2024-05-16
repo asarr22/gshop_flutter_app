@@ -162,7 +162,7 @@ class CartPage extends ConsumerWidget {
                         shadowColor: ColorPalette.primary,
                         child: ElevatedButton(
                           style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                                elevation: MaterialStateProperty.all(0),
+                                elevation: WidgetStateProperty.all(0),
                               ),
                           onPressed: () {
                             Get.to(() => const CheckoutPage());

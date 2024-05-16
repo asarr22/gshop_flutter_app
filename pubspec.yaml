@@ -46,6 +46,8 @@ dependencies:
   supercharged: ^2.1.1
   modal_bottom_sheet: ^3.0.0
   google_sign_in: ^6.2.1
+  auto_size_text_field: ^2.2.3
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
