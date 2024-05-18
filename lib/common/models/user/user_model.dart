@@ -12,6 +12,7 @@ class UserModel {
   String birthday;
   String gender;
   List<UserAddress> address;
+  final String privilege;
 
   /// Constructor for UserModel.
   UserModel({
@@ -25,6 +26,7 @@ class UserModel {
     required this.address,
     required this.birthday,
     required this.gender,
+    this.privilege = 'none',
   });
 
   /// Helper function to get the full name.
@@ -45,16 +47,18 @@ class UserModel {
   }
 
   static UserModel empty() => UserModel(
-      id: '',
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      phoneNumber: '',
-      profilePicture: '',
-      address: [],
-      birthday: '',
-      gender: '');
+        id: '',
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        phoneNumber: '',
+        profilePicture: '',
+        address: [],
+        birthday: '',
+        gender: '',
+        privilege: 'none',
+      );
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> nonEmptyAddresses =
@@ -70,6 +74,7 @@ class UserModel {
       'Gender': gender,
       'Address': nonEmptyAddresses,
       'Birthday': birthday,
+      'privilege': privilege
     };
   }
 
@@ -92,6 +97,7 @@ class UserModel {
         address: addresses,
         birthday: data['Birthday'] ?? '',
         gender: data['Gender'] ?? '',
+        privilege: data['privilege'] ?? 'none',
       );
     }
     return empty();
